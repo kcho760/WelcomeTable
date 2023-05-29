@@ -12,6 +12,16 @@ const removeCurrentUser = ()=> ({
     type: REMOVE_CURRENT_USER,
 });
 
+
+export const restoreSession = () => async dispatch => {
+  const res = await csrfFetch("/api/session");
+  storeCSRFToken(res);
+  const data = await res.json();
+  storeCurrentUser(data.user);
+  dispatch(setCurrentUser(data.user));
+  return res;
+};
+
 const storeCSRFToken = response => {
   const csrfToken = response.headers.get("X-CSRF-Token");
   if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
