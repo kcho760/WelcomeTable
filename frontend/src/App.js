@@ -7,13 +7,11 @@ function App() {
   return (
     <>
       <Navigation />
-        <Switch>
           <Route path="/login" >
           </Route>
-          <Route path="/signup">
+          {/* <Route path="/signup">
             <SignupFormPage />
-          </Route>
-        </Switch>
+          </Route> */}
     </>
   );
 }

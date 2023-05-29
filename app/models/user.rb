@@ -19,11 +19,11 @@ class User < ApplicationRecord
     validates :session_token, presence: true, uniqueness: true
     validates :password, length: { within: 6..255 }, allow_nil: true
     
-  def self.find_by_credentials(credential, password)
-    field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
-    user = User.find_by(field => credential)
-    user&.authenticate(password)
-  end
+    def self.find_by_credentials(email, password)
+      user = User.find_by(email: email)
+      user&.authenticate(password)
+    end
+    
 
 
     def reset_session_token!

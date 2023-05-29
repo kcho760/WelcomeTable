@@ -1,59 +1,102 @@
-
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import SignupFormPage from "../SignupFormPage";
 import "./LoginForm.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
-  const [credential, setCredential] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-      .catch(async (res) => {
-        let data;
-        try {
-          // .clone() essentially allows you to read the response body twice
-          data = await res.clone().json();
-        } catch {
-          data = await res.text(); // Will hit this case if the server is down
+
+    dispatch(sessionActions.checkEmail(email))
+      .then((emailExists) => {
+        if (emailExists) {
+          setShowPasswordPrompt(true);
+          setShowSignupModal(false);
+        } else {
+          setShowPasswordPrompt(false);
+          setShowSignupModal(true);
         }
-        if (data?.errors) setErrors(data.errors);
-        else if (data) setErrors([data]);
-        else setErrors([res.statusText]);
+      })
+      .catch((error) => {
+        setErrors([error.message]);
       });
   };
 
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    dispatch(
+      sessionActions.login({ email, password })
+    )
+      .then((res) => {
+        // Assuming the login is successful
+        setLoggedIn(true);
+      })
+      .catch((error) => {
+        setErrors([error.message]);
+      });
+  };
+
+  const closeSignupModal = () => {
+    setShowSignupModal(false);
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map(error => <li key={error}>{error}</li>)}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <div>
+      {!showPasswordPrompt && !showSignupModal ? (
+        <form onSubmit={handleSubmit}>
+          <ul>
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      ) : null}
+      {showPasswordPrompt && (
+        <form onSubmit={handlePasswordSubmit}>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      )}
+      {showSignupModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <SignupFormPage closeModal={closeSignupModal} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
+
 
 export default LoginForm;

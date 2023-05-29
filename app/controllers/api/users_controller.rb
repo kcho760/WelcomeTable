@@ -11,6 +11,18 @@ class Api::UsersController < ApplicationController
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  def check_email
+    email = params[:email]
+    @user = User.find_by(email: email)
+  
+    if @user
+      render json: { email: email, exists: true }
+    else
+      render json: { email: email, exists: false }
+    end
+  end
+  
   
   private
 
