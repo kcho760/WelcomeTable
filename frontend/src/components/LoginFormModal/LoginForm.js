@@ -57,7 +57,7 @@ function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="login-form">
       {!showPasswordPrompt && !showSignupModal ? (
         <form onSubmit={handleSubmit}>
           <ul>
