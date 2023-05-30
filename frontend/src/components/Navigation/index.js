@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
+import logo from './assets/Logo.png';
 import './Navigation.css';
 
 function Navigation() {
@@ -21,10 +22,14 @@ function Navigation() {
 
   return (
     <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+      <div>
+        <NavLink exact to="/" className="nav-link">
+          <img src={logo} alt="Home" className="nav-link__logo" />
+        </NavLink>
+      </div>
+      <div>
         {sessionLinks}
-      </li>
+      </div>
     </ul>
   );
 }

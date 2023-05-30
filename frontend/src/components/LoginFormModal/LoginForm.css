@@ -1,49 +1,67 @@
-/* LoginForm.css */
-
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    width: 300px;
-  }
-  
-  ul {
-    list-style-type: none;
-    color: red;
-    margin-bottom: 10px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 8px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center; /* Add this line to center the input horizontally */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  width: 300px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  list-style-type: none;
+  color: red;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 93%;
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  width: 90%;
+  height: 40px;
+  background-color: #da3743;
+  border-radius: 3px;
+  color: white;
+  margin: 0 auto; /* Center the button horizontally */
+  display: block; /* Ensures the button occupies the full width */
+}
+
+.error-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.error-item {
+  text-align: center;
+}

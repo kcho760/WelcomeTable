@@ -1,0 +1,12 @@
+label {
+    display: flex;
+    flex-direction: column;
+    width: 90%; /* Set a fixed width or adjust as needed */
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  .modal-content {
+    border-radius: 8px;
+  }
+  

@@ -6,15 +6,16 @@ function LoginFormModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <button onClick={() => setShowModal(true)}>Log In</button>
+    <div className="login-button-container">
+      <button className='Log_In_Button' onClick={() => setShowModal(true)}>Sign In</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <LoginForm />
         </Modal>
       )}
-    </>
+    </div>
   );
 }
+
 
 export default LoginFormModal;

@@ -11,7 +11,6 @@ function LoginForm() {
   const [errors, setErrors] = useState([]);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +31,15 @@ function LoginForm() {
       });
   };
 
+  const handleDemoLogin = () => {
+    dispatch(
+      sessionActions.login({ email: "Demo-User@io.com", password:"123456" })
+    )
+      .catch((error) => {
+        setErrors([error.message]);
+      });
+  };
+
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -39,10 +47,6 @@ function LoginForm() {
     dispatch(
       sessionActions.login({ email, password })
     )
-      .then((res) => {
-        // Assuming the login is successful
-        setLoggedIn(true);
-      })
       .catch((error) => {
         setErrors([error.message]);
       });
@@ -57,20 +61,23 @@ function LoginForm() {
       {!showPasswordPrompt && !showSignupModal ? (
         <form onSubmit={handleSubmit}>
           <ul>
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
+          {errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
           </ul>
-          <label>
-            Email
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </label>
-          <button type="submit">Submit</button>
+          <div className="input-container">
+            <label>
+              <span>Email</span>
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            <button type="submit" className="submit-button">Continue</button>
+            <button type="button" onClick={handleDemoLogin} className="demo-button">Demo Login</button>
+            </label>
+          </div>
         </form>
       ) : null}
       {showPasswordPrompt && (
@@ -90,13 +97,13 @@ function LoginForm() {
       {showSignupModal && (
         <div className="modal">
           <div className="modal-content">
-            <SignupFormPage closeModal={closeSignupModal} />
+            <SignupFormPage email={email} closeModal={closeSignupModal} />
           </div>
         </div>
       )}
     </div>
   );
+  
 }
-
 
 export default LoginForm;

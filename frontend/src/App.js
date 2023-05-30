@@ -1,17 +1,18 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
+import { Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import SearchBar from "./components/Search_Bar";
+import RestaurantIndex from "./components/RestaurantScroller/restaurant_index";
 
 function App() {
   return (
     <>
       <Navigation />
-          <Route path="/login" >
-          </Route>
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
+      <Route path="/login" />
+      <SearchBar />
+      <div style={{ width: "100%" }}>
+        <RestaurantIndex />
+      </div>
     </>
   );
 }

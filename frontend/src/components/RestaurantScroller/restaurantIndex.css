@@ -1,0 +1,33 @@
+.restaurant-index-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px; /* Adjust the max width according to your preference */
+    margin-top: 20px;
+  }
+  
+  .restaurant-item {
+    flex: 0 0 calc(50% - 10px); /* Each item will take 50% of the container width with a small margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    max-width: 150px;
+  }
+  
+  .restaurant-image {
+    max-width: 100px; /* Set the maximum width for the image */
+    max-height: 100px; /* Set the maximum height for the image */
+    width: auto;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  
+  .restaurant-info {
+    text-align: center;
+  }
+  
+  /* Add more CSS rules as needed */
+  

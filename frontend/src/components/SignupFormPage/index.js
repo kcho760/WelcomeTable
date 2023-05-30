@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
 
-function SignupFormPage({ closeModal }) {
+function SignupFormPage({ email, closeModal }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    setInputEmail(email);
+  }, [email]);
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -19,7 +23,7 @@ function SignupFormPage({ closeModal }) {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
+      return dispatch(sessionActions.signup({ email: inputEmail, username, password }))
         .catch(async (res) => {
           let data;
           try {
@@ -40,20 +44,20 @@ function SignupFormPage({ closeModal }) {
 
   return (
     <div className="modal">
-      <div className="modal-content">
+      <div className="modal-content SignupFormPage">
         <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
-          <ul>
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
+          <form onSubmit={handleSubmit}>
+            <ul className="error-list"> {/* Add a class name to the <ul> element */}
+              {errors.map((error) => (
+                <li className="error-item" key={error}>{error}</li>
+              ))}
+            </ul>
           <label>
             Email
             <input
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
               required
             />
           </label>
