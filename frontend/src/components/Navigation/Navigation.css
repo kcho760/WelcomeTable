@@ -1,13 +1,15 @@
-.nav-link {
-  display: inline-block;
-  max-width: 100%;
+
+.nav-link.active {
+  width: 50%;
 }
 
-.nav-link__logo {
-  width: auto;
-  height: auto;
-  max-height: 50%;
-  max-width: 50%;
+.nav-link_logo {
+  margin-top: 5px;
+  margin-bottom: -10px;
+  width: 20%;
+  height: 20%;
+  max-height: 20%;
+  max-width: 20%;
 }
 
 
@@ -33,7 +35,7 @@
 
 .profile-dropdown-container {
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 10%;
 }
 
@@ -57,7 +59,7 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 100%;
+  top: 170%;
   right: 0;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -91,7 +93,7 @@
 .profile-dropdown li .logout-button {
   color: red;
 }
-.profile-dropdown li .logout-button:hover {
+.profile-dropdown li:hover .logout-button {
   color: black;
 }
 

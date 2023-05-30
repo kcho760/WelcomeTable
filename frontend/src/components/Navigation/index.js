@@ -24,7 +24,7 @@ function Navigation() {
     <ul>
       <div>
         <NavLink exact to="/" className="nav-link">
-          <img src={logo} alt="Home" className="nav-link__logo" />
+          <img src={logo} alt="Home" className="nav-link_logo" />
         </NavLink>
       </div>
       <div>

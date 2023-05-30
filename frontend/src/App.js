@@ -13,8 +13,10 @@ function App() {
       <Route path="/login" />
       <SearchBar />
       <div style={{ width: "100%" }}>
+      <p className="category">First Category</p>
         <Carousel slides={slidesData} />
       </div>
+      <p className="category">Second Category</p>
       <div style={{ width: "100%" }}>
         <Carousel slides={slidesData} />
       </div>

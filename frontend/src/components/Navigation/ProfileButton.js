@@ -37,7 +37,13 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <p>Hello, {user.username}!</p>
           <li>
-            <a href="/profile">Profile</a>
+            <a href="/profile">My Profile</a>
+          </li>
+          <li>
+            <a href="/profile">My Saved Restaurants</a>
+          </li>
+          <li>
+            <a href="/profile">My Dining History</a>
           </li>
           <li>
             <a className="logout-button" href="/" onClick={logout}>Sign Out</a>
