@@ -12,9 +12,11 @@
   position: relative;
   background-color: white;
   padding: 8px;
-  height: 30px;
-  width: 300px;
+  height: 25px;
+  width: 250px;
   margin-top: 10px;
+  left: 15%;
+  top: 10%;
 }
 
 .textbox {
@@ -26,7 +28,7 @@
   top: 18%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 28px;
+  font-size: 35px;
   font-weight: bolder;
   color: white;
 }
