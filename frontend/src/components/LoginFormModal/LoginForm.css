@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  text-align: center; /* Add this line to center the input horizontally */
+  text-align: center;
 }
 
 h1 {
@@ -19,11 +19,11 @@ span{
 
 form {
   width: 300px;
-  height: 500px;
+  max-height: 400px; /* Adjust the value as needed */
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
 }
 
 ul {
@@ -58,7 +58,7 @@ input {
   border-radius: 3px;
   border-width: 0px;
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: bold;
   margin:  auto; /* Center the button horizontally */
   display: block; /* Ensures the button occupies the full width */
@@ -75,4 +75,8 @@ input {
 
 .error-item {
   text-align: center;
+}
+
+.password-error {
+  color: red;
 }

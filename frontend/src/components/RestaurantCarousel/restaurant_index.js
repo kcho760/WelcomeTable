@@ -23,7 +23,7 @@ const Carousel = () => {
   }
 
   function goToNextSlide() {
-    if (index !== items.length - 5) {
+    if (index !== items.length - 3) {
       
       setSlideOffset((prevOffset) => prevOffset - 135 / itemsPerPage);
       setIndex(index + 1);

@@ -1,5 +1,3 @@
-Logo home link too large
-
+arrow buttons need to fix transparency
 
 features:
-login validations on top of correct categories

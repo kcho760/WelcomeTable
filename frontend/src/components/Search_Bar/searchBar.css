@@ -30,7 +30,8 @@
   top: 18%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 35px;
+  font-size: 30px;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: bolder;
   color: white;
 }
@@ -44,8 +45,8 @@
   border-width: 0px;
   width: 8%;
   height: 40px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  font-weight: bolder;
   color: white;
 }
 

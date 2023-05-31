@@ -11,7 +11,8 @@ function LoginForm() {
   const [errors, setErrors] = useState([]);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
-  
+  const [passwordError, setPasswordError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -22,6 +23,10 @@ function LoginForm() {
           setShowPasswordPrompt(true);
           setShowSignupModal(false);
         } else {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            throw new Error("Invalid email format");
+          }
           setShowPasswordPrompt(false);
           setShowSignupModal(true);
         }
@@ -33,7 +38,7 @@ function LoginForm() {
 
   const handleDemoLogin = () => {
     dispatch(
-      sessionActions.login({ email: "Demo-User@io.com", password:"123456" })
+      sessionActions.login({ email: "Demo-User@io.com", password: "123456" })
     )
       .catch((error) => {
         setErrors([error.message]);
@@ -43,12 +48,12 @@ function LoginForm() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    setPasswordError(""); // Reset password error
 
-    dispatch(
-      sessionActions.login({ email, password })
-    )
+    dispatch(sessionActions.login({ email, password }))
       .catch((error) => {
         setErrors([error.message]);
+        setPasswordError("Incorrect password"); // Set password error message
       });
   };
 
@@ -60,10 +65,10 @@ function LoginForm() {
     <div className="login-form">
       {!showPasswordPrompt && !showSignupModal ? (
         <form onSubmit={handleSubmit}>
-          <ul>
-          {errors.map((error, index) => (
-            <li key={index}>{error}</li>
-          ))}
+          <ul className="email-check-error">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
           </ul>
           <div className="input-container">
             <label>
@@ -74,24 +79,31 @@ function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-            <button type="submit" className="submit-button">Continue</button>
-            <button type="button" onClick={handleDemoLogin} className="demo-button">Demo Login</button>
+              <button type="submit" className="submit-button">
+                Continue
+              </button>
+              <button type="button" onClick={handleDemoLogin} className="demo-button">
+                Demo Login
+              </button>
             </label>
           </div>
         </form>
       ) : null}
       {showPasswordPrompt && (
         <form onSubmit={handlePasswordSubmit}>
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-          <button type="submit">Login</button>
+          {passwordError && <p className="password-error">{passwordError}</p>}
+          <div className="input-container">
+            <label>
+              <span>Password</span>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button type="submit">Login</button>
+            </label>
+          </div>
         </form>
       )}
       {showSignupModal && (
@@ -103,7 +115,6 @@ function LoginForm() {
       )}
     </div>
   );
-  
 }
 
 export default LoginForm;

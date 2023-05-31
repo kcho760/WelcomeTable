@@ -46,3 +46,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+@font-face {
+	font-family: 'BrandonText-Bold';
+	src: url('../fonts/HVD\ Fonts\ -\ BrandonText-Bold.otf') format('opentype');
+  }
+  

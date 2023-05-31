@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -11,7 +12,12 @@ function SignupFormPage({ email, closeModal }) {
   const [inputEmail, setInputEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   useEffect(() => {
     setInputEmail(email);
@@ -19,41 +25,55 @@ function SignupFormPage({ email, closeModal }) {
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+    });
     if (password === confirmPassword) {
-      setErrors([]);
-      return dispatch(sessionActions.signup({ email: inputEmail, username, password }))
-        .catch(async (res) => {
-          let data;
-          try {
-            // .clone() essentially allows you to read the response body twice
-            data = await res.clone().json();
-          } catch {
-            data = await res.text(); // Will hit this case if, e.g., server is down
-          }
-          if (data?.errors) setErrors(data.errors);
-          else if (data) setErrors([data]);
-          else setErrors([res.statusText]);
-        });
+      return dispatch(
+        sessionActions.signup({ email: inputEmail, username, password })
+      ).catch(async (res) => {
+        let data;
+        try {
+          data = await res.clone().json();
+        } catch {
+          data = await res.text(); // Will hit this case if the server is down
+        }
+        if (data?.errors) {
+          let newErrors = {
+            email: "",
+            username: "",
+            password: "",
+            confirmPassword: "",
+          };
+          data.errors.forEach((error) => {
+            if (error.includes("Email")) newErrors.email = error;
+            else if (error.includes("Username")) newErrors.username = error;
+            else if (error.includes("Password")) newErrors.password = error;
+          });
+          setErrors(newErrors);
+        }
+      });
+    }else{
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Passwords do not match",
+      }));
     }
-    return setErrors([
-      "Confirm Password field must be the same as the Password field",
-    ]);
   };
-
+  
   return (
     <div className="modal">
       <div className="modal-content SignupFormPage">
         <h1>Sign Up</h1>
-          <form onSubmit={handleSubmit}>
-            <ul className="error-list"> {/* Add a class name to the <ul> element */}
-              {errors.map((error) => (
-                <li className="error-item" key={error}>{error}</li>
-              ))}
-            </ul>
+        <form onSubmit={handleSubmit}>
           <label>
             Email
+            {errors.email && <p id="emailError" className="error-message">{errors.email}</p>}
             <input
               type="text"
               value={inputEmail}
@@ -63,6 +83,7 @@ function SignupFormPage({ email, closeModal }) {
           </label>
           <label>
             Username
+            {errors.username && <p id="usernameError" className="error-message">{errors.username}</p>}
             <input
               type="text"
               value={username}
@@ -72,6 +93,7 @@ function SignupFormPage({ email, closeModal }) {
           </label>
           <label>
             Password
+            {errors.password && <p id="passwordError" className="error-message">{errors.password}</p>}
             <input
               type="password"
               value={password}
@@ -87,12 +109,15 @@ function SignupFormPage({ email, closeModal }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+            {errors.confirmPassword && (
+              <p id="confirmPasswordError" className="error-message">{errors.confirmPassword}</p>
+            )}
           </label>
-          <button type="submit">Sign Up</button>
+          <button className="signup-button" type="submit">Sign Up</button>
         </form>
       </div>
     </div>
-  );
+  );  
 }
 
 export default SignupFormPage;
