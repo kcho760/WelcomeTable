@@ -4,6 +4,11 @@ class Api::RestaurantsController < ApplicationController
         render 'api/restaurants/show'
     end
 
+    def index
+        @restaurants = Restaurant.all
+        render 'api/restaurants/index'
+    end
+
     def restaurant_params
         params.require(:restaurant).permit(:id, :name, :cuisine)
     end

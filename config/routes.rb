@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     post 'users/check_email', to: 'users#check_email'
     resources :users, only: :create
     resource :session, only: [:show, :create, :destroy]
-    resources :restaurants, only: [:show, :update]
+    resources :restaurants, only: [:show, :index, :update]
   end
 end

@@ -38,7 +38,7 @@ function LoginForm() {
 
   const handleDemoLogin = () => {
     dispatch(
-      sessionActions.login({ email: "Demo-User@io.com", password: "123456" })
+      sessionActions.login({ email: "demo@user.io", password: "password" })
     )
       .catch((error) => {
         setErrors([error.message]);
