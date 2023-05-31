@@ -22,7 +22,24 @@ ApplicationRecord.transaction do
       email: 'demo@user.io', 
       password: 'password'
     )
-  
+    20.times do
+      Restaurant.create!({
+        name: Faker::Restaurant.name,
+        address: Faker::Address.street_address,
+        city: Faker::Address.city,
+        state: Faker::Address.state,
+        zip_code: Faker::Address.zip_code.to_i,
+        cuisine: Faker::Restaurant.type,
+        food_rating: Faker::Number.between(from: 1, to: 5),
+        service_rating: Faker::Number.between(from: 1, to: 5),
+        ambience_rating: Faker::Number.between(from: 1, to: 5),
+        value_rating: Faker::Number.between(from: 1, to: 5),
+        phone: Faker::PhoneNumber.cell_phone,
+        website: Faker::Internet.url,
+        price: ['$','$$','$$$','$$$$'].sample
+      })
+    end
+    
     # More users
     10.times do 
       User.create!({
@@ -31,6 +48,6 @@ ApplicationRecord.transaction do
         password: 'password'
       }) 
     end
-  
+
     puts "Done!"
   end

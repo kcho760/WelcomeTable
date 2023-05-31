@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 10px;
+  padding-top: 10px;
   width: 100%;
 
   overflow: hidden; /* Hide overflow in both directions */

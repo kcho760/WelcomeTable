@@ -8,7 +8,7 @@ import next from './assets/next.png';
 const Carousel = () => {
   const [slideOffset, setSlideOffset] = useState(0);
   const [index,setIndex] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 6.2;
 
   function goToPrevSlide() {
     if (index > 0) {
@@ -23,7 +23,7 @@ const Carousel = () => {
   }
 
   function goToNextSlide() {
-    if (index !== items.length - 3) {
+    if (index !== items.length - 5) {
       
       setSlideOffset((prevOffset) => prevOffset - 135 / itemsPerPage);
       setIndex(index + 1);
