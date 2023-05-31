@@ -1,0 +1,43 @@
+label {
+    display: flex;
+    flex-direction: column;
+    width: 90%; /* Set a fixed width or adjust as needed */
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  #modal-content {
+    border-radius: 8px;
+    height: 400px;
+    padding: 10px;
+  }
+
+  .email-check-error {
+    position: absolute;
+    right: 23%;
+    top: 3%;
+    font-size: 12px;
+  }
+
+  .signup-button {
+    padding-bottom: 5px;
+  }
+
+  .error-message{
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  h1 {
+    margin: 20px;
+  }
+
+
+  .modal-content SignupFormPage {
+    border-radius: 8px;
+  }
+
+  .input-container {
+    margin-top: 10px;
+  }
