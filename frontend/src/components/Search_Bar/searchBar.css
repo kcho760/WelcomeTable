@@ -5,7 +5,7 @@
   justify-content: center;
   background: linear-gradient(to right, #17254d, #5f6984);
   padding: 8px;
-  height: 200px;
+  height: 234px;
 }
 
 .search-box {
@@ -14,11 +14,11 @@
   padding: 8px;
   border-width: 1px;
   border-radius: 3px;
-  height: 25px;
-  width: 250px;
+  height: 30px;
+  width: 300px;
   margin-top: 10px;
-  left: 15%;
-  top: 10%;
+  left: 10%;
+  top: 15.5%;
 }
 
 .textbox {
@@ -27,10 +27,11 @@
 
 .splash-title {
   position: absolute;
-  top: 18%;
-  left: 50%;
+  top: 23%;
+  left: 62%;
+  width: 90%;
   transform: translate(-50%, -50%);
-  font-size: 30px;
+  font-size: 48px;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: bolder;
   color: white;
@@ -39,12 +40,12 @@
 .search-button {
   position: absolute;
   right: 15%;
-  top: 27.75%;
+  top: 33%;
   background-color: #da3743;
   border-radius: 5px;
   border-width: 0px;
-  width: 8%;
-  height: 40px;
+  width: 144px;
+  height: 48px;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: bolder;
   color: white;
