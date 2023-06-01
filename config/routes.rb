@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  
   namespace :api, defaults: { format: :json } do
     post 'users/check_email', to: 'users#check_email'
     resources :users, only: :create

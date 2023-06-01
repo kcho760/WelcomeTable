@@ -22,7 +22,7 @@ function StarRating({ foodRating, serviceRating, ambienceRating, valueRating }) 
     if (hasHalfStar) {
       stars.push(<i key="half-star" className="fas fa-star-half-alt" style={{ color: '#da3743' }}></i>);
     }
-
+    
     for (let i = 0; i < emptyStars; i++) {
       stars.push(<i key={`empty-star-${i}`} className="far fa-star" style={{ color: '#da3743' }}></i>);
     }

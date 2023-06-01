@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector } from "react-redux";
 import RestaurantIndexItem from "./restaurant_index_item";
 import "./restaurantIndex.css";
-import {retreiveRestaurants} from "../../store/restaurant";
+import {retrieveRestaurants} from "../../store/restaurant";
 import back from './assets/back.png';
 import next from './assets/next.png';
 
@@ -14,7 +14,7 @@ const Carousel = () => {
   const restaurants = useSelector(state => Object.values(state.restaurant));
 
   useEffect(() => {
-    dispatch(retreiveRestaurants());
+    dispatch(retrieveRestaurants());
   }, [dispatch]);
 
   function goToPrevSlide() {

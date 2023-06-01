@@ -59,12 +59,14 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 170%;
+  top: 220%;
   right: 0;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 14px;
+  /* font-family: 'BrandonText-Regular', Arial, sans-serif; */
+
   width: 250px;
   padding: 1px;
   list-style-type: none;
@@ -95,9 +97,9 @@
 }
 .linkedin {
   position: absolute;
-  top: 1.5%;
+  top: 2.5%;
   left: 25%;
-  margin-top: 7px;
+  margin-top: 7terpx;
   margin-bottom: -10px;
   width: 43px;
   height: 35px;
