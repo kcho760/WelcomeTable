@@ -14,13 +14,13 @@ function RestaurantIndexItem({ restaurant }) {
       </div>
       <div className="restaurant-info">
         <p>{restaurant.name}</p>
-        <p>{restaurant.city}</p>
         <StarRating
           foodRating={restaurant.foodRating}
           serviceRating={restaurant.serviceRating}
           ambienceRating={restaurant.ambienceRating}
           valueRating={restaurant.valueRating}
         />
+        <p>{restaurant.cuisine}</p>
       </div>
     </div>
   );
