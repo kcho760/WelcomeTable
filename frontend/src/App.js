@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import SearchBar from "./components/Search_Bar";
 import Carousel from "./components/RestaurantCarousel/restaurant_index";
-import slidesData from "../src/components/RestaurantCarousel/slidesData";
+import RestaurantIndexItem from "./components/RestaurantCarousel/restaurant_index_item";
 
 
 function App() {
@@ -14,11 +14,11 @@ function App() {
       <SearchBar />
       <div style={{ width: "100%" }}>
       <p className="category">First Category</p>
-        <Carousel slides={slidesData} />
+        <Carousel slides={RestaurantIndexItem} />
       </div>
       <p className="category">Second Category</p>
       <div style={{ width: "100%" }}>
-        <Carousel slides={slidesData} />
+        <Carousel slides={RestaurantIndexItem} />
       </div>
     </>
   );

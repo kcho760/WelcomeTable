@@ -45,8 +45,8 @@
   height: 20px;
   aspect-ratio: 1/1;
   border: none;
-  top: 5px;
-  font-size: 30px;
+  top: 20px;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +82,25 @@
   border-bottom: rgb(223, 219, 219) 1px solid;
   padding-bottom: 5px;
   font-weight: bold;
+}
+
+.github {
+  position: absolute;
+  top: 1.5%;
+  left: 20%;
+  margin-top: 5px;
+  margin-bottom: -10px;
+  width: 35px;
+  height: 35px;
+}
+.linkedin {
+  position: absolute;
+  top: 1.5%;
+  left: 25%;
+  margin-top: 7px;
+  margin-bottom: -10px;
+  width: 43px;
+  height: 35px;
 }
 
 .profile-dropdown li a {

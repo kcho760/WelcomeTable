@@ -58,7 +58,7 @@ const Carousel = () => {
         <div className="carousel_container">
           <ul className="carousel_slide-list" style={slideStyles}>
             {restaurants.map((restaurant) => (
-              <li className="restaurant-item" key={restaurant.id}>
+              <li className="restaurant-item-outer" key={restaurant.id}>
                 <RestaurantIndexItem
                   restaurant={restaurant}
                 />

@@ -38,23 +38,44 @@
   transition: transform 0.3s ease;
 }
 
+#restaurant-item {
+  display: block;
+  flex-direction: row;
+  align-items: center;
+  width: 234px;
+  height: 300px;
+  margin-right: 7px;
+  /* margin-left: 5px; */
+  border: 1px solid #e2e2e2;
+  transition: transform s ease;
+}
+
+.restaurant-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
 .restaurant-image-container {
   display: flex;
   justify-content: center;
   width: 100%;
   height: 132px;
+  overflow: hidden;
 }
 
-.restaurant-item:hover {
-  transform: translateY(-5px);
-}
 
 .restaurant-image {
   max-width: 100%;
   max-height: 100%;
-  width: auto;
+  width: 100%;
   height: auto;
   margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.restaurant-item:hover .restaurant-image {
+  transform: scale(1.09); /* Apply zoom effect on hover */
 }
 
 .restaurant-info {
@@ -87,7 +108,7 @@
   font-size: 24px;
   font-weight: bold;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
-  margin-top: 10px;
+  margin-top: 40px;
   margin-bottom: 5px;
   margin-left: 4%;
 }
