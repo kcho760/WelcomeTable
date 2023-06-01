@@ -17,6 +17,10 @@ const Carousel = () => {
     dispatch(retrieveRestaurants());
   }, [dispatch]);
 
+  if (restaurants.length === 0) {
+    return <div>Loading...</div>; // or any other loading indicator
+  }
+  
   function goToPrevSlide() {
     if (index > 0) {
       setSlideOffset((prevOffset) => prevOffset + 135 / itemsPerPage);

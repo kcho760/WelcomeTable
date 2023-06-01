@@ -3,7 +3,10 @@ import React from "react";
 function CostRating({ price }) {
   const renderPrice = () => {
     const maxPrice = 4;
-
+    
+    if (!price || price.length === 0) {
+      return <div>Loading...</div>; // or any other loading indicator
+    }
     const numPrice = Math.min(price.length, maxPrice);
 
     const priceRating = "$".repeat(numPrice);
