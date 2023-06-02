@@ -4,6 +4,9 @@ import { retrieveRestaurant } from "../../store/restaurant";
 import { useEffect } from "react";
 import "./restaurantShowPage.css";
 import restaurantpic2 from "../RestaurantCarousel/assets/restaurantpic2.png";
+import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
+import AverageRating from "../RestaurantCarousel/subcomponents/average_rating";
+import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 
 const RestaurantShowPage = () => {
   const { id } = useParams();
@@ -18,8 +21,8 @@ const RestaurantShowPage = () => {
     return <div>Loading...</div>;
   }
 
-  const handleScroll = (event, sectionId) => {
-    event.preventDefault();
+  const handleScroll = (e, sectionId) => {
+    e.preventDefault();
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -46,22 +49,91 @@ const RestaurantShowPage = () => {
         </a>
       </div>
       <div id="overview">
-        <h2>Overview Section</h2>
-        {/* Rest of the content */}
+        <h1>{restaurant.name}</h1>
+        <StarRating
+          className="star-rating"
+          foodRating={restaurant.foodRating}
+          serviceRating={restaurant.serviceRating}
+          ambienceRating={restaurant.ambienceRating}
+          valueRating={restaurant.valueRating}
+        />
+        <AverageRating
+          className="star-rating"
+          foodRating={restaurant.foodRating}
+          serviceRating={restaurant.serviceRating}
+          ambienceRating={restaurant.ambienceRating}
+          valueRating={restaurant.valueRating}
+        />
+        <p># of Reviews</p>
+        <CostRating className="restaurant-price" price={restaurant.price} />
+        <p className="restaurant-cuisine">{restaurant.cuisine}</p>
+        <p className="restaurant-description">{restaurant.description}</p>
       </div>
       <div id="photos">
-        <h2>Photos Section</h2>
-        {/* Rest of the content */}
+        <h1>Photos</h1>
+        <div className="photos-container">
+          <div className="photo-large">
+            {/* Larger photo content */}
+          </div>
+          <div className="photos-small-container">
+            <div className="photo-small">
+              {/* Smaller photo content */}
+            </div>
+            <div className="photo-small">
+              {/* Smaller photo content */}
+            </div>
+            <div className="photo-small">
+              {/* Smaller photo content */}
+            </div>
+            <div className="photo-small">
+              {/* Smaller photo content */}
+            </div>
+          </div>
+        </div>
       </div>
       <div id="menu">
-        <h2>Menu Section</h2>
-        {/* Rest of the content */}
-      </div>
-      <div id="reviews">
-        <h2>Reviews Section</h2>
+        <h1>Menu</h1>
         {/* Rest of the content */}
       </div>
 
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div>FAKE FAKE FAKE</div>
+      <div id="reviews">
+        <h1>Reviews</h1>
+        {/* Rest of the content */}
+      </div>
     </div>
   );
 };

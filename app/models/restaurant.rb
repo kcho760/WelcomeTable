@@ -18,6 +18,7 @@
 #  price           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  description     :string
 #
 class Restaurant < ApplicationRecord
     validates :name, :address, :city, :state, :zip_code, :cuisine, presence: true
