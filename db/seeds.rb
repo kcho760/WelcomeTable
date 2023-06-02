@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+
+require "open-uri"
+require 'aws-sdk-s3'
+
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
@@ -24,11 +28,12 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating Restaurants..."
+    restaurants = []
 
     20.times do
       restaurant_name = Faker::Restaurant.unique.name
       description = "#{restaurant_name} - #{Faker::Restaurant.description}"
-      Restaurant.create!({
+      restaurant = Restaurant.create!({
         name: restaurant_name,
         address: Faker::Address.street_address,
         city: Faker::Address.city,
@@ -44,10 +49,50 @@ ApplicationRecord.transaction do
         price: ['$','$$','$$$','$$$$'].sample,
         description: description
       })
+      restaurants << restaurant
+    end
+
+    puts "pulling photos"
+    # Create an instance of the S3 client
+    s3 = Aws::S3::Client.new(
+      region: 'us-east-1',
+      credentials: Aws::Credentials.new(
+        Rails.application.credentials.aws[:access_key_id],
+        Rails.application.credentials.aws[:secret_access_key]
+      )
+    )
+    
+    # Specify the bucket name and folder prefix
+    bucket_name = 'opentableau-seeds'
+    folder_prefix = 'photos_for_upload/'
+    
+    # Retrieve the list of objects (files) inside the folder
+    response = s3.list_objects_v2(bucket: bucket_name, prefix: folder_prefix)
+    
+    # Extract the URLs of the objects
+    photo_urls = response.contents.map do |object|
+      object.key # Object key is the file path within the bucket
     end
     
+    # Shuffle the array of photo URLs randomly
+    shuffled_urls = photo_urls.shuffle
     
+    restaurants.each do |restaurant|
+      # Assign the first URL from the shuffled array
+      photo_url = shuffled_urls.shift
     
+      # Extract the file name from the photo URL
+      file_name = File.basename(photo_url)
+    
+      # Download the photo file from the S3 bucket
+      photo_object = s3.get_object(bucket: bucket_name, key: photo_url)
+      photo_file = photo_object.body
+    
+      # Attach the downloaded photo file to the restaurant
+      restaurant.photos.attach(io: photo_file, filename: file_name)
+    end
+    
+    puts "photos done"
     # More users
     10.times do 
       User.create!({

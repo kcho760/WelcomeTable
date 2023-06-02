@@ -4,7 +4,6 @@ const RETRIEVE_RESTAURANTS = 'restaurant/RETRIEVE_RESTAURANTS';
 const RETRIEVE_RESTAURANT = 'restaurant/RETRIEVE_RESTAURANT';
 
 export const retrieveRestaurant = (id) => async (dispatch) => {
-  debugger
   const res = await csrfFetch(`/api/restaurants/${id}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +39,6 @@ const restaurantsReducer = (state = {}, action) => {
     const newState = { ...state };
   switch (action.type) {
     case RETRIEVE_RESTAURANT:
-      debugger
         newState[action.restaurant.id] = action.restaurant;
         return newState;
     case RETRIEVE_RESTAURANTS:

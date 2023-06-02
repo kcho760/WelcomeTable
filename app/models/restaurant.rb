@@ -26,5 +26,8 @@ class Restaurant < ApplicationRecord
     validates :zip_code, numericality: { only_integer: true }
     # validates :phone, format: { with: /\A\d{3}-\d{3}-\d{4}\z/, message: "should be in the format xxx-xxx-xxxx" }, allow_blank: true
 
+    # has_one_attached :photo
+    
+    has_many_attached :photos
     # has_many :reviews
 end

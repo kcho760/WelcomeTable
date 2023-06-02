@@ -4,7 +4,6 @@ function AverageRating({ foodRating, serviceRating, ambienceRating, valueRating 
   const calculateAverageRating = () => {
     const sum = foodRating + serviceRating + ambienceRating + valueRating;
     const average = sum / 4;
-    console.log(foodRating)
     return average.toFixed(1);
   };
 
