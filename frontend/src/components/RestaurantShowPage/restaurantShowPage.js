@@ -14,8 +14,10 @@ const RestaurantShowPage = () => {
   const restaurant = useSelector((state) => state.restaurant[id]);
 
   useEffect(() => {
+    debugger
     dispatch(retrieveRestaurant(id));
   }, [dispatch, id]);
+  debugger
 
   if (!restaurant) {
     return <div>Loading...</div>;
