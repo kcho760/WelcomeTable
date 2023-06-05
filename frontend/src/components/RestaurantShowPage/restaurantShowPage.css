@@ -110,20 +110,23 @@
 
 .photos-container {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   height: 100%;
   width: 100%;
-  border-radius: 4px;
-  margin-right: 5px;
+  margin-right: 1px;
   overflow: hidden; /* Ensure the container clips the image overflow */
 }
 
 .photo-large {
-  flex-basis: 60%;
+  flex-basis: 40.5%;
   max-height: 100%;
   object-fit: cover;
-  margin-right: 5px;
+  margin-right: 1px;
   object-position: center;
+}
+
+.photo-large-image{
+  border-radius: 4px;
 }
 
 .photos-small-container {
@@ -138,8 +141,12 @@
 .photo-small {
   object-fit: cover;
   object-position: center;
-  max-height: 100%;
-  max-width: 100%;
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.photo-small-image{
+  border-radius: 4px;
 }
 
 .reservations-container {
@@ -148,9 +155,10 @@
   right: 20px;
   width: 330px;
   height: 320px; /* Adjust the height as desired */
-  background-color: #f5f5f5;
+  background-color: white;
   padding: 20px;
   border-radius: 4px;
+  border: 1px solid #e2e2e2;
 }
 
 .additional-info-container {
@@ -158,10 +166,9 @@
   top: 800px; /* Adjust the top position as desired */
   right: 20px;
   width: 330px;
-  height: 320px; /* Adjust the height as desired */
-  background-color: #f5f5f5;
+  height: 100%; /* Adjust the height as desired */
+  background-color: white;
   padding: 20px;
-  border-radius: 4px;
 }
 
 .additional-info-container h2 {
@@ -179,10 +186,76 @@
   border-width: 0px;
   width: 90%;
   height: 40px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: bolder;
   color: white;
 }
 
+.party-size {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border-width: 0px;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  font-weight: bolder;
+  color: black;
+}
+
+#party-size {
+  width: 100%;
+  height: 35px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border-width: 0px;
+  border-bottom: 1px solid #e2e2e2;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  font-weight: bolder;
+  color: black;
+}
+
+.datetime-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.date,
+.time {
+  flex-basis: 45%; /* Use flex-basis to set the width of each input field */
+  height: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border-width: 0px;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  font-weight: bolder;
+  color: black;
+  display: inline-block;
+}
+
+#date,
+#time {
+  width: 100%;
+  height: 35px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border-width: 0px;
+  border-bottom: 1px solid #e2e2e2;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  font-weight: bolder;
+  color: black;
+  display: inline-block; /* Add this line to make them display inline */
+}
+
+select {
+  background-color: white;
+  border: none;
+
+}

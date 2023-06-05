@@ -138,6 +138,10 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
+    open-uri (0.3.0)
+      stringio
+      time
+      uri
     pg (1.5.3)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -181,10 +185,14 @@ GEM
     rouge (4.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
+    stringio (3.0.7)
     thor (1.2.2)
+    time (0.2.2)
+      date
     timeout (0.3.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uri (0.12.1)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -203,6 +211,7 @@ DEPENDENCIES
   byebug
   faker
   jbuilder
+  open-uri
   pg
   pry-rails
   puma (~> 5.0)

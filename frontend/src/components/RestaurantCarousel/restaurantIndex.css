@@ -183,12 +183,13 @@ CostRating {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
+  font-size: 10px;
 }
 
 .dot-1 {
   font-size: 12px;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   margin-right: 5px;
 }
 
