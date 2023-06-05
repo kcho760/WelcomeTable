@@ -18,4 +18,7 @@ class Reservation < ApplicationRecord
     validates :party_size, presence: true, numericality: { greater_than: 0 }
     validates :user_id, presence: true
     validates :restaurant_id, presence: true
+
+    belongs_to :user
+    belongs_to :restaurant
 end

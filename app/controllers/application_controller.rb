@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  
   rescue_from StandardError, with: :unhandled_error
   rescue_from ActionController::InvalidAuthenticityToken,
     with: :invalid_authenticity_token
@@ -11,8 +12,8 @@ class ApplicationController < ActionController::API
     before_action :snake_case_params, :attach_authenticity_token
     
     def current_user
-        @current_user ||= User.find_by(session_token: session[:session_token])
-      end
+      @current_user ||= User.find_by(session_token: session[:session_token])
+    end
     
       def login!(user)
         session[:session_token] = user.reset_session_token!

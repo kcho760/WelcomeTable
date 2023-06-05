@@ -4,26 +4,25 @@ import 'react-date-range/dist/theme/default.css';
 import './calender.css';
 import { Calendar } from 'react-date-range';
 
-const MyComponent = ({ onDateChange }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+const MyComponent = ({ onDateChange, selectedDate, setSelectedDate, setShowCalendar }) => {
 
   const handleSelect = (date) => {
     setSelectedDate(date);
-    if (onDateChange) {
-      onDateChange(date);
-    }
+    setShowCalendar(false)
   };
-
-  const highlightDates = [selectedDate]; // Array containing the selected date for highlighting
 
   return (
     <Calendar
       className="calendar"
       date={selectedDate}
       onChange={handleSelect}
-      highlightDates={highlightDates}
+      highlight={{
+        startDate: selectedDate,
+        endDate: selectedDate,
+        color: '#00B8D9',
+      }}
     />
   );
-}
+};
 
 export default MyComponent;

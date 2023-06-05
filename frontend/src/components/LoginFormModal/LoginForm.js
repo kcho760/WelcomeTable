@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SignupFormPage from "../SignupFormPage";
 import "./LoginForm.css";
 
@@ -12,6 +12,7 @@ function LoginForm() {
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
