@@ -16,16 +16,15 @@ function App() {
         <SearchBar />
         <div style={{ width: "100%" }}>
           <p className="category">First Category</p>
-          <Carousel slides={RestaurantIndexItem} />
+          <Carousel slides={RestaurantIndexItem} randomize={true} />
         </div>
         <p className="category">Second Category</p>
         <div style={{ width: "100%" }}>
-          <Carousel slides={RestaurantIndexItem} />
+          <Carousel slides={RestaurantIndexItem} randomize={true} />
         </div>
       </Route>
 
       <Route path="/restaurants/:id" component={RestaurantShowPage} />
-      
     </Router>
   );
 }

@@ -9,11 +9,12 @@ function RestaurantIndexItem({ restaurant }) {
   if (!restaurant) {
     return <div>Loading...</div>;
   }
+  console.log(restaurant.photoUrls);
   return (
     <div className="restaurant-item">
       <Link to={`/restaurants/${restaurant.id}`}>
         <div className="restaurant-image-container">
-          <img className="restaurant-image" src={restaurantpic2} alt={restaurant.name} />
+          <img className="restaurant-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
         </div>
         <div className="restaurant-info">
           <p className="restaurant-name">{restaurant.name}</p>
