@@ -35,6 +35,7 @@ function Navigation() {
       <a href='https://www.linkedin.com/in/kevin-cho-441a34b1/'>
         <img src={linkedin} alt='GitHub' className='linkedin' />
       </a>
+      <p>Test TEST</p>
 
       <div>
         {sessionLinks}
