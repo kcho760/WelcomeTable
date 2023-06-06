@@ -1,28 +1,29 @@
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
+import { ModalContext } from '../../context/Modal';
 
 function LoginFormModal() {
-  const [showModal, setShowModal] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
+  const closeModal = useContext(ModalContext);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
-    if (currentUser) {
-      setShowModal(false);
+    if (currentUser && showModal) {
+      setShowModal(false); // Close the modal by setting showModal to false
     }
-  }, [currentUser]);
+  }, [currentUser, showModal]);
+
   return (
-    <div className="login-button-container">
-      <button className='Log_In_Button' onClick={() => setShowModal(true)}>Sign In</button>
+    <div>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={closeModal}>
           <LoginForm />
         </Modal>
       )}
     </div>
   );
 }
-
 
 export default LoginFormModal;

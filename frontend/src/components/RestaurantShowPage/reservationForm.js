@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReservation } from '../../store/reservation';
 import format from 'date-fns/format';
-import LoginForm from '../LoginFormModal/LoginForm';
+import LoginFormModal from '../LoginFormModal/index';
 import MyComponent from '../RestaurantCarousel/subcomponents/calender';
 import graph from '../RestaurantCarousel/assets/graph.png';
-import LoginFormModal from '../LoginFormModal';
 
 const ReservationForm = ({ restaurant }) => {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
   const currentUserId = useSelector((state) => state.session.user?.id);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showLoginFormModal, setShowLoginFormModal] = useState(false);
 
   const handleDateChange = () => {
     // setDate(selectedDate);
@@ -60,14 +59,13 @@ const ReservationForm = ({ restaurant }) => {
         user_id: currentUserId,
       },
     };
-    
+
     if (currentUserId) {
       dispatch(createReservation(reservation));
     } else {
-      setShowModal(true);
+      setShowLoginFormModal(true);
     }
   };
-  
 
   return (
     <div className="reservations-container">
@@ -99,7 +97,14 @@ const ReservationForm = ({ restaurant }) => {
               onClick={openCalendar}
               readOnly
             />
-            {showCalendar && <MyComponent setShowCalendar={setShowCalendar} selectedDate={selectedDate} setSelectedDate={setSelectedDate} className="calendar"/>}
+            {showCalendar && (
+              <MyComponent
+                setShowCalendar={setShowCalendar}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                className="calendar"
+              />
+            )}
           </div>
 
           <div className="time">
@@ -111,21 +116,15 @@ const ReservationForm = ({ restaurant }) => {
           </div>
         </div>
         <button className="find-reservation-button" onClick={handleSubmit}>
-          Make Reservation
+          Find Reservation
         </button>
         <div className="booking-container">
           <img className="graph" src={graph} alt="graph"></img>
           <p className="restaurant-daily-booking">Booked X times today</p>
         </div>
       </form>
-        <LoginFormModal />
-      {/* {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <LoginForm closeModal={() => setShowModal(false)} />
-          </div>
-        </div>
-      )} */}
+
+      {showLoginFormModal && <LoginFormModal />}
     </div>
   );
 };

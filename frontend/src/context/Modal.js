@@ -2,37 +2,38 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 
-const ModalContext = React.createContext();
+export const ModalContext = React.createContext();
 
 export function ModalProvider({ children }) {
   const modalRef = useRef();
-  const [value, setValue] = useState();
+  const [modalNode, setModalNode] = useState(null);
 
   useEffect(() => {
-    setValue(modalRef.current);
-  }, [])
+    setModalNode(modalRef.current);
+  }, []);
+
+  const closeModal = () => {
+    setModalNode(null);
+  };
 
   return (
-    <>
-      <ModalContext.Provider value={value}>
-        {children}
-      </ModalContext.Provider>
+    <ModalContext.Provider value={closeModal}>
+      {children}
       <div ref={modalRef} />
-    </>
+    </ModalContext.Provider>
   );
 }
 
 export function Modal({ onClose, children }) {
-  const modalNode = useContext(ModalContext);
-  if (!modalNode) return null;
+  const closeModal = useContext(ModalContext);
+
+  if (!closeModal) return null;
 
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={onClose} />
-      <div id="modal-content">
-        {children}
-      </div>
+      <div id="modal-content">{children}</div>
     </div>,
-    modalNode
+    document.body
   );
 }

@@ -12,7 +12,13 @@ function LoginForm() {
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-
+  const user = useSelector((state) => state.session.user);
+  useEffect(() => {
+    if (user) {
+      setShowPasswordPrompt(false);
+      setShowSignupModal(false);
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,9 +44,11 @@ function LoginForm() {
   };
 
   const handleDemoLogin = () => {
-    dispatch(
-      sessionActions.login({ email: "demo@user.io", password: "password" })
-    )
+    dispatch(sessionActions.login({ email: "demo@user.io", password: "password" }))
+      .then(() => {
+        setShowSignupModal(false);
+        setShowPasswordPrompt(false);
+      })
       .catch((error) => {
         setErrors([error.message]);
       });
@@ -60,37 +68,44 @@ function LoginForm() {
 
   const closeSignupModal = () => {
     setShowSignupModal(false);
+    setShowPasswordPrompt(false);
   };
+
+  if (user) {
+    return null; // User is logged in, don't render the LoginForm component
+  }
 
   return (
     <div className="login-form">
-      {!showPasswordPrompt && !showSignupModal ? (
-        <form onSubmit={handleSubmit}>
-          <ul className="email-check-error">
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-          <div className="input-container">
-            <label>
-              <span>Email</span>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="submit-button">
-                Continue
-              </button>
-              <button type="button" onClick={handleDemoLogin} className="demo-button">
-                Demo Login
-              </button>
-            </label>
-          </div>
-        </form>
-      ) : null}
-      {showPasswordPrompt && (
+      <form onSubmit={handleSubmit}>
+        <ul className="email-check-error">
+          {errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
+        </ul>
+        <div className="input-container">
+          <label>
+            <span>Email</span>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit" className="submit-button">
+              Continue
+            </button>
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className="demo-button"
+            >
+              Demo Login
+            </button>
+          </label>
+        </div>
+      </form>
+      {showPasswordPrompt && !user && (
         <form onSubmit={handlePasswordSubmit}>
           {passwordError && <p className="password-error">{passwordError}</p>}
           <div className="input-container">
@@ -107,7 +122,7 @@ function LoginForm() {
           </div>
         </form>
       )}
-      {showSignupModal && (
+      {showSignupModal && !user && (
         <div className="modal">
           <div className="modal-content">
             <SignupFormPage email={email} closeModal={closeSignupModal} />
