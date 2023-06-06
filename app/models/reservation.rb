@@ -40,10 +40,11 @@ class Reservation < ApplicationRecord
       )
       
       if overlapping_reservations.count >= 2
-        errors.add(:base, "Unfortunately, the time you requested is not available.")
+        return false
       end
     end
     
       
     
 end
+# else return available

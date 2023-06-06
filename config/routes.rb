@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :users, only: :create
     resource :session, only: [:show, :create, :destroy]
     resources :restaurants, only: [:show, :index, :update]
-    resources :reservations, only: [:create, :show, :update, :destroy]
+    resources :reservations, only: [:create, :show, :update, :destroy] do
+      collection do
+        post 'available', to: 'reservations#available'
+      end
+    end  
   end
 end

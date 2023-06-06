@@ -1,6 +1,7 @@
 import csrfFetch from "./csrf";
 
 const FETCH_RESERVATION = 'reservation/FETCH_RESERVATION';
+const FETCH_AVAILABLE_RESERVATIONS = 'reservation/FETCH_AVAILABLE_RESERVATIONS';
 const CREATE_RESERVATION = 'reservation/CREATE_RESERVATION';
 const UPDATE_RESERVATION = 'reservation/UPDATE_RESERVATION';
 const DELETE_RESERVATION = 'reservation/DELETE_RESERVATION';
@@ -21,6 +22,26 @@ const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
             });
         }
     };
+    
+    export const fetchAvailableReservations = (reservationsParams) => async (dispatch) => {
+        const res = await csrfFetch('/api/reservations/available', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(reservationsParams),
+        });
+      
+        if (res.ok) {
+          const availableReservations = await res.json();
+          dispatch({
+            type: FETCH_AVAILABLE_RESERVATIONS,
+            availableReservations,
+          });
+          return availableReservations;
+        }
+      };
 
     export const createReservation = (reservation) => async (dispatch) => {
         const res = await csrfFetch(`/api/reservations`, {
@@ -99,31 +120,39 @@ const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
         const newState = { ...state };
       
         switch (action.type) {
-          case FETCH_RESERVATION:
+        case FETCH_RESERVATION:
             newState[action.reservation.id] = action.reservation;
             return newState;
       
-            case CREATE_RESERVATION:
-                return {
-                  ...state,
-                  reservation: action.reservation,
-                };
+
+        case FETCH_AVAILABLE_RESERVATIONS:
+            return {
+                ...state,
+                availableReservations: action.availableReservations,
+            };
+
+            
+        case CREATE_RESERVATION:
+            return {
+                ...state,
+                reservation: action.reservation,
+            };
       
-          case UPDATE_RESERVATION:
+        case UPDATE_RESERVATION:
             newState[action.reservation.id] = action.reservation;
             return newState;
-      
-          case DELETE_RESERVATION:
+    
+        case DELETE_RESERVATION:
             delete newState[action.reservationId];
             return newState;
-      
-          case CHECK_AVAILABILITY:
+    
+        case CHECK_AVAILABILITY:
             return {
                 ...state,
                 availability: action.availability,
             };
 
-          default:
+        default:
             return state;
         }
       };
