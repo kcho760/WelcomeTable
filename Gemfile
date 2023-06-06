@@ -8,6 +8,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 gem "sassc"
 gem "aws-sdk-s3"
 gem "open-uri"
+gem "faker"
 # Use Postgres as the database for Active Record
 gem 'pg'
 
@@ -41,7 +42,6 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "byebug", platforms: %i[ mri mingw x64_mingw ]
-  gem "faker"
 end
 
 group :development do
