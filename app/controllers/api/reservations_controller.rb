@@ -14,7 +14,6 @@ class Api::ReservationsController < ApplicationController
       else
         render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
       end
-      
     end
   
     def update
@@ -30,13 +29,16 @@ class Api::ReservationsController < ApplicationController
     end
   
     def destroy
-      if @reservation.user_id == current_user.id
+      @reservation = Reservation.find_by(id: params[:id])
+    
+      if @reservation && @reservation.user_id == current_user.id
         @reservation.destroy
-        render json: { message: 'Reservation deleted successfully' }
+        render json: { message: "Reservation successfully deleted" }
       else
-        render json: { error: 'Unauthorized' }, status: :unauthorized
+        render json: { error: "Reservation not found or unauthorized" }, status: :not_found
       end
     end
+    
   
     private
   

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import LoginFormModal from './index';
+import LoginForm from './LoginForm';
 
 function LoginButton() {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +10,7 @@ function LoginButton() {
       <button className='Log_In_Button' onClick={() => setShowModal(true)}>Sign In</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <LoginFormModal />
+          <LoginForm />
         </Modal>
       )}
     </div>

@@ -33,10 +33,7 @@ class Restaurant < ApplicationRecord
     validates :name, length: { maximum: 50 }
     validates :zip_code, numericality: { only_integer: true }
     attribute :photoUrls, :string, array: true, default: []
-    # validates :phone, format: { with: /\A\d{3}-\d{3}-\d{4}\z/, message: "should be in the format xxx-xxx-xxxx" }, allow_blank: true
 
-    # has_one_attached :photo
-    
     has_many_attached :photosUrls
-    # has_many :reviews
+    has_many :reservations
 end

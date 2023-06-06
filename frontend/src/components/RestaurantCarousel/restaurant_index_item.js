@@ -9,7 +9,6 @@ function RestaurantIndexItem({ restaurant }) {
   if (!restaurant) {
     return <div>Loading...</div>;
   }
-  console.log(restaurant.photoUrls);
   return (
     <div className="restaurant-item">
       <Link to={`/restaurants/${restaurant.id}`}>

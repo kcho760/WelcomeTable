@@ -4,6 +4,7 @@ const FETCH_RESERVATION = 'reservation/FETCH_RESERVATION';
 const CREATE_RESERVATION = 'reservation/CREATE_RESERVATION';
 const UPDATE_RESERVATION = 'reservation/UPDATE_RESERVATION';
 const DELETE_RESERVATION = 'reservation/DELETE_RESERVATION';
+const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
 
     export const fetchReservation = (id) => async (dispatch) => {
         const res = await csrfFetch(`/api/reservations/${id}`, {
@@ -74,6 +75,25 @@ const DELETE_RESERVATION = 'reservation/DELETE_RESERVATION';
             });
         }
     };
+
+    export const isReservationAvailable = (date) => async (dispatch) => {
+        const res = await csrfFetch(`/api/reservations/availability`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({ date }),
+        });
+
+        if (res.ok) {
+        const availability = await res.json();
+        dispatch({
+            type: CHECK_AVAILABILITY,
+            availability,
+        });
+        }
+    };
   
     const reservationReducer = (state = {}, action) => {
         const newState = { ...state };
@@ -97,6 +117,12 @@ const DELETE_RESERVATION = 'reservation/DELETE_RESERVATION';
             delete newState[action.reservationId];
             return newState;
       
+          case CHECK_AVAILABILITY:
+            return {
+                ...state,
+                availability: action.availability,
+            };
+
           default:
             return state;
         }

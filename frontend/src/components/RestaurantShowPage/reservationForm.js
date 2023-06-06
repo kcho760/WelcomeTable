@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createReservation } from '../../store/reservation';
+import { fetchAvailableReservations } from '../../store/reservation'; // Assuming you have a fetchAvailableReservations action creator
 import format from 'date-fns/format';
 import LoginFormModal from '../LoginFormModal/index';
 import MyComponent from '../RestaurantCarousel/subcomponents/calender';
@@ -13,59 +13,78 @@ const ReservationForm = ({ restaurant }) => {
   const currentUserId = useSelector((state) => state.session.user?.id);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showLoginFormModal, setShowLoginFormModal] = useState(false);
-
-  const handleDateChange = () => {
-    // setDate(selectedDate);
-    ; // Hide the calendar after date selection
-  };
+  const [availableReservations, setAvailableReservations] = useState([]);
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
 
   const openCalendar = () => {
     setShowCalendar(!showCalendar);
   };
 
-  function generateTimeOptions() {
-    const startTime = new Date('01/01/2023 10:30 AM');
-    const endTime = new Date('01/01/2023 11:00 PM');
-    const timeOptions = [];
-    let currentTime = new Date(startTime);
 
-    while (currentTime <= endTime) {
-      const timeString = currentTime.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-      });
-      timeOptions.push(
-        <option key={timeString} value={timeString}>
-          {timeString}
-        </option>
-      );
-      currentTime.setMinutes(currentTime.getMinutes() + 15);
-    }
+function generateTimeOptions() {
+  const startTime = new Date('01/01/2023 10:30 AM');
+  const endTime = new Date('01/01/2023 11:00 PM');
+  const timeOptions = [];
+  let currentTime = new Date(startTime);
 
-    return timeOptions;
+  while (currentTime <= endTime) {
+    const timeString = currentTime.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+    timeOptions.push(
+      <option key={timeString} value={timeString}>
+        {timeString}
+      </option>
+    );
+    currentTime.setMinutes(currentTime.getMinutes() + 15);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const party_size = document.getElementById('party-size').value;
-    const time = document.getElementById('time').value;
-    const reservation = {
-      reservation: {
-        party_size,
-        reservation_time: time,
-        reservation_date: date,
-        restaurant_id: restaurant.id,
-        user_id: currentUserId,
-      },
-    };
+  return timeOptions;
+}
 
-    if (currentUserId) {
-      dispatch(createReservation(reservation));
-    } else {
-      setShowLoginFormModal(true);
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const partySize = document.getElementById('party-size').value;
+  const time = document.getElementById('time').value;
+
+  if (!selectedDate) {
+    // Handle the case where no date is selected
+    return;
+  }
+
+  const selectedDateTime = new Date(selectedDate);
+  selectedDateTime.setHours(Number(time.slice(0, 2)));
+  selectedDateTime.setMinutes(Number(time.slice(3, 5)));
+  
+  const startDateTime = new Date(selectedDateTime);
+  startDateTime.setMinutes(startDateTime.getMinutes() - 30); // 30 minutes before selectedDateTime
+  const endDateTime = new Date(selectedDateTime);
+  endDateTime.setMinutes(endDateTime.getMinutes() + 30); // 30 minutes after selectedDateTime
+
+  const reservationsParams = {
+    startDateTime: startDateTime.toISOString(),
+    endDateTime: endDateTime.toISOString(),
+    restaurantId: restaurant.id,
+    partySize,
   };
+
+  if (currentUserId) {
+    const availableReservations = await dispatch(fetchAvailableReservations(reservationsParams));
+    setAvailableReservations(availableReservations);
+  } else {
+    setShowLoginFormModal(true);
+  }
+};
+
+const isReservationAvailable = (reservationTime) => {
+  return availableReservations.some((reservation) => {
+    const reservationTimeValue = new Date(reservation.reservation_time).getTime();
+    const requestedTimeValue = new Date(reservationTime).getTime();
+    return reservationTimeValue === requestedTimeValue;
+  });
+};
 
   return (
     <div className="reservations-container">
@@ -118,12 +137,29 @@ const ReservationForm = ({ restaurant }) => {
         <button className="find-reservation-button" onClick={handleSubmit}>
           Find Reservation
         </button>
-        <div className="booking-container">
-          <img className="graph" src={graph} alt="graph"></img>
-          <p className="restaurant-daily-booking">Booked X times today</p>
-        </div>
-      </form>
 
+        {availableReservations.length > 0 && (
+          <div className="available-reservations">
+            <h3>Available Reservations:</h3>
+            {[1, 2, 3, 4, 5].map((index) => {
+              const reservationTime = new Date(selectedDateTime);
+              reservationTime.setMinutes(reservationTime.getMinutes() + (index - 3) * 15); // Adjust minutes based on index
+
+              return (
+                <button
+                  key={index}
+                  className={`reservation-button ${isReservationAvailable(reservationTime) ? '' : 'blocked'}`}
+                  disabled={!isReservationAvailable(reservationTime)}
+                >
+                  {format(reservationTime, 'hh:mm a')}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </form>
+      <img className="graph" src={graph} alt="graph"></img>
+      <p className="restaurant-daily-booking">Booked X times today</p>
       {showLoginFormModal && <LoginFormModal />}
     </div>
   );

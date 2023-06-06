@@ -18,7 +18,32 @@ class Reservation < ApplicationRecord
     validates :party_size, presence: true, numericality: { greater_than: 0 }
     validates :user_id, presence: true
     validates :restaurant_id, presence: true
+    validate :validate_reservation_limit
 
     belongs_to :user
     belongs_to :restaurant
+
+    private
+
+    def validate_reservation_limit
+      buffer_time = 15.minutes
+      reservation_start_time = reservation_time - buffer_time
+      reservation_end_time = reservation_time + 30.minutes
+    
+      if reservation_end_time.min >= 60
+        reservation_end_time += 60.minutes
+        reservation_end_time = reservation_end_time.change(min: 0)
+      end
+    
+      overlapping_reservations = restaurant.reservations.where(
+        reservation_time: reservation_start_time...reservation_end_time
+      )
+      
+      if overlapping_reservations.count >= 2
+        errors.add(:base, "Unfortunately, the time you requested is not available.")
+      end
+    end
+    
+      
+    
 end
