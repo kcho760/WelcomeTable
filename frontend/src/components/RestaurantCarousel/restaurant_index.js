@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector } from "react-redux";
 import RestaurantIndexItem from "./restaurant_index_item";
-import items from "./slidesData";
 import "./restaurantIndex.css";
+import {retrieveRestaurants} from "../../store/restaurant";
 import back from './assets/back.png';
 import next from './assets/next.png';
 
 const Carousel = () => {
   const [slideOffset, setSlideOffset] = useState(0);
-  const [index,setIndex] = useState(0);
-  const itemsPerPage = 8;
+  const [index, setIndex] = useState(0);
+  const itemsPerPage = 6.2;
+  const dispatch = useDispatch();
+  const restaurants = useSelector(state => Object.values(state.restaurant));
 
+  useEffect(() => {
+    dispatch(retrieveRestaurants());
+  }, [dispatch]);
+
+  if (restaurants.length === 0) {
+    return <div>Loading...</div>; // or any other loading indicator
+  }
+  
   function goToPrevSlide() {
     if (index > 0) {
       setSlideOffset((prevOffset) => prevOffset + 135 / itemsPerPage);
@@ -23,7 +34,7 @@ const Carousel = () => {
   }
 
   function goToNextSlide() {
-    if (index !== items.length - 3) {
+    if (index !== restaurants.length - 5) {
       
       setSlideOffset((prevOffset) => prevOffset - 135 / itemsPerPage);
       setIndex(index + 1);
@@ -39,7 +50,9 @@ const Carousel = () => {
     transform: `translateX(${slideOffset}%)`,
     transition: "transform .5s ease-in-out",
   };
-
+  if (!restaurants) {
+    return null;
+  } 
   return (
     <div className="carousel_wrap">
       <div className="carousel_inner">
@@ -48,11 +61,10 @@ const Carousel = () => {
         </button>
         <div className="carousel_container">
           <ul className="carousel_slide-list" style={slideStyles}>
-            {items.map((item, index) => (
-              <li className="restaurant-item" key={index}>
+            {restaurants.map((restaurant) => (
+              <li className="restaurant-item-outer" key={restaurant.id}>
                 <RestaurantIndexItem
-                  item={item}
-                  active={index >= 0 && index < itemsPerPage}
+                  restaurant={restaurant}
                 />
               </li>
             ))}

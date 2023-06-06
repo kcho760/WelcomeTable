@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import LoginFormModal from '../LoginFormModal';
+import LoginButton from '../LoginFormModal/LoginButton';
 import logo from './assets/Logo.png';
+import github from './assets/github-logo.png';
+import linkedin from './assets/LI-In-Bug.png';
 import './Navigation.css';
 
 function Navigation() {
@@ -16,7 +18,7 @@ function Navigation() {
     );
   } else {
     sessionLinks = (
-      <LoginFormModal />
+      <LoginButton />
     );
   }
 
@@ -27,6 +29,13 @@ function Navigation() {
           <img src={logo} alt="Home" className="nav-link_logo" />
         </NavLink>
       </div>
+      <a href='https://github.com/kcho760/OpenTableau'>
+        <img src={github} alt='GitHub' className='github' />
+      </a>
+      <a href='https://www.linkedin.com/in/kevin-cho-441a34b1/'>
+        <img src={linkedin} alt='GitHub' className='linkedin' />
+      </a>
+
       <div>
         {sessionLinks}
       </div>
