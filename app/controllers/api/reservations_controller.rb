@@ -1,11 +1,17 @@
 class Api::ReservationsController < ApplicationController
   # before_action :set_reservation, only: [:show, :update, :destroy]
-  before_action :current_user, only: [:create, :update, :destroy]
+  before_action :current_user, only: [:create, :update, :destroy, :index]
 
   def show
     @reservation = Reservation.find(params[:id])
     render json: { reservation: @reservation }
   end
+
+  def index
+    @reservations = current_user.reservations
+    render json: { reservations: @reservations }
+  end
+  
 
   def create
     @reservation = Reservation.new(reservation_params)

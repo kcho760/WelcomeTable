@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     post 'users/check_email', to: 'users#check_email'
-    resources :users, only: :create
+    resources :users, only: :create do
+      resources :reservations, only: :index
+    end
     resource :session, only: [:show, :create, :destroy]
     resources :restaurants, only: [:show, :index, :update]
     resources :reservations, only: [:create, :show, :update, :destroy] do

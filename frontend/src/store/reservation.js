@@ -6,6 +6,7 @@ const CREATE_RESERVATION = 'reservation/CREATE_RESERVATION';
 const UPDATE_RESERVATION = 'reservation/UPDATE_RESERVATION';
 const DELETE_RESERVATION = 'reservation/DELETE_RESERVATION';
 const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
+const FETCH_USER_RESERVATIONS = 'reservation/FETCH_USER_RESERVATIONS'
 
     export const fetchReservation = (id) => async (dispatch) => {
         const res = await csrfFetch(`/api/reservations/${id}`, {
@@ -23,6 +24,23 @@ const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
         }
     };
     
+    export const fetchUserReservations = (userId) => async (dispatch) => {
+        const res = await csrfFetch(`/api/users/${userId}/reservations`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+      
+        if (res.ok) {
+          const reservations = await res.json();
+          dispatch({
+            type: FETCH_USER_RESERVATIONS,
+            reservations,
+          });
+        }
+      };
+
     export const fetchAvailableReservations = (reservationsParams) => async (dispatch) => {
         const res = await csrfFetch('/api/reservations/available', {
           method: 'POST',
@@ -124,6 +142,11 @@ const CHECK_AVAILABILITY = 'reservation/CHECK_AVAILABILITY';
             newState[action.reservation.id] = action.reservation;
             return newState;
       
+        case FETCH_USER_RESERVATIONS:
+            return {
+                ...state,
+                userReservations: action.reservations,
+            };    
 
         case FETCH_AVAILABLE_RESERVATIONS:
             return {

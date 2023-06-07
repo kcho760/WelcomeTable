@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -36,9 +37,10 @@ function ProfileButton({ user }) {
       {showMenu && (
         <ul className="profile-dropdown">
           <p>Hello, {user.username}!</p>
-          {/* <li>
-            <a href="/profile">My Profile</a>
+           <li>
+            <Link to="/user/:id">My Profile</Link>
           </li>
+            {/*
           <li>
             <a href="/profile">My Saved Restaurants</a>
           </li>

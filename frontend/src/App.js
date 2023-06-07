@@ -5,7 +5,7 @@ import SearchBar from "./components/Search_Bar";
 import Carousel from "./components/RestaurantCarousel/restaurant_index";
 import RestaurantIndexItem from "./components/RestaurantCarousel/restaurant_index_item";
 import RestaurantShowPage from "./components/RestaurantShowPage/restaurantShowPage";
-
+import UserProfile from "./components/Profile/profilePage";
 function App() {
   return (
     <Router>

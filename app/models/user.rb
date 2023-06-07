@@ -18,7 +18,8 @@ class User < ApplicationRecord
     validates :email, presence: true, length: { within: 3..255 }, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :session_token, presence: true, uniqueness: true
     validates :password, length: { within: 6..255 }, allow_nil: true
-    
+    has_many :reservations
+
     def self.find_by_credentials(email, password)
       user = User.find_by(email: email)
       user&.authenticate(password)
