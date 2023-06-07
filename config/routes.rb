@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :api, defaults: { format: :json } do
+    get 'search/:search_term', to: 'search#search'
+    get 'cuisines', to: 'search#cuisines'  # Add this line for fetching all cuisines
     post 'users/check_email', to: 'users#check_email'
     resources :users, only: :create do
       resources :reservations, only: :index
