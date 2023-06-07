@@ -103,7 +103,7 @@ class Api::ReservationsController < ApplicationController
       reservation_time: reservation_start_time...reservation_end_time
     )
 
-    overlapping_reservations.count <= 2
+    overlapping_reservations.count <= 1
   end
 
 end

@@ -11,12 +11,12 @@ test:
   <<: *default
   database: opentableau_test
 
-# production:
-#   <<: *default
-#   database: opentableau_production
-#   username: opentableau
-#   password: <%= ENV["<PROJECT_NAME>_DATABASE_PASSWORD"] %>
-
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: opentableau_production
+  username: opentableau
+  password: <%= ENV["<PROJECT_NAME>_DATABASE_PASSWORD"] %>
+
+# production:
+#   <<: *default
+#   url: <%= ENV['DATABASE_URL'] %>

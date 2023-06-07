@@ -39,7 +39,7 @@ class Reservation < ApplicationRecord
         reservation_time: reservation_start_time...reservation_end_time
       )
       
-      if overlapping_reservations.count >= 2
+      if overlapping_reservations.count > 1
         return false
       end
     end
