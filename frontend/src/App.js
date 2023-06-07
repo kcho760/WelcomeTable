@@ -7,6 +7,8 @@ import RestaurantIndexItem from "./components/RestaurantCarousel/restaurant_inde
 import RestaurantShowPage from "./components/RestaurantShowPage/restaurantShowPage";
 import UserProfile from "./components/Profile/profilePage";
 import Confirmation from "./components/Confirmation/Confirmation";
+import SearchIndex from "./components/SearchIndexPage/SearchIndex";
+
 function App() {
   return (
     <Router>
@@ -30,6 +32,8 @@ function App() {
       <Route path="/user/:id" component={UserProfile} />
 
       <Route path="/reservation/:id" component={Confirmation} />
+
+      <Route path="/search/:searchTerm" component={SearchIndex} />
     </Router>
     
   );
