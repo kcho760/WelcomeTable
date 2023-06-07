@@ -35,5 +35,5 @@ class Restaurant < ApplicationRecord
     attribute :photoUrls, :string, array: true, default: []
 
     has_many_attached :photosUrls
-    has_many :reservations
+    has_many :reservations, dependent: :destroy
 end
