@@ -15,10 +15,14 @@ function LoginFormModal() {
     }
   }, [currentUser, showModal]);
 
+  const handleCloseModal = () => {
+    setShowModal(false); // Close the modal when called
+  };
+
   return (
     <div>
       {showModal && (
-        <Modal onClose={closeModal}>
+        <Modal onClose={handleCloseModal}> {/* Pass handleCloseModal as onClose prop */}
           <LoginForm />
         </Modal>
       )}

@@ -121,7 +121,7 @@ const RestaurantShowPage = () => {
         </div>
       </div>
 
-      <div className="reservation-container">
+      <div className="reservation-container-outer">
         <div className="reservation-form-container">
           <ReservationForm restaurant={restaurant} />
         </div>

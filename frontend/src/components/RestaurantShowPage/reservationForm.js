@@ -5,6 +5,7 @@ import format from 'date-fns/format';
 import LoginFormModal from '../LoginFormModal/index';
 import MyComponent from '../RestaurantCarousel/subcomponents/calender';
 import graph from '../RestaurantCarousel/assets/graph.png';
+import './reservationForm.css';
 
 const ReservationForm = ({ restaurant }) => {
   const [date, setDate] = useState(new Date());
@@ -55,7 +56,7 @@ const ReservationForm = ({ restaurant }) => {
     const startDateTime = new Date(selectedDateTime);
     startDateTime.setMinutes(startDateTime.getMinutes() - 30);
     const endDateTime = new Date(selectedDateTime);
-    endDateTime.setMinutes(endDateTime.getMinutes() + 30);
+    endDateTime.setMinutes(endDateTime.getMinutes() + 31);
 
     const reservationsParams = {
       startDateTime: startDateTime.toISOString(),
@@ -85,13 +86,13 @@ const ReservationForm = ({ restaurant }) => {
         party_size: partySize,
       },
     };
+    const createdReservation = dispatch(createReservation(reservationData));
+    // if (createdReservation) {
+    //   const redirectUrl = `/restaurants/${restaurant.id}`;  
+    //   window.location.href = redirectUrl;
   
-    // Dispatch an action to create the reservation
-    dispatch(createReservation(reservationData));
-  
-    // Perform any additional logic or navigation as needed
-    // ...
-  };
+  // };
+};
 
 
 
@@ -159,7 +160,9 @@ const ReservationForm = ({ restaurant }) => {
 
       <img className="graph" src={graph} alt="graph"></img>
       <p className="restaurant-daily-booking">Booked X times today</p>
+
       {showLoginFormModal && <LoginFormModal />}
+
       {availableReservations.length > 0 && (
         <div className="available-reservations">
           <h3>Available Reservations:</h3>

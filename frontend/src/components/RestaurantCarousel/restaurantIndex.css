@@ -249,4 +249,5 @@ CostRating {
 
 .restaurant-reservation-button:hover{
   background-color: #931b23;
+  cursor: pointer;
 }

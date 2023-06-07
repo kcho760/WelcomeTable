@@ -25,7 +25,10 @@ function App() {
       </Route>
 
       <Route path="/restaurants/:id" component={RestaurantShowPage} />
+
+      <Route path="/user/:id" component={UserProfile} />
     </Router>
+    
   );
 }
 

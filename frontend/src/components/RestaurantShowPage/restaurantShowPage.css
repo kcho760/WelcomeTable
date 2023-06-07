@@ -158,9 +158,10 @@
   top: 62.5%;
   right: 8%;
   width: 300px;
-  height: 320px;
+  min-height: 40%;
   background-color: white;
   padding: 20px;
+  padding-bottom: 20px;
   border-radius: 4px;
   border: 1px solid #e2e2e2;
   z-index: 2; /* Increase the z-index to ensure it appears on top of the restaurant info container */
@@ -168,14 +169,17 @@
 
 .additional-info-container {
   position: absolute;
-  top: 120%;
+  top: calc(125% + 20px); /* Adjust the top position to create a spacing of 20px */
   right: 8%;
   width: 300px;
+  margin-top: 30px;
   height: calc(100% - 360px); /* Adjust the height calculation to leave space for the reservation container */
   background-color: white;
-  padding: 20px;
+  padding: 20px 20px 20px 20px; /* Specify padding for all sides individually */
   z-index: 2; /* Increase the z-index to ensure it appears on top of the restaurant info container */
 }
+
+
 
 .additional-info-container h2 {
   font-weight: 550;
