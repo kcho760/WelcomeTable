@@ -29,6 +29,7 @@
 
 .textbox {
   border: none;
+  height: 15px;
 }
 
 .search-button {

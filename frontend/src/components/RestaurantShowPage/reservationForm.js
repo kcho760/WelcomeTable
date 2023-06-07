@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal/index';
 import MyComponent from '../RestaurantCarousel/subcomponents/calender';
 import graph from '../RestaurantCarousel/assets/graph.png';
 import './reservationForm.css';
+import { useHistory } from 'react-router-dom';
 
 const ReservationForm = ({ restaurant }) => {
   const [date, setDate] = useState(new Date());
@@ -16,6 +17,7 @@ const ReservationForm = ({ restaurant }) => {
   const [showLoginFormModal, setShowLoginFormModal] = useState(false);
   const [availableReservations, setAvailableReservations] = useState([]);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const history = useHistory();
 
   const openCalendar = () => {
     setShowCalendar(!showCalendar);
@@ -48,32 +50,42 @@ const ReservationForm = ({ restaurant }) => {
     e.preventDefault();
     const partySize = document.getElementById('party-size').value;
     const time = document.getElementById('time').value;
-
+  
+    const timeParts = time.split(/:| /); // Splitting by colon or space
+    let hour = Number(timeParts[0]);
+    const minute = Number(timeParts[1]);
+  
+    // Handle AM/PM selection
+    if (timeParts[2] === 'PM' && hour !== 12) {
+      hour += 12;
+    } else if (timeParts[2] === 'AM' && hour === 12) {
+      hour = 0;
+    }
+  
     const selectedDateTime = new Date(selectedDate);
-    selectedDateTime.setHours(Number(time.slice(0, 2)));
-    selectedDateTime.setMinutes(Number(time.slice(3, 5)));
-
+    selectedDateTime.setHours(hour);
+    selectedDateTime.setMinutes(minute);
+  
     const startDateTime = new Date(selectedDateTime);
     startDateTime.setMinutes(startDateTime.getMinutes() - 30);
     const endDateTime = new Date(selectedDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 31);
-
+  
     const reservationsParams = {
       startDateTime: startDateTime.toISOString(),
       endDateTime: endDateTime.toISOString(),
       restaurantId: restaurant.id,
       partySize,
     };
-
+  
     if (currentUserId) {
       const fetchedReservations = await dispatch(fetchAvailableReservations(reservationsParams));
       setAvailableReservations(fetchedReservations.availableReservations); // Assuming the fetched reservations are returned in the 'availableReservations' property
     } else {
       setShowLoginFormModal(true);
     }
-    
   };
-
+  
 
   const handleReservationClick = (reservationTime, reservationDate) => {
     const partySize = document.getElementById('party-size').value;
@@ -86,13 +98,12 @@ const ReservationForm = ({ restaurant }) => {
         party_size: partySize,
       },
     };
-    const createdReservation = dispatch(createReservation(reservationData));
-    // if (createdReservation) {
-    //   const redirectUrl = `/restaurants/${restaurant.id}`;  
-    //   window.location.href = redirectUrl;
-  
-  // };
-};
+    dispatch(createReservation(reservationData)).then((data) => {
+      const reservationId = data.reservation.id;
+      history.push(`/reservation/${reservationId}`);
+    });
+  };
+
 
 
 
@@ -175,7 +186,7 @@ const ReservationForm = ({ restaurant }) => {
                   new Date(reservation.reservationTime),
                   selectedDate
                 )
-              }
+          }
             >
               {format(new Date(reservation.reservationTime), 'hh:mm a')}
             </button>

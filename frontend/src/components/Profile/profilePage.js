@@ -1,34 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserReservations } from '../../store/reservation';
+import { retrieveRestaurant } from '../../store/restaurant';
 import './profilePage.css';
+import UpcomingReservations from "./subcomponents/UpcomingReservations";
+import PastReservations from "./subcomponents/PastReservations";
 
 const UserProfile = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const userReservations = useSelector(state => state.reservation.userReservations);
+  const restaurants = useSelector(state => state.restaurant);
+  const [showUpcomingReservations, setShowUpcomingReservations] = useState(true);
+  const [showPastReservations, setShowPastReservations] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserReservations(user.id));
   }, [dispatch, user.id]);
 
-  console.log(userReservations)
+  useEffect(() => {
+    if (userReservations && userReservations.reservations) {
+      userReservations.reservations.forEach(reservation => {
+        dispatch(retrieveRestaurant(reservation.restaurant_id));
+      });
+    }
+  }, [dispatch, userReservations]);
+
+  const getRestaurantName = (restaurantId) => {
+    const restaurant = restaurants[restaurantId];
+    return restaurant ? restaurant.name : 'Unknown';
+  };
+
+  const handleShowUpcomingReservations = () => {
+    setShowUpcomingReservations(true);
+    setShowPastReservations(false);
+  };
+
+  const handleShowPastReservations = () => {
+    setShowUpcomingReservations(false);
+    setShowPastReservations(true);
+  };
+
   return (
     <div>
-      <h2>User Profile</h2>
-      <p>ID: {user.id}</p>
-      <p>Name: {user.username}</p>
-      <p>Email: {user.email}</p>
+      <div>
+        <h1>{user.username}</h1>
+      </div>
+      <div className="profile-nav-bar">
+        <button onClick={handleShowUpcomingReservations}>Upcoming Reservations</button>
+        <button onClick={handleShowPastReservations}>Past Reservations</button>
+        {/* Add other navigation links as needed */}
+      </div>
 
-      <h3>Reservations:</h3>
-      {userReservations && userReservations.reservations.map(reservation => (
-        <div className="user-reservation" key={reservation.id}>
-            <p>Reservation ID: {reservation.id}</p>
-            <p>Restaurant ID: {reservation.restaurant_id}</p>
-            <p>Number of Guests: {reservation.party_size}</p>
-            <p>Date: {reservation.reservation_date}</p>
-        </div>
-        ))}
+      {showUpcomingReservations && (
+        <UpcomingReservations
+          userReservations={userReservations}
+          getRestaurantName={getRestaurantName}
+        />
+      )}
+
+      {showPastReservations && (
+        <PastReservations
+          userReservations={userReservations}
+          getRestaurantName={getRestaurantName}
+        />
+      )}
     </div>
   );
 };

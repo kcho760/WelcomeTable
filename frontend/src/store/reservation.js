@@ -76,6 +76,9 @@ const FETCH_USER_RESERVATIONS = 'reservation/FETCH_USER_RESERVATIONS'
                 type: CREATE_RESERVATION,
                 reservation
             });
+            return reservation;
+        }else{
+            throw res;
         }
     };
 

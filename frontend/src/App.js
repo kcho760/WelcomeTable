@@ -6,6 +6,7 @@ import Carousel from "./components/RestaurantCarousel/restaurant_index";
 import RestaurantIndexItem from "./components/RestaurantCarousel/restaurant_index_item";
 import RestaurantShowPage from "./components/RestaurantShowPage/restaurantShowPage";
 import UserProfile from "./components/Profile/profilePage";
+import Confirmation from "./components/Confirmation/Confirmation";
 function App() {
   return (
     <Router>
@@ -27,6 +28,8 @@ function App() {
       <Route path="/restaurants/:id" component={RestaurantShowPage} />
 
       <Route path="/user/:id" component={UserProfile} />
+
+      <Route path="/reservation/:id" component={Confirmation} />
     </Router>
     
   );

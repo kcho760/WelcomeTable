@@ -6,6 +6,7 @@ import { Calendar } from 'react-date-range';
 
 const MyComponent = ({ selectedDate, setSelectedDate, setShowCalendar }) => {
   const calendarRef = useRef(null);
+  const minDate = new Date(); // Set the minimum date to the current date
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,6 +33,7 @@ const MyComponent = ({ selectedDate, setSelectedDate, setShowCalendar }) => {
         className="calendar"
         date={selectedDate}
         onChange={handleSelect}
+        minDate={minDate}
         highlight={{
           startDate: selectedDate,
           endDate: selectedDate,
