@@ -1,28 +1,28 @@
-# README
+## OpenTableau
+[OpenTableau](https://opentableau.onrender.com)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+OpenTableau is a clone which seeks to replicate the search, reservation and review functionality of Opentable.
 
-Things you may want to cover:
+## Main Features
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ OpenTableau allows users to search for restaurants by cuisine and name, and browse through their pages. If a user would like to make a reservation, they can do so using the reservation form on the right of the show page. Once a reservation is created, the user is taken to a confirmation page which allows them to make updates to their reservation. 
+ 
+ They can also head to their profile page which will show all of their previous and upcoming reservations. Users can update and cancel their upcoming reservations and can leave a review for ones that have passed inside the past reservations tab.
 
 
-links
-<!-- <a target="_blank" href="https://icons8.com/icon/26138/next-page">Next page</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+## Technologies, Libraries
+
+-React
+-Ruby on Rails
+-Postgresql
+-Render
+-AWS S3
+-Node Package Manager
+
+## Upcoming Features
+
+-Reviews
+-Google Maps integration
+-More functionality on search (cities, categories)
+-News articles
+-Reward Points

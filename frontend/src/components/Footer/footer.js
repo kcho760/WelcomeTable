@@ -1,11 +1,12 @@
 import React from "react";
+import "./footer.css";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="footer">
       <div className="footer-content">
-        <p>© 2023 Your Website. All rights reserved.</p>
-        <p>FOOTER PLACEHOLDER</p>
+        <p>© 2023 OpenTableau. All rights reserved.</p>
+        <p>Made by Kevin Cho</p>
       </div>
     </footer>
   );

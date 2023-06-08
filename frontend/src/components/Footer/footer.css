@@ -1,0 +1,27 @@
+.footer {
+  background-color:#1a274f;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: fixed;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh; /* Make the footer content at least the height of the viewport */
+}
+
+.footer p {
+  margin: 5px;
+  font-size: 14px;
+  color: #888;
+}
+
+.footer p:first-child {
+  margin-bottom: 10px;
+}
+
+.footer p:last-child {
+  margin-top: 10px;
+}

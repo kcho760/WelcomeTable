@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-
+  
   namespace :api, defaults: { format: :json } do
-    get 'search/:search_term', to: 'search#search'
-    get 'cuisines', to: 'search#index'  # Add this line for fetching all cuisines
+    get 'search/:search_term', to: 'searches#search'
+    get 'cuisines', to: 'searches#index'  # Add this line for fetching all cuisines
     post 'users/check_email', to: 'users#check_email'
     resources :users, only: :create do
       resources :reservations, only: :index
@@ -19,5 +19,6 @@ Rails.application.routes.draw do
       end
     end  
   end
+  resources :search, only: [:index]
   get '*path', to: "static_pages#frontend_index"
 end

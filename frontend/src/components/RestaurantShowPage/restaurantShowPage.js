@@ -7,6 +7,7 @@ import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
 import AverageRating from "../RestaurantCarousel/subcomponents/average_rating";
 import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 import ReservationForm from "./reservationForm";
+import Footer from "../Footer/footer";
 
 
 const RestaurantShowPage = () => {
@@ -31,7 +32,8 @@ const RestaurantShowPage = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
+      <div className="content">
       <div className="banner-image-container">
         <img className="banner-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
       </div>
@@ -113,7 +115,7 @@ const RestaurantShowPage = () => {
         {/* Fake content for testing scrolling */}
         {[...Array(30)].map((_, index) => (
           <div key={index}>FAKE FAKE FAKE</div>
-        ))}
+          ))}
 
         <div id="reviews">
           <h1>Reviews</h1>
@@ -127,49 +129,50 @@ const RestaurantShowPage = () => {
         </div>
       </div>
     <div className="additional-info-container">
-  <h1>Additional Info</h1>
-  <div>
-    <h2>Cross Street</h2>
-    <p>{restaurant.crossStreet}</p>
-  </div>
-  <div>
-    <h2>Hours of Operation</h2>
-    <p>{restaurant.hoursOfOperation}</p>
-  </div>
-  <div>
-    <h2>Cuisines</h2>
-    <p>{restaurant.cuisine}</p>
-  </div>
-  <div>
-    <h2>Dining Style</h2>
-    <p>{restaurant.diningStyle}</p>
-  </div>
-  <div>
-    <h2>Dress Code</h2>
-    <p>{restaurant.dressCode}</p>
-  </div>
-  <div>
-    <h2>Parking Details</h2>
-    <p>{restaurant.parkingDetails}</p>
-  </div>
-  <div>
-    <h2>Public Transit</h2>
-    <p>{restaurant.publicTransit}</p>
-  </div>
-  <div>
-    <h2>Payment Options</h2>
-    <p>{restaurant.paymentOptions}</p>
-  </div>
-  <div>
-    <h2>Website</h2>
-    <p><a href={restaurant.website}>{restaurant.website}</a></p>
-  </div>
-  <div>
-    <h2>Phone Number</h2>
-    <p>{restaurant.phone}</p>
-  </div>
-</div>
-
+      <h1>Additional Info</h1>
+        <div>
+          <h2>Cross Street</h2>
+          <p>{restaurant.crossStreet}</p>
+        </div>
+        <div>
+          <h2>Hours of Operation</h2>
+          <p>{restaurant.hoursOfOperation}</p>
+        </div>
+        <div>
+          <h2>Cuisines</h2>
+          <p>{restaurant.cuisine}</p>
+        </div>
+        <div>
+          <h2>Dining Style</h2>
+          <p>{restaurant.diningStyle}</p>
+        </div>
+        <div>
+          <h2>Dress Code</h2>
+          <p>{restaurant.dressCode}</p>
+        </div>
+        <div>
+          <h2>Parking Details</h2>
+          <p>{restaurant.parkingDetails}</p>
+        </div>
+        <div>
+          <h2>Public Transit</h2>
+          <p>{restaurant.publicTransit}</p>
+        </div>
+        <div>
+          <h2>Payment Options</h2>
+          <p>{restaurant.paymentOptions}</p>
+        </div>
+        <div>
+          <h2>Website</h2>
+          <p><a href={restaurant.website}>{restaurant.website}</a></p>
+        </div>
+        <div>
+          <h2>Phone Number</h2>
+          <p>{restaurant.phone}</p>
+        </div>
+      </div>
+      <Footer />
+      </div>
     </div>
   );
 };

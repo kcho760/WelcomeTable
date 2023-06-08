@@ -34,9 +34,12 @@ function App() {
         <div style={{ width: "100%" }}>
           <Carousel slides={RestaurantIndexItem}/>
         </div>
+      <Footer />
       </Route>
 
-      <Route path="/restaurants/:id" component={RestaurantShowPage} />
+      <Route path="/restaurants/:id" >
+        <RestaurantShowPage />
+      </Route>
 
       <Route path="/user/:id" component={UserProfile} />
 
@@ -44,7 +47,6 @@ function App() {
 
       <Route path="/search/:searchTerm" component={SearchIndex} />
 
-      <Footer />
     </Router>
     
   );

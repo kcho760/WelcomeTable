@@ -10,15 +10,14 @@
 }
 
 .restaurant-info-container {
-  position: absolute;
-  width: calc(55% - 100px); /* Adjust the width calculation to leave space for the reservation container */
-  height: 100%; /* Set the height to 100% to occupy the entire available height */
-  top: 59.5%;
-  left: 10%;
+  width: calc(55% - 100px);
+  margin-top: auto;
+  margin-bottom: 20px;
   color: black;
   padding: 20px;
   z-index: 1;
 }
+
 
 .banner-image {
   height: auto;
@@ -290,4 +289,19 @@ select {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* You can add additional styling for the modal content as needed */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  display: block;
+  background-color: #1a274f;
+  padding: 20px;
+  text-align: center;
+}

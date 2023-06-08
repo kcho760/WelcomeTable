@@ -16,10 +16,12 @@ const fetchAllCuisines = (cuisines) => ({
 export const getSearchResults = (searchTerm) => async (dispatch) => {
     const res = await csrfFetch(`/api/search/${searchTerm}`);
     if (res.ok) {
-        const search = await res.json();
-        dispatch(fetchSearch(search));
+      const search = await res.json();
+      dispatch(fetchSearch(search));
     }
-};
+  };
+  
+  
 
 export const getAllCuisines = () => async (dispatch) => {
   try {
