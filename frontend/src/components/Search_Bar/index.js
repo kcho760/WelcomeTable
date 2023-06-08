@@ -12,10 +12,7 @@ function SearchBar() {
   const cuisines = useSelector((state) => state.search.cuisines);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllCuisines());
-  }, [dispatch]);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     history.push(`/search/${searchTerm}`);
@@ -26,16 +23,21 @@ function SearchBar() {
     setSearchTerm(value);
     setShowSuggestions(true);
   };
-
+  
   const handleInputClick = () => {
     console.log(cuisines)
     setShowSuggestions(true);
   };
+  
+  useEffect(() => {
+    dispatch(getAllCuisines());
+  }, [dispatch]);
 
   const handleSuggestionClick = (suggestion) => {
     setSearchTerm(suggestion);
     setShowSuggestions(false);
   };
+
 
   return (
     <div className="search-container">
@@ -51,24 +53,21 @@ function SearchBar() {
               onChange={handleInputChange}
               onClick={handleInputClick}
             />
-            {showSuggestions && (
+            {showSuggestions && cuisines.length > 0 && (
               <ul className="suggestions-list">
-                {cuisines
-                  .filter((cuisine) =>
-                    cuisine.toLowerCase().includes(searchTerm.toLowerCase())
-                  )
-                  .map((cuisine) => (
-                    <li
-                      key={cuisine}
-                      className="suggestion"
-                      onClick={() => handleSuggestionClick(cuisine)}
-                    >
-                      {cuisine}
-                    </li>
-                  ))}
+                {cuisines.map((cuisine) => (
+                  <li
+                    key={cuisine}
+                    className="suggestion"
+                    onClick={() => handleSuggestionClick(cuisine)}
+                  >
+                    {cuisine}
+                  </li>
+                ))}
               </ul>
             )}
           </div>
+  
           <button className="search-button" type="submit">
             Let's Go
           </button>
@@ -77,5 +76,6 @@ function SearchBar() {
     </div>
   );
 }
+  
 
 export default SearchBar;

@@ -65,9 +65,15 @@ function SignupFormPage({ email, closeModal }) {
       }));
     }
   };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains("modal")) {
+      closeModal();
+    }
+  };
   
   return (
-    <div className="modal">
+    <div className="modal" onClick={handleOutsideClick}>
       <div className="modal-content SignupFormPage">
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>

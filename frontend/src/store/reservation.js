@@ -23,7 +23,7 @@ const FETCH_USER_RESERVATIONS = 'reservation/FETCH_USER_RESERVATIONS'
             });
         }
     };
-    
+
     export const fetchUserReservations = (userId) => async (dispatch) => {
         const res = await csrfFetch(`/api/users/${userId}/reservations`, {
           headers: {

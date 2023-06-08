@@ -6,6 +6,7 @@ import { getSearchResults } from '../../store/search';
 
 function SearchIndex() {
   const { searchTerm } = useParams();
+  console.log(searchTerm);
   const dispatch = useDispatch();
 
   useEffect(() => {

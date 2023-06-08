@@ -8,6 +8,7 @@ import RestaurantShowPage from "./components/RestaurantShowPage/restaurantShowPa
 import UserProfile from "./components/Profile/profilePage";
 import Confirmation from "./components/Confirmation/Confirmation";
 import SearchIndex from "./components/SearchIndexPage/SearchIndex";
+import Footer from "./components/Footer/footer";
 
 function App() {
   return (
@@ -19,11 +20,19 @@ function App() {
         <SearchBar />
         <div style={{ width: "100%" }}>
           <p className="category">First Category</p>
-          <Carousel slides={RestaurantIndexItem} randomize={true} />
+          <Carousel slides={RestaurantIndexItem}/>
         </div>
         <p className="category">Second Category</p>
         <div style={{ width: "100%" }}>
-          <Carousel slides={RestaurantIndexItem} randomize={true} />
+          <Carousel slides={RestaurantIndexItem}/>
+        </div>
+        <p className="category">Third Category</p>
+        <div style={{ width: "100%" }}>
+          <Carousel slides={RestaurantIndexItem}/>
+        </div>
+        <p className="category">Fourth Category</p>
+        <div style={{ width: "100%" }}>
+          <Carousel slides={RestaurantIndexItem}/>
         </div>
       </Route>
 
@@ -34,6 +43,8 @@ function App() {
       <Route path="/reservation/:id" component={Confirmation} />
 
       <Route path="/search/:searchTerm" component={SearchIndex} />
+
+      <Footer />
     </Router>
     
   );

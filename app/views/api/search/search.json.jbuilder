@@ -1,1 +1,1 @@
-# json.results @restaurants, :id, :name, :cuisine, :address, :city, :price, :food_rating, :service_rating, :ambience_rating, :value_rating, :photoUrls
+json.results @restaurants, :id, :name, :cuisine, :address, :city, :price, :food_rating, :service_rating, :ambience_rating, :value_rating, :photoUrls

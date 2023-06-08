@@ -74,15 +74,12 @@ class Api::ReservationsController < ApplicationController
   end
 
   def update
-    if @reservation.user_id == current_user.id
+    @reservation = Reservation.find(params[:id])
       if @reservation.update(reservation_params)
-        render json: { message: 'Reservation updated successfully' }
+        render json: { reservation: @reservation }
       else
         render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
       end
-    else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
-    end
   end
 
   def destroy
