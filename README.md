@@ -4,7 +4,7 @@
 OpenTableau is a clone which seeks to replicate the search, reservation and review functionality of Opentable.
 
 # Splash Page
-![Alt Text](https://github.com/kcho760/Finish-that-lyric/blob/main/dist/pictures/homescreen.png?raw=true)
+![Alt Text](https://github.com/kcho760/OpenTableau/blob/main/frontend/src/assets/splash-page.png)
 
 ## Main Features
 
