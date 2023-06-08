@@ -17,7 +17,7 @@ export const retrieveRestaurant = (id) => async (dispatch) => {
       restaurant
     });
   }
-};//maybe create action 
+};
 
 export const retrieveRestaurants = () => async (dispatch) => {
   const res = await csrfFetch('/api/restaurants', {

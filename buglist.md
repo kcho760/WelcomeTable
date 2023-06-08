@@ -6,6 +6,7 @@ randomize carousel
 refactor and split up showpage code
 calender highlighted date not changing
 reservations validations not 100%
+on confirmation page refresh, loses state of reservation
 
 features:
 footer

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { fetchUserReservations } from '../../store/reservation';
 import { retrieveRestaurant } from '../../store/restaurant';
 import './profilePage.css';
@@ -13,10 +14,16 @@ const UserProfile = () => {
   const restaurants = useSelector(state => state.restaurant);
   const [showUpcomingReservations, setShowUpcomingReservations] = useState(true);
   const [showPastReservations, setShowPastReservations] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchUserReservations(user.id));
-  }, [dispatch, user.id]);
+    if (!user) {
+      // User not found, redirect to home page
+      history.push("/");
+    } else {
+      dispatch(fetchUserReservations(user.id));
+    }
+  }, [dispatch, history, user]);
 
   useEffect(() => {
     if (userReservations && userReservations.reservations) {
@@ -40,6 +47,11 @@ const UserProfile = () => {
     setShowUpcomingReservations(false);
     setShowPastReservations(true);
   };
+
+  if (!user) {
+    // User not found, already redirected to home page
+    return null;
+  }
 
   return (
     <div>

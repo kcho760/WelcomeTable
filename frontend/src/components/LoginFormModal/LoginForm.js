@@ -13,6 +13,7 @@ function LoginForm() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const user = useSelector((state) => state.session.user);
+
   useEffect(() => {
     if (user) {
       setShowPasswordPrompt(false);
@@ -77,21 +78,23 @@ function LoginForm() {
 
   return (
     <div className="login-form">
-      <form onSubmit={handleSubmit}>
-        <ul className="email-check-error">
-          {errors.map((error, index) => (
-            <li key={index}>{error}</li>
-          ))}
-        </ul>
-        <div className="input-container">
-          <label>
-            <span>Email</span>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+      {!showPasswordPrompt && !user && (
+        <form onSubmit={handleSubmit}>
+          <ul className="email-check-error">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+          <div className="input-container">
+            <label>
+              <span>Email</span>
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
             <button type="submit" className="submit-button">
               Continue
             </button>
@@ -102,9 +105,9 @@ function LoginForm() {
             >
               Demo Login
             </button>
-          </label>
-        </div>
-      </form>
+          </div>
+        </form>
+      )}
       {showPasswordPrompt && !user && (
         <form onSubmit={handlePasswordSubmit}>
           {passwordError && <p className="password-error">{passwordError}</p>}

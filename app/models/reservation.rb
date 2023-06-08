@@ -24,8 +24,8 @@ class Reservation < ApplicationRecord
     belongs_to :restaurant
 
     private
-
-    def validate_reservation_limit
+    #checks if selected reservation button is validated
+    def validate_reservation_limit 
       buffer_time = 15.minutes
       reservation_start_time = reservation_time - buffer_time
       reservation_end_time = reservation_time + 30.minutes
@@ -35,16 +35,20 @@ class Reservation < ApplicationRecord
         reservation_end_time = reservation_end_time.change(min: 0)
       end
     
-      overlapping_reservations = restaurant.reservations.where(
+      overlapping_reservations = self.restaurant.reservations.where(
         reservation_time: reservation_start_time...reservation_end_time
       )
-      
+    
       if overlapping_reservations.count > 1
+        return false
+      end
+    
+      if reservation_start_time < Time.parse('10:30 AM') || reservation_end_time > Time.parse('11:00 PM')
         return false
       end
     end
     
-      
+    
     
 end
 # else return available

@@ -18,6 +18,9 @@ const ReservationForm = ({ restaurant }) => {
   const [availableReservations, setAvailableReservations] = useState([]);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const history = useHistory();
+  const [partySizeError, setPartySizeError] = useState('');
+  const [timeError, setTimeError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const openCalendar = () => {
     setShowCalendar(!showCalendar);
@@ -50,74 +53,99 @@ const ReservationForm = ({ restaurant }) => {
     e.preventDefault();
     const partySize = document.getElementById('party-size').value;
     const time = document.getElementById('time').value;
-  
+    setPartySizeError('');
+    setTimeError('');
+
+    if (!partySize && !time) {
+      setPartySizeError('Please select a party size.');
+      setTimeError('Please select a time.');
+      return;
+    }
+
+    // Validate party size
+    if (partySize === '') {
+      setPartySizeError('Please select a party size.');
+      return;
+    }
+
+    // Validate time
+    if (time === '') {
+      setTimeError('Please select a time.');
+      return;
+    }
+
+    // Clear any previous errors
+
     const timeParts = time.split(/:| /); // Splitting by colon or space
     let hour = Number(timeParts[0]);
     const minute = Number(timeParts[1]);
-  
+
     // Handle AM/PM selection
     if (timeParts[2] === 'PM' && hour !== 12) {
       hour += 12;
     } else if (timeParts[2] === 'AM' && hour === 12) {
       hour = 0;
     }
-  
+
     const selectedDateTime = new Date(selectedDate);
     selectedDateTime.setHours(hour);
     selectedDateTime.setMinutes(minute);
-  
+
     const startDateTime = new Date(selectedDateTime);
     startDateTime.setMinutes(startDateTime.getMinutes() - 30);
     const endDateTime = new Date(selectedDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 31);
-  
+
     const reservationsParams = {
       startDateTime: startDateTime.toISOString(),
       endDateTime: endDateTime.toISOString(),
       restaurantId: restaurant.id,
       partySize,
     };
-  
+
     if (currentUserId) {
-      const fetchedReservations = await dispatch(fetchAvailableReservations(reservationsParams));
-      setAvailableReservations(fetchedReservations.availableReservations); // Assuming the fetched reservations are returned in the 'availableReservations' property
+      try {
+        const fetchedReservations = await dispatch(fetchAvailableReservations(reservationsParams));
+        setAvailableReservations(fetchedReservations.availableReservations);
+      } catch (error) {
+        setErrorMessage('Error fetching available reservations. Please try again.'); // Set the error message
+        setAvailableReservations([]); // Clear the available reservations
+      }
     } else {
       setShowLoginFormModal(true);
     }
+    
   };
-  
 
   const handleReservationClick = (reservationTime, reservationDate) => {
     const partySize = document.getElementById('party-size').value;
+  
+    // Add one day and one hour to the reservation time
+    const modifiedReservationTime = new Date(reservationTime);
+    modifiedReservationTime.setDate(reservationTime.getDate() + 1);
+    modifiedReservationTime.setHours(reservationTime.getHours() + 1);
+  
     const reservationData = {
       reservation: {
-        reservation_time: reservationTime.toISOString(),
-        reservation_date: reservationDate.toISOString(),
+        reservation_time: modifiedReservationTime.toISOString(),
+        reservation_date: modifiedReservationTime.toISOString(),
         restaurant_id: restaurant.id,
         user_id: currentUserId,
         party_size: partySize,
       },
     };
+  
     dispatch(createReservation(reservationData)).then((data) => {
       const reservationId = data.reservation.id;
       history.push(`/reservation/${reservationId}`);
     });
   };
 
-
-
-
-  // const isReservationAvailable = (reservationTime) => {
-  //   return availableReservations.some((reservation) => {
-  //     const reservationTimeValue = new Date(reservation.reservation_time).getTime();
-  //     const requestedTimeValue = new Date(reservationTime).getTime();
-  //     return reservationTimeValue === requestedTimeValue;
-  //   });
-  // };
-
   return (
     <div className="reservations-container">
       <h2>Reservations</h2>
+      {partySizeError && <p className="error-message">{partySizeError}</p>}
+      {timeError && <p className="error-message">{timeError}</p>}
       <form>
         <div className="party-size">
           <label>Party Size:</label>
@@ -166,10 +194,9 @@ const ReservationForm = ({ restaurant }) => {
         <button className="find-reservation-button" onClick={handleSubmit}>
           Find Reservation
         </button>
-
       </form>
 
-      <img className="graph" src={graph} alt="graph"></img>
+      <img className="graph" src={graph} alt="graph" />
       <p className="restaurant-daily-booking">Booked X times today</p>
 
       {showLoginFormModal && <LoginFormModal />}
@@ -177,7 +204,17 @@ const ReservationForm = ({ restaurant }) => {
       {availableReservations.length > 0 && (
         <div className="available-reservations">
           <h3>Available Reservations:</h3>
-          {availableReservations.map((reservation, index) => (
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {availableReservations
+          .filter((reservation) => {
+            const reservationTime = new Date(reservation.reservationTime);
+            const reservationHour = reservationTime.getHours();
+            const reservationMinute = reservationTime.getMinutes();
+            const isAfter1030AM = reservationHour > 10 || (reservationHour === 10 && reservationMinute >= 30);
+            const isBefore11PM = reservationHour <= 23 || (reservationHour === 23 && reservationMinute === 0);
+            return isAfter1030AM && isBefore11PM;
+          })
+          .map((reservation, index) => (
             <button
               key={index}
               className="reservation-button"
@@ -186,7 +223,7 @@ const ReservationForm = ({ restaurant }) => {
                   new Date(reservation.reservationTime),
                   selectedDate
                 )
-          }
+              }
             >
               {format(new Date(reservation.reservationTime), 'hh:mm a')}
             </button>
