@@ -100,24 +100,28 @@
 
 .nav-button-left {
   position: absolute;
-  background-color: transparent;
-  border: none;
+  background-color: white;
+  font-size: 22px;
+  border: 2px solid black;
+  border-radius: 100%;
   align-self: center;
   z-index: 1;
   left: 2%; 
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 
 .nav-button-right {
   position: absolute;
-  background-color: transparent;
-  border: none;
+  background-color: white;
+  font-size: 22px;
+  border: 2px solid black;
+  border-radius: 100%;
   align-self: center;
   z-index: 1;
-  right: 2%;
-  width: 50px;
-  height: 50px; 
+  right: 2%; 
+  width: 30px;
+  height: 30px;
 }
 
 .category {

@@ -56,9 +56,9 @@ const Carousel = () => {
   return (
     <div className="carousel_wrap">
       <div className="carousel_inner">
-        <button className="nav-button-left" onClick={goToPrevSlide}>
-          <img src={back} alt="Previous" />
-        </button>
+      <button className="nav-button-left" onClick={goToPrevSlide}>
+        {"<"}
+      </button>
         <div className="carousel_container">
           <ul className="carousel_slide-list" style={slideStyles}>
             {restaurants.map((restaurant) => (
@@ -71,7 +71,7 @@ const Carousel = () => {
           </ul>
         </div>
         <button className="nav-button-right" onClick={goToNextSlide}>
-          <img src={next} alt="Next" />
+          {">"}
         </button>
       </div>
     </div>
