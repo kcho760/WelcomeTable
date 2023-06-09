@@ -6,6 +6,7 @@ import { retrieveRestaurant } from '../../store/restaurant';
 import './profilePage.css';
 import UpcomingReservations from "./subcomponents/UpcomingReservations";
 import PastReservations from "./subcomponents/PastReservations";
+import Footer from "../Footer/footer";
 
 const UserProfile = () => {
   const user = useSelector(state => state.session.user);
@@ -101,6 +102,7 @@ const UserProfile = () => {
         </div>
         
       </div>
+      <Footer />
     </div>
   );
 }

@@ -92,7 +92,6 @@ const Confirmation = () => {
           </div>
 
           <div className='confirmation-buttons-container'>
-            <button className='confirmation-buttons' onClick={handleUpdateReservation}>Update Reservation</button>
             <button className='confirmation-buttons' onClick={handleManageReservations}>Manage Reservations</button>
           </div>
 
