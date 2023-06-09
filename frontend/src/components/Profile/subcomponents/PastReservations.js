@@ -18,20 +18,28 @@ const PastReservations = ({ userReservations, getRestaurantName, handleLeaveRevi
     return date.toLocaleDateString('en-US', options);
   };
 
+  const currentTime = new Date(); // Get the current time
+
   return (
     <>
       <h3 id="past-reservations">Past Reservations:</h3>
       {userReservations &&
         userReservations.reservations
-          .filter((reservation) => new Date(reservation.reservation_date) < new Date())
+          .filter((reservation) => {
+            const reservationTime = new Date(reservation.reservation_date + ' ' + reservation.reservation_time);
+            return reservationTime < currentTime; // Filter out reservations with time before the current time
+          })
           .map((reservation) => (
             <div className="user-reservation" key={reservation.id}>
-              <p>Restaurant Name: {getRestaurantName(reservation.restaurant_id)}</p>
-              <p>Number of Guests: {reservation.party_size}</p>
-              <p>Date: {formatDate(reservation.reservation_date)}</p>
-              <p>Time: {formatTime(reservation.reservation_time)}</p>
-              {/* Placeholder button for leaving a review */}
-              <button onClick={() => handleLeaveReview(reservation.id)}>Leave a Review</button>
+              <div>
+                <p>Restaurant Name: {getRestaurantName(reservation.restaurant_id)}</p>
+                <p>Number of Guests: {reservation.party_size}</p>
+                <p>Date: {formatDate(reservation.reservation_date)}</p>
+                <p>Time: {formatTime(reservation.reservation_time)}</p>
+              </div>
+              <div>
+                <button className='profile-reservation-buttons' onClick={() => handleLeaveReview(reservation.id)}>Leave a Review</button>
+              </div>
             </div>
           ))}
     </>

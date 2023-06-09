@@ -1,10 +1,11 @@
-// UpcomingReservations.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteReservation, fetchUserReservations } from '../../../store/reservation';
 import UpdateReservation from "./updateReservation";
+import guestCount from '../../../assets/guest-count.png';
+import calendar from '../../../assets/calendar.png';
 
-const UpcomingReservations = ({ getRestaurantName }) => {
+const UpcomingReservations = ({ getRestaurant }) => {
   const dispatch = useDispatch();
   const userReservations = useSelector((state) => state.reservation.userReservations);
   const user = useSelector((state) => state.session.user);
@@ -34,12 +35,11 @@ const UpcomingReservations = ({ getRestaurantName }) => {
 
   const currentDate = new Date();
 
-  const upcomingReservations =
-    userReservations &&
-    userReservations.reservations.filter((reservation) => {
-      const reservationDate = new Date(reservation.reservation_date);
-      return reservationDate >= currentDate;
-    });
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserReservations(user.id));
+    }
+  }, [dispatch, user]);
 
   const handleDeleteReservation = async (reservationId) => {
     await dispatch(deleteReservation(reservationId));
@@ -54,32 +54,41 @@ const UpcomingReservations = ({ getRestaurantName }) => {
     setSelectedReservation(null);
   };
 
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchUserReservations(user.id));
-    }
-  }, [dispatch, user]);
-
-  
-
   return (
     <>
-      <h3 id="upcoming-reservations">Upcoming Reservations:</h3>
-      {upcomingReservations &&
-        upcomingReservations.map((reservation) => (
-          <div className="user-reservation" key={reservation.id}>
-            <p>Restaurant Name: {getRestaurantName(reservation.restaurant_id)}</p>
-            <p>Number of Guests: {reservation.party_size}</p>
-            <p>{formatDateString(reservation.reservation_date)}</p>
-            <p>{formatTime(reservation.reservation_time)}</p>
-            <button onClick={() => openUpdateMenu(reservation)}>Update Reservation</button>
-            <button onClick={() => handleDeleteReservation(reservation.id)}>Delete Reservation</button>
+      {userReservations && userReservations.reservations && userReservations.reservations.length > 0 ? (
+        userReservations.reservations.map((reservation) => {
+          const restaurant = getRestaurant(reservation.restaurant_id);
+          console.log(restaurant)
+          return (
+            <div className="user-reservation" key={reservation.id}>
+            <div className="profile-reservation-wrapper">
+                <img className='profile-reservation-image' src={restaurant.photoUrls[0]} alt='restaurant' />
+              <div className="profile-reservation-info">
+                <p>{restaurant ? restaurant.name : 'Unknown'}</p>
+                <div className='guest-count'>
+                  <img className='num-of-guests-icon' src={guestCount} alt='num-of-guests-icon' />
+                  <p>{reservation.party_size}</p>
+                </div>
+
+                <div className='profile-date'>
+                  <img className='calendar-icon' src={calendar} alt='calendar-icon' />
+                  <p>{formatDateString(reservation.reservation_date)}</p>
+                </div>
+                <p>{formatTime(reservation.reservation_time)}</p>
+              </div>
+            </div>
+            <button className='profile-reservation-buttons' onClick={() => openUpdateMenu(reservation)}>Update Reservation</button>
+            <button className='profile-reservation-buttons' onClick={() => handleDeleteReservation(reservation.id)}>Delete Reservation</button>
           </div>
-        ))}
+          );
+        })
+      ) : (
+        <p>No upcoming reservations found.</p>
+      )}
 
       {selectedReservation && (
         <UpdateReservation reservation={selectedReservation} onCancel={handleCancelUpdate} setUpdatedReservation={setUpdatedReservation} />
-
       )}
     </>
   );

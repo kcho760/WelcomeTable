@@ -135,10 +135,16 @@ const ReservationForm = ({ restaurant }) => {
       },
     };
   
-    dispatch(createReservation(reservationData)).then((data) => {
-      const reservationId = data.reservation.id;
-      history.push(`/reservation/${reservationId}`);
-    });
+dispatch(createReservation(reservationData))
+  .then((data) => {
+    const reservationId = data.reservation.id;
+    history.push(`/reservation/${reservationId}`);
+  })
+  .catch((error) => {
+    console.error('Reservation Error:', error);
+    // Display an error message to the user or handle the error as needed
+  });
+
   };
 
   return (

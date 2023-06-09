@@ -50,15 +50,15 @@ class Api::ReservationsController < ApplicationController
     # Iterate over each 15-minute interval
     current_datetime = start_datetime
     while current_datetime < end_datetime
-      # Check availability for the current interval using the helper method
+      # Check availability for the modified current interval using the helper method
       if validate_reservation_limit(current_datetime, restaurant)
         # If the current interval is available, add it to the available reservations array
         available_reservations << { reservationTime: current_datetime }
       end
-  
+    
       # Move to the next 15-minute interval
       current_datetime += 15.minutes
-  
+    
       # Handle minutes exceeding 59
       if current_datetime.min >= 60
         current_datetime += 1.hour

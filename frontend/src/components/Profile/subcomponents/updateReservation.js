@@ -8,7 +8,11 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
   const dispatch = useDispatch();
 
   const [updatedPartySize, setUpdatedPartySize] = useState(reservation.party_size);
-  const [updatedDate, setUpdatedDate] = useState(reservation.reservation_date);
+  const [updatedDate, setUpdatedDate] = useState(() => {
+    const presetDate = new Date(reservation.reservation_date);
+    presetDate.setDate(presetDate.getDate());
+    return format(presetDate, 'yyyy-MM-dd');
+  });
   const [updatedTime, setUpdatedTime] = useState(reservation.reservation_time);
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -41,9 +45,14 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+  
+    // Add one day to the updatedDate
+    const updatedDateWithOneDayAdded = new Date(updatedDate);
+    updatedDateWithOneDayAdded.setDate(updatedDateWithOneDayAdded.getDate() + 1);
+  
     const updatedReservationData = {
       party_size: updatedPartySize,
-      reservation_date: updatedDate,
+      reservation_date: format(updatedDateWithOneDayAdded, 'yyyy-MM-dd'),
       reservation_time: updatedTime,
     };
   
@@ -51,6 +60,8 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
     setUpdatedReservation(updatedReservation);
     onCancel();
   };
+  
+  
   
 
   return (
@@ -109,8 +120,8 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
         </select>
       </div>
 
-      <button type="submit">Update Reservation</button>
-      <button type="button" onClick={onCancel}>Cancel</button>
+      <button className='profile-reservation-buttons' type="submit">Update Reservation</button>
+      <button className='profile-reservation-buttons' type="button" onClick={onCancel}>Cancel</button>
     </form>
   );
 };

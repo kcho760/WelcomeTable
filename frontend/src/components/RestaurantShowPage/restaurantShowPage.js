@@ -32,6 +32,7 @@ const RestaurantShowPage = () => {
   };
 
   return (
+    <>
     <div className="page-container">
       <div className="content">
       <div className="banner-image-container">
@@ -46,9 +47,9 @@ const RestaurantShowPage = () => {
           <a href="#photos" onClick={(e) => handleScroll(e, "photos")}>
             Photos
           </a>
-          <a href="#menu" onClick={(e) => handleScroll(e, "menu")}>
+          {/* <a href="#menu" onClick={(e) => handleScroll(e, "menu")}>
             Menu
-          </a>
+          </a> */}
           <a href="#reviews" onClick={(e) => handleScroll(e, "reviews")}>
             Reviews
           </a>
@@ -86,7 +87,7 @@ const RestaurantShowPage = () => {
           <p className="restaurant-description">{restaurant.description}</p>
         </div>
         <div id="photos">
-          <h1># Photos</h1>
+          <h1>{restaurant.photoUrls.length} Photos</h1>
           <div className="photos-container">
             <div className="photo-large">
               <img className="photo-large-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
@@ -107,20 +108,21 @@ const RestaurantShowPage = () => {
             </div>
           </div>
         </div>
-        <div id="menu">
+        {/* <div id="menu">
           <h1>Menu</h1>
-          {/* Rest of the content */}
-        </div>
-
-        {/* Fake content for testing scrolling */}
+          Rest of the content
+        </div> */}
+{/* 
+        Fake content for testing scrolling
         {[...Array(30)].map((_, index) => (
           <div key={index}>FAKE FAKE FAKE</div>
-          ))}
+          ))} */}
 
         <div id="reviews">
           <h1>Reviews</h1>
-          {/* Rest of the content */}
+          Fake Reviews $5 each
         </div>
+
       </div>
 
       <div className="reservation-container-outer">
@@ -171,9 +173,13 @@ const RestaurantShowPage = () => {
           <p>{restaurant.phone}</p>
         </div>
       </div>
-      <Footer />
       </div>
     </div>
+    <div >
+      <Footer className="showpage-footer"/>
+
+    </div>
+    </>
   );
 };
 

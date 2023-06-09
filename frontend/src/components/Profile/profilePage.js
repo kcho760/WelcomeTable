@@ -33,10 +33,10 @@ const UserProfile = () => {
     }
   }, [dispatch, userReservations]);
 
-  const getRestaurantName = (restaurantId) => {
-    const restaurant = restaurants[restaurantId];
-    return restaurant ? restaurant.name : 'Unknown';
+  const getRestaurant = (restaurantId) => {
+    return restaurants[restaurantId] || null;
   };
+  
 
   const handleShowUpcomingReservations = () => {
     setShowUpcomingReservations(true);
@@ -54,31 +54,55 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="profile-page">
+
+      <div className="profile-header">
         <h1>{user.username}</h1>
       </div>
-      <div className="profile-nav-bar">
-        <button onClick={handleShowUpcomingReservations}>Upcoming Reservations</button>
-        <button onClick={handleShowPastReservations}>Past Reservations</button>
-        {/* Add other navigation links as needed */}
+
+      <div className="profile-content">
+
+        <div className="profile-nav-bar-wrapper">
+          <div className="profile-nav-bar">
+            <button
+              className={showUpcomingReservations ? "active" : ""}
+              onClick={handleShowUpcomingReservations}
+            >
+              Upcoming Reservations
+            </button>
+            <button
+              className={showPastReservations ? "active" : ""}
+              onClick={handleShowPastReservations}
+            >
+              Past Reservations
+            </button>
+            {/* Add other navigation links as needed */}
+          </div>
+        </div>
+
+        <div className="profile-reservations-container">
+          {/* Move the reservations containers inside the profile content */}
+          {showUpcomingReservations && (
+            <div className="upcoming-reservations-container">
+              <UpcomingReservations
+                userReservations={userReservations}
+                getRestaurant={getRestaurant}
+              />
+            </div>
+          )}
+          {showPastReservations && (
+            <div className="past-reservations-container">
+              <PastReservations
+                userReservations={userReservations}
+                getRestaurant={getRestaurant}
+              />
+            </div>
+          )}
+        </div>
+        
       </div>
-
-      {showUpcomingReservations && (
-        <UpcomingReservations
-          userReservations={userReservations}
-          getRestaurantName={getRestaurantName}
-        />
-      )}
-
-      {showPastReservations && (
-        <PastReservations
-          userReservations={userReservations}
-          getRestaurantName={getRestaurantName}
-        />
-      )}
     </div>
   );
-};
+}
 
 export default UserProfile;

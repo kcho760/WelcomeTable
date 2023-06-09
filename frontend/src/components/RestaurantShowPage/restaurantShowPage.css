@@ -4,18 +4,41 @@
   height: 400px;
   width: 100%;
 }
-
 .banner-overlay {
   position: relative;
 }
 
 .restaurant-info-container {
-  width: calc(55% - 100px);
-  margin-top: auto;
-  margin-bottom: 20px;
+  position: absolute;
+  width: 55%;
+  height: 200%;
+  width: calc(55% - 100px); /* Adjust the width calculation to leave space for the reservation container */
+  height: 200%; /* Set the height to 100% to occupy the entire available height */
+  top: 59.5%;
+  bottom: 0;
+  left: 100px;
+  right: 0;
+  left: 10%;
   color: black;
   padding: 20px;
   z-index: 1;
+}
+
+.page-container{
+  height: 1500px;
+}
+
+.showpage-footer {
+  position: absolute;
+  height: 800px;
+  width: 100%;
+  background-color: #9e2727;
+  border-top: 1px solid #e6e6e6;
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
@@ -30,18 +53,29 @@
 .nav-bar {
   display: flex;
   justify-content: space-evenly;
-  padding: 15px;
+  padding: 16px;
   position: sticky;
   top: 0;
   background-color: white;
   margin-left: auto;
   margin-right: auto;
   border-radius: 4px;
-  border-bottom: black 1px solid;
+  border: none; /* Remove the border-bottom property */
   left: 0;
   right: 0;
   z-index: 1; /* Add z-index to ensure it's above other elements */
 }
+
+.nav-bar::after {
+  content: "";
+  position: absolute;
+  width: 80%; /* Adjust the width to control the length of the bottom border */
+  height: 1px;
+  top: 100%;
+  background-color: black;
+  margin: 0 auto; /* Center the border horizontally */
+}
+
 
 .nav-bar a {
   margin-left: 90px;
@@ -94,7 +128,7 @@
 #menu h1,
 #reviews h1 {
   margin-top: 0;
-  margin-left: 0;
+  margin-left: 5;
   font-size: 48px;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   border-bottom: #6F737B 1px solid;
@@ -302,6 +336,5 @@ select {
 .footer {
   display: block;
   background-color: #1a274f;
-  padding: 20px;
   text-align: center;
 }

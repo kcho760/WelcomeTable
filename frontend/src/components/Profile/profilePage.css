@@ -1,3 +1,125 @@
+.profile-page {
+  flex-direction: column;
+  align-items: center;
+  background-color: #f1f2f4;
+}
+
+.profile-header h1 {
+  margin-top: 20px;
+  margin-left: 16%;
+  font-size: 30px;
+}
+
+.profile-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start; /* Add this line */
+  margin-top: 20px;
+  width: 100%;
+  height: 800px;
+}
+
+
+.profile-nav-bar-wrapper {
+  flex-shrink: 0;
+}
+
+
+.profile-nav-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.profile-nav-bar button {
+  min-width: 200px;
+  height: 50px;
+  border: none;
+}
+
+.profile-nav-bar button:hover {
+  color: #da3743;
+}
+
+.profile-nav-bar button.active {
+  font-weight: bold;
+}
+
+.profile-reservations-container {
+  top: 18%;
+  left: 16%;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-row-1 {
+  display: flex;
+  width: 100%;
+}
+
+.profile-reservation-wrapper {
+  display: flex;
+}
+
+.guest-count {
+  display: flex;
+}
+
+.profile-date {
+  display: flex;
+}
+
+.profile-reservation-image {
+  width: 20%;
+  height: 20%;
+  border-radius: 5px;
+}
+
+.profile-reservation-info {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px; /* Add this line */
+  border-left: 10px;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+}
+
+.num-of-guests-icon{
+  background-color: transparent;
+  border: none;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.calendar-icon{
+  background-color: transparent;
+  border: none;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.profile-reservation-buttons {
+  display: inline-block;
+  background-color: #da3743;
+  border-radius: 5px;
+  border-width: 0px;
+  width: 20%;
+  height: 35px;
+  margin-left: 5px;
+  margin: 5px;
+  font-family: 'BrandonText-Bold', Arial, sans-serif;
+  color: white;
+}
+
+.upcoming-reservations-container,
+.past-reservations-container {
+  height: 100%;
+  margin-left: 20px;
+}
+
 .user-reservation {
-    margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }

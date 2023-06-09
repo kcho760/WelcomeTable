@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchReservation } from '../../store/reservation';
 import { retrieveRestaurant } from '../../store/restaurant';
 import React, { useEffect } from 'react';
+import './confirmation.css';
+import Footer from '../Footer/footer';
 
 const Confirmation = () => {
   const { id } = useParams();
@@ -12,7 +14,7 @@ const Confirmation = () => {
   const restaurantId = reservation?.restaurant_id;
   const restaurant = useSelector(state => state.restaurant[restaurantId]);
   const isLoadingReservation = useSelector(state => state.reservation.loading);
-  const isLoadingRestaurant = useSelector(state => state.restaurant.loading);
+  const user = useSelector(state => state.session.user); // Assuming the user data is stored in the Redux state
 
   // Fetch reservation details on component mount
   useEffect(() => {
@@ -55,19 +57,61 @@ const Confirmation = () => {
     history.push(`/user/${userId}`);
   };
 
+  const createdAt = new Date(user.createdAt);
+  const formattedCreatedAt = createdAt.toLocaleDateString(undefined, {
+    month: 'long',
+    year: 'numeric'
+  });
+
   return (
-    <div>
-      <h2>Confirmation Page</h2>
-      <img src={firstPhotoUrl} alt="Restaurant Photo" />
-      <p>Reservation ID: {reservation.id}</p>
-      <p>Party Size: {reservation.party_size}</p>
-      <p>Reservation Date: {formattedDate}</p>
-      <p>Reservation Time: {formattedTime}</p>
-      <p>Restaurant Name: {restaurant.name}</p>
-      {/* Additional confirmation details can be rendered here */}
-      <button onClick={handleUpdateReservation}>Update Reservation</button>
-      <button onClick={handleManageReservations}>Manage Reservations</button>
-    </div>
+    <>
+      <div className='outer'>
+        <div className='inner'>
+          <div className='row-1'>
+            <img className='confirmation-image' src={firstPhotoUrl} alt="Restaurant Photo" />
+            <div className='info'>
+              <p>Restaurant Name: {restaurant.name}</p>
+              <p>Party Size: {reservation.party_size}</p>
+              <p>Reservation Date: {formattedDate}</p>
+              <p>Reservation Time: {formattedTime}</p>
+              {/* Additional confirmation details can be rendered here */}
+            </div>
+          </div>
+
+          <div className='confirmation-buttons-container'>
+            <button className='confirmation-buttons' onClick={handleUpdateReservation}>Update Reservation</button>
+            <button className='confirmation-buttons' onClick={handleManageReservations}>Manage Reservations</button>
+          </div>
+
+          <div className='important-info'>
+            <h1>What to know before you go</h1>
+            <h3>Important Dining Information</h3>
+            <p>We have a 15 minute grace period. Please call us if you are running later than 15 minutes after your reservation time.</p>
+            <p>We may contact you about this reservation, so please ensure your email and phone number are up to date.</p>
+          </div>
+
+          <div className='address-container'>
+            <div className='address'>
+              {restaurant.name}
+              <br />
+              {restaurant.address}
+              <br />
+              {restaurant.city} {restaurant.state}
+              <br />
+              {restaurant.phone}
+            </div>
+          </div>
+        </div> {/* inner end div */}
+
+          <div className='user-info-container'>
+            <div className='user-info'>
+              <p>{user.username}<br />Joined in {formattedCreatedAt}</p>
+            </div>
+          </div>
+          
+        </div>
+      <Footer className="confirmation-footer" />
+    </>
   );
 };
 

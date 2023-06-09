@@ -1,0 +1,124 @@
+.outer {
+    display: flex;
+    flex-direction: left;
+    align-items: center;
+    height: 800px;
+    margin-left: 150px;
+    margin-top: -5%;
+  }
+  
+    .inner {
+    display: relative;
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
+    height: 80%;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: -40px;
+
+    }
+
+    .row-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-top: -10px;
+    height: 25%;
+    width: 100%;
+    }
+
+    .info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 5px;
+    }
+
+    .confirmation-footer {
+    height: 100px;
+    }
+
+    .confirmation-image {
+    aspect-ratio: 1;
+    width: 30%;
+    height: auto;
+    object-fit: contain;
+    margin: 20px;
+    border-radius: 22%;
+    }
+
+    .confirmation-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    }
+
+    .confirmation-buttons {
+    display: inline-block;
+    background-color: #da3743;
+    border-radius: 5px;
+    border-width: 0px;
+    width: 45%;
+    height: 35px;
+    margin-left: 5px;
+    margin: 5px;
+    font-family: 'BrandonText-Bold', Arial, sans-serif;
+    color: white;
+    }
+
+    .confirmation-buttons:hover {
+        background-color: #b32c3b;
+        cursor: pointer;
+    }
+
+    .important-info {
+    margin-top: 10px;
+    }
+
+    .important-info h1 {
+        margin-left: 10px;
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bolder;
+
+    }
+
+    .important-info h3 {
+        margin-left: 10px;
+        margin-top: 5px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .important-info p {
+    margin: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    }
+
+    .address-container {
+        margin-top: 35%;
+        margin-left: 10px;
+      }
+
+    .user-info-container {
+    margin-top: -55%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .user-info{
+        border: 1px solid black;
+        border-radius: 4px;
+        width: 45%;
+        display:flex;
+        justify-content: left;
+        align-items: center;
+        height: 75px;
+    }
