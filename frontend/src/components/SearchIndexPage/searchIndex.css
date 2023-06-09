@@ -1,0 +1,20 @@
+.search-image {
+    width: 30%;
+    height: 30%;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #e6e6e6;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-index-search-container .search-container {
+    height: 120px; /* Adjust the height as desired */
+  }
+  
+.search-index-restaurant {
+    border: 1px solid #e6e6e6;
+    display: flex;
+    max-width: 47%;
+    margin: 10px;
+}

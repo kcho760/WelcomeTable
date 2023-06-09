@@ -5,6 +5,8 @@ import { retrieveRestaurant } from '../../store/restaurant';
 import React, { useEffect } from 'react';
 import './confirmation.css';
 import Footer from '../Footer/footer';
+import guestCount from '../../assets/guest-count.png';
+import calendar from '../../assets/calendar.png';
 
 const Confirmation = () => {
   const { id } = useParams();
@@ -63,6 +65,11 @@ const Confirmation = () => {
     year: 'numeric'
   });
 
+  const formatDateString = (dateString) => {
+    const date = new Date(dateString);
+    const options = { month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
   return (
     <>
       <div className='outer'>
@@ -70,9 +77,15 @@ const Confirmation = () => {
           <div className='row-1'>
             <img className='confirmation-image' src={firstPhotoUrl} alt="Restaurant Photo" />
             <div className='info'>
-              <p>Restaurant Name: {restaurant.name}</p>
-              <p>Party Size: {reservation.party_size}</p>
-              <p>Reservation Date: {formattedDate}</p>
+              <h2>{restaurant.name}</h2>
+              <div className='guest-count'>
+                  <img className='num-of-guests-icon' src={guestCount} alt='num-of-guests-icon' />
+                  <p>{reservation.party_size}</p>
+              </div>
+              <div className='profile-date'>
+                  <img className='calendar-icon' src={calendar} alt='calendar-icon' />
+                  <p>{formatDateString(reservation.reservation_date)}</p>
+              </div>
               <p>Reservation Time: {formattedTime}</p>
               {/* Additional confirmation details can be rendered here */}
             </div>

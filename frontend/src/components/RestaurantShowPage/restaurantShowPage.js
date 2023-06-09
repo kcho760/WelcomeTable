@@ -120,7 +120,7 @@ const RestaurantShowPage = () => {
 
         <div id="reviews">
           <h1>Reviews</h1>
-          Fake Reviews $5 each
+          Reviews To Come Soon
         </div>
 
       </div>

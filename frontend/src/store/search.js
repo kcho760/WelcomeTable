@@ -23,18 +23,22 @@ export const getSearchResults = (searchTerm) => async (dispatch) => {
   
   
 
-export const getAllCuisines = () => async (dispatch) => {
-  try {
-    const res = await csrfFetch('/api/cuisines');
-    if (res.ok) {
-      const cuisines = await res.json();
-      dispatch(fetchAllCuisines(cuisines)); // Dispatch the action to store the cuisines in the Redux store
+  export const getAllCuisines = () => async (dispatch) => {
+    try {
+      const res = await csrfFetch('/api/cuisines');
+      if (res.ok) {
+        const cuisines = await res.json();
+        console.log(cuisines); // Log the response to check its contents
+        dispatch(fetchAllCuisines(cuisines));
+      } else {
+        throw new Error('Response not OK');
+      }
+    } catch (error) {
+      console.error('Error fetching cuisines:', error);
+      return { success: false };
     }
-  } catch (error) {
-    console.error('Error fetching cuisines:', error);
-    return { success: false };
-  }
-};
+  };
+  
 
   
 

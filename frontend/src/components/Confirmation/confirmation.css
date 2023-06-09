@@ -37,6 +37,11 @@
     margin: 5px;
     }
 
+    .info h2 {
+    font-size: 20px;
+    font-weight: bold;
+    }
+
     .confirmation-footer {
     height: 100px;
     }

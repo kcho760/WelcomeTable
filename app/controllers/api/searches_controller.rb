@@ -9,5 +9,6 @@ class Api::SearchesController < ApplicationController
 
   def index
     @cuisines = Restaurant.distinct.pluck(:cuisine)
+    render json: { cuisines: @cuisines }
   end
 end

@@ -20,18 +20,25 @@ ApplicationRecord.transaction do
 
   puts "Creating Restaurants..."
   restaurants = []
-
-  20.times do
+  
+  cuisine_types = []
+  4.times do
+    cuisine_types << Faker::Restaurant.type
+  end
+  cuisine_counter = 0
+  26.times do
     restaurant_name = Faker::Restaurant.unique.name
     description = "#{restaurant_name} - #{Faker::Restaurant.description}"
     opening_time = Faker::Time.between_dates(from: Date.today, to: Date.today, period: :day).strftime('%l:%M %p')
+    cuisine_type = cuisine_types[cuisine_counter]
+    cuisine_counter = (cuisine_counter + 1) % cuisine_types.length
     restaurant = Restaurant.create!({
       name: restaurant_name,
       address: Faker::Address.street_address,
       city: Faker::Address.city,
       state: Faker::Address.state,
       zip_code: Faker::Address.zip_code.to_i,
-      cuisine: Faker::Restaurant.type,
+      cuisine: cuisine_type,
       food_rating: Faker::Number.between(from: 1, to: 5),
       service_rating: Faker::Number.between(from: 1, to: 5),
       ambience_rating: Faker::Number.between(from: 1, to: 5),

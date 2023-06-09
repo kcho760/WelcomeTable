@@ -209,7 +209,7 @@
   height: calc(100% - 360px); /* Adjust the height calculation to leave space for the reservation container */
   background-color: white;
   padding: 20px 20px 20px 20px; /* Specify padding for all sides individually */
-  z-index: 2; /* Increase the z-index to ensure it appears on top of the restaurant info container */
+  z-index: 0; /* Increase the z-index to ensure it appears on top of the restaurant info container */
 }
 
 
