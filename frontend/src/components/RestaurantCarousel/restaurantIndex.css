@@ -36,7 +36,6 @@
 
 .restaurant-image-outer {
   border-radius: 3px;
-
 }
 .restaurant-item {
   display: block;
@@ -154,7 +153,7 @@ CostRating {
   font-weight: 552;
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   margin-top: 2px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-bottom: 5px;
   text-align: left;
 }
@@ -183,17 +182,16 @@ CostRating {
 
 .restaurant-cuisine {
   text-align: left;
-  margin-left: 10px;
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  /* text-overflow: ellipsis; */
-  font-size: 10px;
+  text-overflow: ellipsis;
+  font-size: 16px;
 }
 
 .dot-1 {
   font-size: 12px;
-  /* margin-left: 5px; */
+  margin-left: 5px;
   margin-right: 5px;
 }
 
@@ -205,6 +203,7 @@ CostRating {
 
 .restaurant-city {
   margin-right: 5px;
+  width: 35%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -247,8 +246,8 @@ CostRating {
   border-radius: 4px;
   border-width: 0px;
   height: 32px;
-  width: 70px;
-  margin: 3px;
+  width: 321;
+  margin: 2px;
 }
 
 .restaurant-reservation-button:hover{

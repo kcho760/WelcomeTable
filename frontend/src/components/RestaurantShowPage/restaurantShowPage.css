@@ -115,7 +115,7 @@
 .average-rating,
 .review-count,
 .restaurant-price,
-.restaurant-cuisine {
+.restaurant-show-cuisine {
   font-family: 'BrandonText-Bold', Arial, sans-serif;
   font-weight: 600;
   font-size: 14px;

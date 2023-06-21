@@ -59,7 +59,6 @@ const UpcomingReservations = ({ getRestaurant }) => {
       {userReservations && userReservations.reservations && userReservations.reservations.length > 0 ? (
         userReservations.reservations.map((reservation) => {
           const restaurant = getRestaurant(reservation.restaurant_id);
-          console.log(restaurant)
           return (
             <div className="user-reservation" key={reservation.id}>
             <div className="profile-reservation-wrapper">

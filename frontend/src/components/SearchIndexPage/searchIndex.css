@@ -1,20 +1,63 @@
 .search-image {
-    width: 30%;
-    height: 30%;
+    max-width: 40%;
+    max-height: 90%;
     object-fit: cover;
     border-radius: 5px;
     border: 1px solid #e6e6e6;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.search-index-search-container .search-container {
-    height: 120px; /* Adjust the height as desired */
+    float: left; /* Added property */
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
   
-.search-index-restaurant {
-    border: 1px solid #e6e6e6;
+  .search-index-search-container .search-container {
+    height: 85px;
+  }
+  
+  
+  .search-index-restaurant {
+    border-top: 1px solid #cecece;
     display: flex;
-    max-width: 47%;
-    margin: 10px;
+    margin-left: 35%;
+    max-width: 50%;
+    margin-bottom: 10px; /* Add margin-bottom for spacing between restaurants */
+  }
+  
+  .search-result-container {
+    text-align: center; /* Center the content horizontally */
+  }
+  
+  .search-result-text {
+    display: flex;
+    justify-content: center; /* Center the text horizontally */
+    margin-left: -5%;
+    font-size: 25px;
+  }
+  
+  .restaurant-info {
+    margin-top: 15px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column; /* Added property */
+    align-items: flex-start; /* Added property */
 }
+
+.restaurant-info h3 {
+    margin-bottom: 5px; /* Add margin-bottom for spacing between restaurant name and rating */
+    font-size: 20px;
+}
+
+  .star-rating {
+    margin-left: 0px;
+  }
+
+  .restaurant-info-line-2 {
+    display: flex;
+    margin-left: 1px;
+  }
+
+  .search-dot {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  

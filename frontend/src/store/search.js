@@ -28,7 +28,6 @@ export const getSearchResults = (searchTerm) => async (dispatch) => {
       const res = await csrfFetch('/api/cuisines');
       if (res.ok) {
         const cuisines = await res.json();
-        console.log(cuisines); // Log the response to check its contents
         dispatch(fetchAllCuisines(cuisines));
       } else {
         throw new Error('Response not OK');

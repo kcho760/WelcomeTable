@@ -50,7 +50,6 @@ const Confirmation = () => {
 
   const handleUpdateReservation = () => {
     // Placeholder function for updating the reservation
-    console.log('Update reservation');
   };
 
   const handleManageReservations = () => {

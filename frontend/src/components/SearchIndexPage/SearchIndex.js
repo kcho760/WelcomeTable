@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSearchResults } from '../../store/search';
 import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
 import SearchBar from '../Search_Bar';
+import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
+
 
 function SearchIndex() {
   const { searchTerm } = useParams();
@@ -20,32 +22,46 @@ function SearchIndex() {
     <div>
       <div className="search-index-search-container">
         <SearchBar className="search-index-search-bar" />
-      <h1>Search Results for: {searchTerm}</h1>
+      </div>
+      <div className="search-result-container">
+        <h1 className="search-result-text">Search Results for: {searchTerm}</h1>
       </div>
       {Array.isArray(searchResults) ? (
         <ul>
           <div>
           {searchResults.map((restaurant) => (
-            <div className='search-index-restaurant'>
-              <Link to={`/restaurants/${restaurant.id}`}>
-              <img className='search-image' key={restaurant.id} src={restaurant.photoUrls[0]} alt="restaurant" />
-
-            <div>
-              <li key={restaurant.id}>{restaurant.name}</li>
-
-              <div className="StarRating-container">
-                <StarRating
-                  className="star-rating"
-                  foodRating={restaurant.food_rating}
-                  serviceRating={restaurant.service_rating}
-                  ambienceRating={restaurant.ambience_rating}
-                  valueRating={restaurant.value_rating}
-                />
+            <div className="search-index-restaurant" key={restaurant.id}>
+              <div>
+                <Link to={`/restaurants/${restaurant.id}`}>
+                  <img className="search-image" src={restaurant.photoUrls[0]} alt="restaurant" />
+                </Link>
+                  <div className="restaurant-info">
+                <Link to={`/restaurants/${restaurant.id}`}>
+                    <h3>{restaurant.name}</h3>
+                  </Link>
+                    <div className="star-rating">
+                      <StarRating
+                        foodRating={restaurant.food_rating}
+                        serviceRating={restaurant.service_rating}
+                        ambienceRating={restaurant.ambience_rating}
+                        valueRating={restaurant.value_rating}
+                      />
+                    </div>
+                    <div className="restaurant-info-line-2">
+                      <div>
+                        <CostRating className="restaurant-price" price={restaurant.price} />
+                      </div>
+                      <div className="search-dot">&#x2022;</div>
+                      <p className="restaurant-city">{restaurant.city}</p>
+                    </div>
+                    <div className="reservation-container">
+                      <button className="restaurant-reservation-button">10:00 AM</button>
+                      <button className="restaurant-reservation-button">10:15 AM</button>
+                      <button className="restaurant-reservation-button">10:30 AM</button>
+                    </div>
+                  </div>
               </div>
             </div>
-              </Link>
-            </div>
-            
           ))}
           </div>
         </ul>

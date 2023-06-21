@@ -82,7 +82,7 @@ const RestaurantShowPage = () => {
             />
             <p className="review-count"># of Reviews</p>
             <CostRating className="restaurant-price" price={restaurant.price} />
-            <p className="restaurant-cuisine">{restaurant.cuisine}</p>
+            <p className="restaurant-show-cuisine">{restaurant.cuisine}</p>
           </div>
           <p className="restaurant-description">{restaurant.description}</p>
         </div>
