@@ -8,7 +8,7 @@ import AverageRating from "../RestaurantCarousel/subcomponents/average_rating";
 import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 import ReservationForm from "./reservationForm";
 import Footer from "../Footer/footer";
-
+import ReviewList from "../Review/review";
 
 const RestaurantShowPage = () => {
   const { id } = useParams();
@@ -23,6 +23,27 @@ const RestaurantShowPage = () => {
     return <div>Loading...</div>;
   }
 
+  const sampleReview = {
+    id: 1,
+    title: "Amazing Restaurant",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    food_rating: 4,
+    service_rating: 5,
+    ambience_rating: 4,
+    value_rating: 5,
+  };
+
+  const sampleReview2 = {
+    id: 2,
+    title: "Great Experience",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam mauris vel ex fringilla, eu gravida ligula efficitur.",
+    food_rating: 5,
+    service_rating: 4,
+    ambience_rating: 5,
+    value_rating: 4,
+  };
+
+  const reviews = restaurant.reviews || [sampleReview, sampleReview2];
   const handleScroll = (e, sectionId) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
@@ -119,8 +140,7 @@ const RestaurantShowPage = () => {
           ))} */}
 
         <div id="reviews">
-          <h1>Reviews</h1>
-          Reviews To Come Soon
+          <ReviewList reviews={reviews}/>
         </div>
 
       </div>
