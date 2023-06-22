@@ -1,24 +1,44 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  # Root path route ("/")
   # root "articles#index"
-  
+
   namespace :api, defaults: { format: :json } do
-    get 'search/:search_term', to: 'searches#search'
-    get 'cuisines', to: 'searches#index'  # Add this line for fetching all cuisines
+    # Custom route for fetching all cuisines
+    get 'cuisines', to: 'searches#index'
+
+    # Custom route for retrieving reviews by restaurant ID
+    get 'restaurant/:restaurant_id/reviews', to: 'reviews#retrieve_by_restaurant_id'
+
+    # Route for checking email availability
     post 'users/check_email', to: 'users#check_email'
+
     resources :users, only: :create do
       resources :reservations, only: :index
     end
+
     resource :session, only: [:show, :create, :destroy]
+
     resources :restaurants, only: [:show, :index, :update]
+
     resources :reservations, only: [:create, :show, :update, :destroy] do
       collection do
         post 'available', to: 'reservations#available'
       end
-    end  
+    end
+
+    resources :reviews, only: [:create, :destroy] # Add this line for creating reviews
+
+    # Add a route for fetching user data by user ID
+    resources :users, only: [] do
+      member do
+        get 'fetch_data', to: 'users#fetch_data'
+      end
+    end
   end
+
+  # Route for search index
   resources :search, only: [:index]
+
+  # Catch-all route for frontend handling
   get '*path', to: "static_pages#frontend_index"
 end

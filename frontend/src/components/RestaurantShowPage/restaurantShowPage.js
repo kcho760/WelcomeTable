@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { retrieveRestaurant } from "../../store/restaurant";
-import { useEffect, useState } from "react";
+import { retrieveReviewsByRestaurantId } from "../../store/review";
+import { useEffect } from "react";
 import "./restaurantShowPage.css";
 import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
 import AverageRating from "../RestaurantCarousel/subcomponents/average_rating";
@@ -9,41 +10,23 @@ import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 import ReservationForm from "./reservationForm";
 import Footer from "../Footer/footer";
 import ReviewList from "../Review/review";
+import CreateReview from "../Review/createReview";
 
 const RestaurantShowPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const restaurant = useSelector((state) => state.restaurant[id]);
+  const reviews = useSelector((state) => state.review.reviews);
 
   useEffect(() => {
     dispatch(retrieveRestaurant(id));
+    dispatch(retrieveReviewsByRestaurantId(id));
   }, [dispatch, id]);
 
   if (!restaurant) {
     return <div>Loading...</div>;
   }
 
-  const sampleReview = {
-    id: 1,
-    title: "Amazing Restaurant",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    food_rating: 4,
-    service_rating: 5,
-    ambience_rating: 4,
-    value_rating: 5,
-  };
-
-  const sampleReview2 = {
-    id: 2,
-    title: "Great Experience",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam mauris vel ex fringilla, eu gravida ligula efficitur.",
-    food_rating: 5,
-    service_rating: 4,
-    ambience_rating: 5,
-    value_rating: 4,
-  };
-
-  const reviews = restaurant.reviews || [sampleReview, sampleReview2];
   const handleScroll = (e, sectionId) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
@@ -54,151 +37,75 @@ const RestaurantShowPage = () => {
 
   return (
     <>
-    <div className="page-container">
-      <div className="content">
-      <div className="banner-image-container">
-        <img className="banner-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
-      </div>
-
-      <div className="restaurant-info-container">
-        <div className="nav-bar">
-          <a href="#overview" onClick={(e) => handleScroll(e, "overview")}>
-            Overview
-          </a>
-          <a href="#photos" onClick={(e) => handleScroll(e, "photos")}>
-            Photos
-          </a>
-          {/* <a href="#menu" onClick={(e) => handleScroll(e, "menu")}>
-            Menu
-          </a> */}
-          <a href="#reviews" onClick={(e) => handleScroll(e, "reviews")}>
-            Reviews
-          </a>
-          <a>
-
-          </a>
-          <a>
-
-          </a>
-          <a>
-
-          </a>
-        </div>
-        <div id="overview">
-          <h1>{restaurant.name}</h1>
-          <div className="restaurant-attributes">
-            <StarRating
-              className="star-rating"
-              foodRating={restaurant.foodRating}
-              serviceRating={restaurant.serviceRating}
-              ambienceRating={restaurant.ambienceRating}
-              valueRating={restaurant.valueRating}
-            />
-            <AverageRating
-              className="average-rating"
-              foodRating={restaurant.foodRating}
-              serviceRating={restaurant.serviceRating}
-              ambienceRating={restaurant.ambienceRating}
-              valueRating={restaurant.valueRating}
-            />
-            <p className="review-count"># of Reviews</p>
-            <CostRating className="restaurant-price" price={restaurant.price} />
-            <p className="restaurant-show-cuisine">{restaurant.cuisine}</p>
+      <div className="page-container">
+        <div className="content">
+          <div className="banner-image-container">
+            <img className="banner-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
           </div>
-          <p className="restaurant-description">{restaurant.description}</p>
-        </div>
-        <div id="photos">
-          <h1>{restaurant.photoUrls.length} Photos</h1>
-          <div className="photos-container">
-            <div className="photo-large">
-              <img className="photo-large-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
+
+          <div className="restaurant-info-container">
+            <div className="nav-bar">
+              <a href="#overview" onClick={(e) => handleScroll(e, "overview")}>
+                Overview
+              </a>
+              <a href="#photos" onClick={(e) => handleScroll(e, "photos")}>
+                Photos
+              </a>
+              <a href="#reviews" onClick={(e) => handleScroll(e, "reviews")}>
+                Reviews
+              </a>
             </div>
-            <div className="photos-small-container">
-              <div className="photo-small">
-                <img className="photo-small-image" src={restaurant.photoUrls[1]} alt={restaurant.name} />
+            <div id="overview">
+              <h1>{restaurant.name}</h1>
+              <div className="restaurant-attributes">
+                <StarRating
+                  className="star-rating"
+                  foodRating={restaurant.foodRating}
+                  serviceRating={restaurant.serviceRating}
+                  ambienceRating={restaurant.ambienceRating}
+                  valueRating={restaurant.valueRating}
+                />
+                <AverageRating
+                  className="average-rating"
+                  foodRating={restaurant.foodRating}
+                  serviceRating={restaurant.serviceRating}
+                  ambienceRating={restaurant.ambienceRating}
+                  valueRating={restaurant.valueRating}
+                />
+                <p className="review-count">{reviews.length} Reviews</p>
+                <CostRating className="restaurant-price" price={restaurant.price} />
+                <p className="restaurant-show-cuisine">{restaurant.cuisine}</p>
               </div>
-              <div className="photo-small">
-                <img className="photo-small-image" src={restaurant.photoUrls[2]} alt={restaurant.name} />
-              </div>
-              <div className="photo-small">
-                <img className="photo-small-image" src={restaurant.photoUrls[3]} alt={restaurant.name} />
-              </div>
-              <div className="photo-small">
-                <img className="photo-small-image" src={restaurant.photoUrls[4]} alt={restaurant.name} />
-              </div>
+              <p className="restaurant-description">{restaurant.description}</p>
+            </div>
+
+            <div id="photos">
+              <h1>{restaurant.photoUrls.length} Photos</h1>
+              {/* Photo content */}
+            </div>
+
+            <div id="reviews">
+              <h1>Reviews</h1>
+              <CreateReview restaurantId={restaurant.id} />
+              <ReviewList reviews={reviews} />
             </div>
           </div>
-        </div>
-        {/* <div id="menu">
-          <h1>Menu</h1>
-          Rest of the content
-        </div> */}
-{/* 
-        Fake content for testing scrolling
-        {[...Array(30)].map((_, index) => (
-          <div key={index}>FAKE FAKE FAKE</div>
-          ))} */}
 
-        <div id="reviews">
-          <ReviewList reviews={reviews}/>
-        </div>
+          <div className="reservation-container-outer">
+            <div className="reservation-form-container">
 
-      </div>
+              <ReservationForm restaurant={restaurant} />
+            </div>
+          </div>
 
-      <div className="reservation-container-outer">
-        <div className="reservation-form-container">
-          <ReservationForm restaurant={restaurant} />
+          <div className="additional-info-container">
+            {/* Additional info content */}
+          </div>
         </div>
       </div>
-    <div className="additional-info-container">
-      <h1>Additional Info</h1>
-        <div>
-          <h2>Cross Street</h2>
-          <p>{restaurant.crossStreet}</p>
-        </div>
-        <div>
-          <h2>Hours of Operation</h2>
-          <p>{restaurant.hoursOfOperation}</p>
-        </div>
-        <div>
-          <h2>Cuisines</h2>
-          <p>{restaurant.cuisine}</p>
-        </div>
-        <div>
-          <h2>Dining Style</h2>
-          <p>{restaurant.diningStyle}</p>
-        </div>
-        <div>
-          <h2>Dress Code</h2>
-          <p>{restaurant.dressCode}</p>
-        </div>
-        <div>
-          <h2>Parking Details</h2>
-          <p>{restaurant.parkingDetails}</p>
-        </div>
-        <div>
-          <h2>Public Transit</h2>
-          <p>{restaurant.publicTransit}</p>
-        </div>
-        <div>
-          <h2>Payment Options</h2>
-          <p>{restaurant.paymentOptions}</p>
-        </div>
-        <div>
-          <h2>Website</h2>
-          <p><a href={restaurant.website}>{restaurant.website}</a></p>
-        </div>
-        <div>
-          <h2>Phone Number</h2>
-          <p>{restaurant.phone}</p>
-        </div>
+      <div>
+        <Footer className="showpage-footer" />
       </div>
-      </div>
-    </div>
-    <div >
-      <Footer className="showpage-footer"/>
-
-    </div>
     </>
   );
 };
