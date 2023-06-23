@@ -36,4 +36,5 @@ class Restaurant < ApplicationRecord
 
     has_many_attached :photosUrls
     has_many :reservations, dependent: :destroy
+    has_many :reviews
 end

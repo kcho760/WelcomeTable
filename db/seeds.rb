@@ -93,25 +93,26 @@ ApplicationRecord.transaction do
     # Assign the first 5 URLs from the shuffled array
     photo_urls = shuffled_urls.shift(5)
     puts photo_urls
-
+    
     # Construct the full URLs by concatenating the bucket URL and the object key
     full_urls = photo_urls.map { |url| "https://#{bucket_name}.s3.amazonaws.com/#{url}" }
-
+    
     # Clean the URLs by removing quotes and brackets
     clean_urls = full_urls.map { |url| url.gsub(/"|[\[\]]/, '') }
-
+    
     # Append the clean URLs to the restaurant's photoUrls array
     restaurant.photoUrls.concat(clean_urls)
     restaurant.save
-
+    
     puts restaurant.photoUrls
-
+    
     if restaurant.photoUrls.empty?
       raise "Failed to populate photoUrls for restaurant: #{restaurant.name}"
     end
   end
   
   puts "photos done"
+  
   # More users
   10.times do 
     User.create!({
@@ -120,6 +121,34 @@ ApplicationRecord.transaction do
       password: 'password'
     }) 
   end
+
+  puts "Users created!"
+
+    puts "Creating Reviews..."
+    restaurants.each do |restaurant|
+      2.times do
+        user = User.all.sample
+        review = Review.create!(
+          title: Faker::Lorem.sentence,
+          description: Faker::Lorem.paragraph,
+          food_rating: Faker::Number.between(from: 1, to: 5),
+          service_rating: Faker::Number.between(from: 1, to: 5),
+          ambience_rating: Faker::Number.between(from: 1, to: 5),
+          value_rating: Faker::Number.between(from: 1, to: 5),
+          user: user,
+          restaurant: restaurant
+        )
+    
+        if review.valid?
+          puts "Review created for #{restaurant.name} by #{user.username}: #{review.title}"
+        else
+          puts "Failed to create review for #{restaurant.name}: #{review.errors.full_messages.join(', ')}"
+        end
+      end
+    end
+    
+  
+  puts "Reviews created!"
 
   puts "Done!"
 end

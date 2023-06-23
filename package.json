@@ -1,9 +1,10 @@
 {
   "dependencies": {
     "date-fns": "^2.30.0",
-    "react-day-picker": "^8.7.1"
+    "react-day-picker": "^8.7.1",
+    "react-icons": "^4.10.1"
   },
-    "engines": {
+  "engines": {
     "node": "16.20.0"
   },
   "name": "opentableau",
@@ -13,7 +14,6 @@
   "directories": {
     "lib": "lib"
   },
-  "devDependencies": {},
   "scripts": {
     "build": "npm install --prefix frontend && npm run build --prefix frontend"
   },

@@ -22,11 +22,20 @@ class Api::UsersController < ApplicationController
       render json: { email: email, exists: false }
     end
   end
+
+  def fetch_data
+    @user = User.find(params[:id])
   
-  
+    if @user
+      render json: { user: @user }
+    else
+      render json: { error: 'User not found' }, status: :not_found
+    end
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :username , :password)
+    params.require(:user).permit(:email, :username, :password)
   end
 end
