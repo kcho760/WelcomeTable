@@ -53,46 +53,33 @@ const CreateReview = ({ restaurantId }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
+        <label htmlFor="description">Description:
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </label>
 
-        <label htmlFor="foodRating">Food Rating:</label>
-        <ReviewStarRating rating={foodRating} onRatingChange={setFoodRating} />
+        <div className="rating-line1">
+            <label htmlFor="foodRating">Food Rating:
+              <ReviewStarRating rating={foodRating} onRatingChange={setFoodRating} />
+            </label>
 
+            <label htmlFor="serviceRating">Service Rating:
+              <ReviewStarRating rating={serviceRating} onRatingChange={setServiceRating} />
+            </label>
+        </div>
 
-        <label htmlFor="serviceRating">Service Rating:</label>
-        <input
-          type="number"
-          id="serviceRating"
-          min="0"
-          max="5"
-          value={serviceRating}
-          onChange={(e) => setServiceRating(parseInt(e.target.value))}
-        />
+        <div className="rating-line2">
+            <label htmlFor="ambienceRating">Ambience Rating:
+              <ReviewStarRating rating={ambienceRating} onRatingChange={setAmbienceRating} />
+            </label>
 
-        <label htmlFor="ambienceRating">Ambience Rating:</label>
-        <input
-          type="number"
-          id="ambienceRating"
-          min="0"
-          max="5"
-          value={ambienceRating}
-          onChange={(e) => setAmbienceRating(parseInt(e.target.value))}
-        />
-
-        <label htmlFor="valueRating">Value Rating:</label>
-        <input
-          type="number"
-          id="valueRating"
-          min="0"
-          max="5"
-          value={valueRating}
-          onChange={(e) => setValueRating(parseInt(e.target.value))}
-        />
+            <label htmlFor="valueRating">Value Rating:
+              <ReviewStarRating rating={valueRating} onRatingChange={setValueRating} />
+            </label>
+        </div>
 
         <button type="submit">Submit Review</button>
       </form>

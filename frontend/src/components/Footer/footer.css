@@ -1,7 +1,9 @@
 .footer {
-  background-color:#1a274f;
-  padding: 20px;
+  position: absolute;
+  width: 100vw;
+  background-color: #1a274f;
   text-align: center;
+  padding: 20px;
 }
 
 .footer-content {
@@ -16,12 +18,4 @@
   margin: 5px;
   font-size: 14px;
   color: #888;
-}
-
-.footer p:first-child {
-  margin-bottom: 10px;
-}
-
-.footer p:last-child {
-  margin-top: 10px;
 }

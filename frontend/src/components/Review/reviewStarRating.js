@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import './reviewStarRating.css';
 
 const ReviewStarRating = ({ rating, onRatingChange }) => {
   const [hoveredRating, setHoveredRating] = useState(0);
