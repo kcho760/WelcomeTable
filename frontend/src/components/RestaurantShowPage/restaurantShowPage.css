@@ -10,15 +10,9 @@
 
 .restaurant-info-container {
   position: absolute;
-  width: 55%;
-  height: 200%;
-  width: calc(55% - 100px); /* Adjust the width calculation to leave space for the reservation container */
-  height: 200%; /* Set the height to 100% to occupy the entire available height */
-  top: 59.5%;
-  bottom: 0;
-  left: 100px;
-  right: 0;
-  left: 10%;
+  top: 425px;
+  margin-left: 70px;
+  width: 50%;
   color: black;
   padding: 20px;
   z-index: 1;
@@ -29,12 +23,6 @@
   display: flex;
   flex-direction: column;
 }
-
-.showpage-footer {
-  margin-top: auto;
-  
-}
-
 
 .banner-image {
   height: auto;
@@ -47,18 +35,12 @@
 .nav-bar {
   display: flex;
   justify-content: space-evenly;
-  padding: 16px;
   position: sticky;
   top: 0;
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 4px;
-  border: none; /* Remove the border-bottom property */
-  left: 0;
-  right: 0;
-  z-index: 1; /* Add z-index to ensure it's above other elements */
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color and opacity as desired */
+  z-index: 1;
 }
+
 
 .nav-bar::after {
   content: "";
@@ -67,9 +49,8 @@
   height: 1px;
   top: 100%;
   background-color: black;
-  margin: 0 auto; /* Center the border horizontally */
+  margin: 0 auto;
 }
-
 
 .nav-bar a {
   margin-left: 90px;
@@ -95,7 +76,7 @@
 #reviews {
   position: flex;
   justify-content: left;
-  margin-top: 60px; /* Adjust the margin-top value to create space below the nav bar */
+  margin-top: 60px;
 }
 
 .restaurant-attributes {
@@ -314,20 +295,4 @@ select {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.page-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content {
-  flex: 1;
-}
-
-.footer {
-  display: block;
-  background-color: #1a274f;
-  text-align: center;
 }

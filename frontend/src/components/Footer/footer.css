@@ -1,17 +1,19 @@
 .footer {
-  position: absolute;
   width: 100vw;
   background-color: #1a274f;
   text-align: center;
-  padding: 20px;
+  color: white;
+  position: relative;
+  bottom: -20px;
+  margin-left: -100px;
 }
 
 .footer-content {
-  display: fixed;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 30vh; /* Make the footer content at least the height of the viewport */
+  min-height: 30vh;
 }
 
 .footer p {
