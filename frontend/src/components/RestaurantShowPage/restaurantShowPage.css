@@ -10,7 +10,7 @@
 
 .restaurant-info-container {
   position: absolute;
-  top: 425px;
+  top: 402px;
   margin-left: 70px;
   width: 50%;
   color: black;
@@ -37,8 +37,11 @@
   justify-content: space-evenly;
   position: sticky;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color and opacity as desired */
+  height: 40px;
+  padding: 5px;
+  background-color: rgb(255, 255, 255); /* Adjust the background color and opacity as desired */
   z-index: 1;
+  border-radius: 4px;
 }
 
 
@@ -49,13 +52,11 @@
   height: 1px;
   top: 100%;
   background-color: black;
-  margin: 0 auto;
 }
 
 .nav-bar a {
-  margin-left: 90px;
-  margin: 5px;
   font-size: 14px;
+  align-items: center;
   color: #6F737B;
   text-decoration: none;
   text-align: left;

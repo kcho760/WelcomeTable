@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :reviews, only: [:create, :destroy] # Add this line for creating reviews
+    resources :reviews, only: [:create, :update, :destroy]
 
     # Add a route for fetching user data by user ID
     resources :users, only: [] do

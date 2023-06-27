@@ -42,15 +42,20 @@ class Api::ReviewsController < ApplicationController
     @user = User.find(params[:user_id])
     @reviews = @user.reviews
     render json: @reviews
-  end
+  end 
 
   private
 
   def get_review
-    @review = Review.find(params[:id])
+    begin
+      @review = Review.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Review not found" }, status: :not_found
+    end
   end
+  
 
   def review_params
-    params.require(:review).permit(:title, :description, :food_rating, :service_rating, :ambience_rating, :value_rating, :user_id, :restaurant_id)
+    params.require(:review).permit(:description, :food_rating, :service_rating, :ambience_rating, :value_rating, :user_id, :restaurant_id)
   end
 end

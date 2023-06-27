@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteReview } from "../../store/review";
-import './review.css'
+import "./review.css";
+import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
+import UpdateReview from "./updateReview";
 
 function ReviewList({ reviews }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const [reviewData, setReviewData] = useState([]);
+  const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
     async function fetchReviewData() {
@@ -39,8 +42,15 @@ function ReviewList({ reviews }) {
   }
 
   const handleDeleteReview = (reviewId) => {
-    // Dispatch the deleteReview action
     dispatch(deleteReview(reviewId));
+  };
+
+  const handleUpdateReview = (reviewId) => {
+    setSelectedReview(reviewId);
+  };
+
+  const handleCancelUpdate = () => {
+    setSelectedReview(null);
   };
 
   return (
@@ -48,27 +58,44 @@ function ReviewList({ reviews }) {
       {reviewData.map((review) => (
         <div key={review.id} className="review-item">
           <p>{review.user.user.username}</p>
-          <h2>{review.title}</h2>
+          <StarRating
+            foodRating={review.food_rating}
+            serviceRating={review.service_rating}
+            ambienceRating={review.ambience_rating}
+            valueRating={review.value_rating}
+          />
+          <div className="rating-row">
+            <div>
+              <strong>Food Rating:</strong>{" "}
+              <span className="red-value">{review.food_rating}</span>
+            </div>
+            <div className="dot-1">&#x2022;</div>
+            <div>
+              <strong>Service Rating:</strong>{" "}
+              <span className="red-value">{review.service_rating} </span>
+            </div>
+            <div className="dot-1">&#x2022;</div>
+            <div>
+              <strong>Ambience Rating:</strong>{" "}
+              <span className="red-value">{review.ambience_rating} </span>
+            </div>
+            <div className="dot-1">&#x2022;</div>
+            <div>
+              <strong>Value Rating:</strong>{" "}
+              <span className="red-value">{review.value_rating}</span>
+            </div>
+          </div>
           <p>{review.description}</p>
-          <div>
-            <strong>User:</strong> {review.user ? review.user.user.username : "Unknown"}
-          </div>
-          <div>
-            <strong>Food Rating:</strong> {review.food_rating}
-          </div>
-          <div>
-            <strong>Service Rating:</strong> {review.service_rating}
-          </div>
-          <div>
-            <strong>Ambience Rating:</strong> {review.ambience_rating}
-          </div>
-          <div>
-            <strong>Value Rating:</strong> {review.value_rating}
-          </div>
           {currentUser && review.user.user.id === currentUser.id && (
             <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
           )}
+          {currentUser && review.user.user.id === currentUser.id && (
+            <button onClick={() => handleUpdateReview(review.id)}>Update</button>
+          )}
           <hr />
+          {selectedReview === review.id && (
+            <UpdateReview reviewId={review.id} onCancel={handleCancelUpdate} />
+          )}
         </div>
       ))}
     </div>

@@ -6,7 +6,6 @@ import ReviewStarRating from "./reviewStarRating";
 
 const CreateReview = ({ restaurantId }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [foodRating, setFoodRating] = useState(0);
   const [serviceRating, setServiceRating] = useState(0);
@@ -18,7 +17,6 @@ const CreateReview = ({ restaurantId }) => {
 
     // Create a review object
     const review = {
-      title: title,
       description: description,
       food_rating: foodRating,
       service_rating: serviceRating,
@@ -33,7 +31,6 @@ const CreateReview = ({ restaurantId }) => {
     dispatch(addReview(review));
 
     // Reset the form fields
-    setTitle("");
     setDescription("");
     setFoodRating(0);
     setServiceRating(0);
@@ -45,14 +42,6 @@ const CreateReview = ({ restaurantId }) => {
     <div className="create-review">
       <h2>Leave a Review</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
         <label htmlFor="description">Description:
           <textarea
             id="description"

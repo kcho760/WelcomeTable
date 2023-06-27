@@ -129,7 +129,6 @@ ApplicationRecord.transaction do
       2.times do
         user = User.all.sample
         review = Review.create!(
-          title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
           food_rating: Faker::Number.between(from: 1, to: 5),
           service_rating: Faker::Number.between(from: 1, to: 5),
@@ -140,7 +139,7 @@ ApplicationRecord.transaction do
         )
     
         if review.valid?
-          puts "Review created for #{restaurant.name} by #{user.username}: #{review.title}"
+          puts "Review created for #{restaurant.name} by #{user.username}"
         else
           puts "Failed to create review for #{restaurant.name}: #{review.errors.full_messages.join(', ')}"
         end

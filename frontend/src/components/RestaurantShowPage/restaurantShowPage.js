@@ -114,52 +114,52 @@ const RestaurantShowPage = () => {
             <div className="reservation-form-container">
 
               <ReservationForm restaurant={restaurant} />
+              <div className="additional-info-container">
+                <h1>Additional Info</h1>
+                  <div>
+                    <h2>Cross Street</h2>
+                    <p>{restaurant.crossStreet}</p>
+                  </div>
+                  <div>
+                    <h2>Hours of Operation</h2>
+                    <p>{restaurant.hoursOfOperation}</p>
+                  </div>
+                  <div>
+                    <h2>Cuisines</h2>
+                    <p>{restaurant.cuisine}</p>
+                  </div>
+                  <div>
+                    <h2>Dining Style</h2>
+                    <p>{restaurant.diningStyle}</p>
+                  </div>
+                  <div>
+                    <h2>Dress Code</h2>
+                    <p>{restaurant.dressCode}</p>
+                  </div>
+                  <div>
+                    <h2>Parking Details</h2>
+                    <p>{restaurant.parkingDetails}</p>
+                  </div>
+                  <div>
+                    <h2>Public Transit</h2>
+                    <p>{restaurant.publicTransit}</p>
+                  </div>
+                  <div>
+                    <h2>Payment Options</h2>
+                    <p>{restaurant.paymentOptions}</p>
+                  </div>
+                  <div>
+                    <h2>Website</h2>
+                    <p><a href={restaurant.website}>{restaurant.website}</a></p>
+                  </div>
+                  <div>
+                    <h2>Phone Number</h2>
+                    <p>{restaurant.phone}</p>
+                  </div>
+                </div>
             </div>
           </div>
 
-          <div className="additional-info-container">
-            <h1>Additional Info</h1>
-              <div>
-                <h2>Cross Street</h2>
-                <p>{restaurant.crossStreet}</p>
-              </div>
-              <div>
-                <h2>Hours of Operation</h2>
-                <p>{restaurant.hoursOfOperation}</p>
-              </div>
-              <div>
-                <h2>Cuisines</h2>
-                <p>{restaurant.cuisine}</p>
-              </div>
-              <div>
-                <h2>Dining Style</h2>
-                <p>{restaurant.diningStyle}</p>
-              </div>
-              <div>
-                <h2>Dress Code</h2>
-                <p>{restaurant.dressCode}</p>
-              </div>
-              <div>
-                <h2>Parking Details</h2>
-                <p>{restaurant.parkingDetails}</p>
-              </div>
-              <div>
-                <h2>Public Transit</h2>
-                <p>{restaurant.publicTransit}</p>
-              </div>
-              <div>
-                <h2>Payment Options</h2>
-                <p>{restaurant.paymentOptions}</p>
-              </div>
-              <div>
-                <h2>Website</h2>
-                <p><a href={restaurant.website}>{restaurant.website}</a></p>
-              </div>
-              <div>
-                <h2>Phone Number</h2>
-                <p>{restaurant.phone}</p>
-              </div>
-            </div>
         </div>
       </div>
     </>
