@@ -2,6 +2,7 @@
     margin-top: 20px;
     border: 1px solid #ccc;
     padding: 20px;
+    display: block;
   }
   
   .create-review h2 {
@@ -49,4 +50,22 @@
   .create-review button[type="submit"]:focus {
     outline: none;
   }
+
+  #description {
+    height: 100px; /* Adjust the height as needed */
+    width: 400px;
+    margin-left: -10px;
+  }
   
+  .rating-line1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .rating-line2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: 0px;
+  }

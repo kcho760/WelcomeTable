@@ -6,7 +6,6 @@ import ReviewStarRating from "./reviewStarRating";
 
 const CreateReview = ({ restaurantId }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [foodRating, setFoodRating] = useState(0);
   const [serviceRating, setServiceRating] = useState(0);
@@ -18,7 +17,6 @@ const CreateReview = ({ restaurantId }) => {
 
     // Create a review object
     const review = {
-      title: title,
       description: description,
       food_rating: foodRating,
       service_rating: serviceRating,
@@ -33,7 +31,6 @@ const CreateReview = ({ restaurantId }) => {
     dispatch(addReview(review));
 
     // Reset the form fields
-    setTitle("");
     setDescription("");
     setFoodRating(0);
     setServiceRating(0);
@@ -45,54 +42,33 @@ const CreateReview = ({ restaurantId }) => {
     <div className="create-review">
       <h2>Leave a Review</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <label htmlFor="description">Description:
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </label>
 
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
+        <div className="rating-line1">
+            <label htmlFor="foodRating">Food Rating:
+              <ReviewStarRating rating={foodRating} onRatingChange={setFoodRating} />
+            </label>
 
-        <label htmlFor="foodRating">Food Rating:</label>
-        <ReviewStarRating rating={foodRating} onRatingChange={setFoodRating} />
+            <label htmlFor="serviceRating">Service Rating:
+              <ReviewStarRating rating={serviceRating} onRatingChange={setServiceRating} />
+            </label>
+        </div>
 
+        <div className="rating-line2">
+            <label htmlFor="ambienceRating">Ambience Rating:
+              <ReviewStarRating rating={ambienceRating} onRatingChange={setAmbienceRating} />
+            </label>
 
-        <label htmlFor="serviceRating">Service Rating:</label>
-        <input
-          type="number"
-          id="serviceRating"
-          min="0"
-          max="5"
-          value={serviceRating}
-          onChange={(e) => setServiceRating(parseInt(e.target.value))}
-        />
-
-        <label htmlFor="ambienceRating">Ambience Rating:</label>
-        <input
-          type="number"
-          id="ambienceRating"
-          min="0"
-          max="5"
-          value={ambienceRating}
-          onChange={(e) => setAmbienceRating(parseInt(e.target.value))}
-        />
-
-        <label htmlFor="valueRating">Value Rating:</label>
-        <input
-          type="number"
-          id="valueRating"
-          min="0"
-          max="5"
-          value={valueRating}
-          onChange={(e) => setValueRating(parseInt(e.target.value))}
-        />
+            <label htmlFor="valueRating">Value Rating:
+              <ReviewStarRating rating={valueRating} onRatingChange={setValueRating} />
+            </label>
+        </div>
 
         <button type="submit">Submit Review</button>
       </form>

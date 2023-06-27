@@ -1,0 +1,9 @@
+.review-star-rating {
+    display: inline-flex;
+  }
+  
+  .review-star-rating label {
+    display: flex;
+    align-items: center;
+  }
+  
