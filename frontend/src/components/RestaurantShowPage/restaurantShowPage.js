@@ -80,12 +80,12 @@ const RestaurantShowPage = () => {
             </div>
 
             <div id="photos">
-            <h1>{restaurant.photoUrls.length} Photos</h1>
+              <h1>{restaurant.photoUrls.length} Photos</h1>
               <div className="photos-container">
                 <div className="photo-large">
                   <img className="photo-large-image" src={restaurant.photoUrls[0]} alt={restaurant.name} />
                 </div>
-                <div className="photos-small-container">
+                <div className="photo-small-container">
                   <div className="photo-small">
                     <img className="photo-small-image" src={restaurant.photoUrls[1]} alt={restaurant.name} />
                   </div>

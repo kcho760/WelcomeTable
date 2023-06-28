@@ -110,56 +110,43 @@
   border-bottom: #6F737B 1px solid;
 }
 
-.photos-section {
-  margin-bottom: 40px; /* Add margin-bottom to create space between sections */
-}
-
 .photos-container {
   display: flex;
-  justify-content: flex-start; /* Align photos to the left */
-  height: 100%;
-  width: 100%;
-  overflow: hidden; /* Ensure the container clips the image overflow */
+}
+
+.photo-small-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+  max-height: 300px;
+  min-width: 300px;
 }
 
 .photo-large {
-  flex-basis: 50%; /* Set the flex-basis to 50% for larger photos */
-  height: auto; /* Remove max-height */
-  width: 100%; /* Set width to 100% */
-  object-fit: cover; /* Adjust object-fit to cover */
-  margin-right: 2px; /* Increase margin-right to create a small gap between photos */
-  object-position: center;
+  max-height: 300px;
+  max-width: 300px;
+  margin-right: 5px;
+  object-fit: cover;
 }
 
-.photo-large-image {
-  border-radius: 4px;
-  height: 100%; /* Set height to 100% */
-  width: 100%; /* Set width to 100% */
-  max-height: calc(50vh - 2px); /* Adjust max-height to the half height of the container minus the gap */
-  max-width: 100%; /* Add max-width to ensure the large photo does not exceed the container's width */
-}
-
-.photos-small-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 2px;
-  width: 50%;
-  height: 50%;
+.photo-large-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .photo-small {
-  object-fit: cover;
-  object-position: center;
-  width: 100%; /* Set width to 100% */
-  height: 100%; /* Set height to 100% */
+  height: 150px;
+  width: 150px;
 }
 
 .photo-small-image {
-  border-radius: 4px;
-  width: 100%; /* Set width to 100% */
-  height: 100%; /* Set height to 100% */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+
 
 .reservations-container {
   position: absolute;
