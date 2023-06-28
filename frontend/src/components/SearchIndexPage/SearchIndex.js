@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import './searchIndex.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchResults } from '../../store/search';
-import StarRating from "../RestaurantCarousel/subcomponents/star_rating";
+import RestaurantStarRating from "../RestaurantCarousel/subcomponents/restaurant_star_rating";
 import SearchBar from '../Search_Bar';
 import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 
@@ -39,12 +39,7 @@ function SearchIndex() {
                     <h3>{restaurant.name}</h3>
                   </Link>
                     <div className="star-rating">
-                      <StarRating
-                        foodRating={restaurant.food_rating}
-                        serviceRating={restaurant.service_rating}
-                        ambienceRating={restaurant.ambience_rating}
-                        valueRating={restaurant.value_rating}
-                      />
+                      <RestaurantStarRating restaurantId={restaurant.id}/>
                     </div>
                     <div className="restaurant-info-line-2">
                       <div>
@@ -65,7 +60,7 @@ function SearchIndex() {
           </div>
         </ul>
       ) : (
-        <p>No search results found.</p>
+        <p>Loading...</p>
       )}
     </div>
   );

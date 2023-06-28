@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateReservation, fetchReservation } from '../../../store/reservation';
+import { updateReservation, fetchUserReservations } from '../../../store/reservation';
 import format from 'date-fns/format';
 import MyComponent from '../../RestaurantCarousel/subcomponents/calender';
 
@@ -59,6 +59,22 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
     const updatedReservation = await dispatch(updateReservation(reservation.id, updatedReservationData));
     setUpdatedReservation(updatedReservation);
     onCancel();
+
+    // Fetch updated reservations after successful update
+    dispatch(fetchUserReservations())
+      .then(() => {
+        // Optional: Fetch the specific updated reservation if needed
+        // dispatch(fetchReservation(updatedReservation.id))
+        //   .then((fetchedReservation) => {
+        //     setUpdatedReservation(fetchedReservation);
+        //   })
+        //   .catch((error) => {
+        //     console.log('Error fetching updated reservation:', error);
+        //   });
+      })
+      .catch((error) => {
+        console.log('Error fetching user reservations:', error);
+      });
   };
 
   return (

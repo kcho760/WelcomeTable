@@ -59,28 +59,30 @@ const UpcomingReservations = ({ getRestaurant }) => {
       {userReservations && userReservations.reservations && userReservations.reservations.length > 0 ? (
         userReservations.reservations.map((reservation) => {
           const restaurant = getRestaurant(reservation.restaurant_id);
-          return (
-            <div className="user-reservation" key={reservation.id}>
-            <div className="profile-reservation-wrapper">
-                <img className='profile-reservation-image' src={restaurant.photoUrls[0]} alt='restaurant' />
-              <div className="profile-reservation-info">
-                <p>{restaurant ? restaurant.name : 'Unknown'}</p>
-                <div className='guest-count'>
-                  <img className='num-of-guests-icon' src={guestCount} alt='num-of-guests-icon' />
-                  <p>{reservation.party_size}</p>
+          if (restaurant) {
+            return (
+              <div className="user-reservation" key={reservation.id}>
+                <div className="profile-reservation-wrapper">
+                  <img className='profile-reservation-image' src={restaurant.photoUrls ? restaurant.photoUrls[0] : ''} alt='restaurant' />
+                  <div className="profile-reservation-info">
+                    <p>{restaurant.name || 'Unknown'}</p>
+                    <div className='guest-count'>
+                      <img className='num-of-guests-icon' src={guestCount} alt='num-of-guests-icon' />
+                      <p>{reservation.party_size}</p>
+                    </div>
+                    <div className='profile-date'>
+                      <img className='calendar-icon' src={calendar} alt='calendar-icon' />
+                      <p>{formatDateString(reservation.reservation_date)}</p>
+                    </div>
+                    <p>{formatTime(reservation.reservation_time)}</p>
+                  </div>
                 </div>
-
-                <div className='profile-date'>
-                  <img className='calendar-icon' src={calendar} alt='calendar-icon' />
-                  <p>{formatDateString(reservation.reservation_date)}</p>
-                </div>
-                <p>{formatTime(reservation.reservation_time)}</p>
+                <button className='profile-reservation-buttons' onClick={() => openUpdateMenu(reservation)}>Update Reservation</button>
+                <button className='profile-reservation-buttons' onClick={() => handleDeleteReservation(reservation.id)}>Delete Reservation</button>
               </div>
-            </div>
-            <button className='profile-reservation-buttons' onClick={() => openUpdateMenu(reservation)}>Update Reservation</button>
-            <button className='profile-reservation-buttons' onClick={() => handleDeleteReservation(reservation.id)}>Delete Reservation</button>
-          </div>
-          );
+            );
+          }
+          return null; // Skip rendering if restaurant is null
         })
       ) : (
         <p>No upcoming reservations found.</p>
