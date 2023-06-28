@@ -17,7 +17,6 @@ function SearchIndex() {
   }, [dispatch, searchTerm]);
 
   const searchResults = useSelector((state) => state.search.search.results);
-
   return (
     <div>
       <div className="search-index-search-container">

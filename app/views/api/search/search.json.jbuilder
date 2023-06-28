@@ -1,1 +1,3 @@
-json.results @restaurants, :id, :name, :cuisine, :address, :city, :price, :food_rating, :service_rating, :ambience_rating, :value_rating, :photoUrls
+# app/views/api/search/search.json.jbuilder
+
+json.results @restaurants

@@ -34,10 +34,10 @@ Rails.application.routes.draw do
         get 'fetch_data', to: 'users#fetch_data'
       end
     end
-  end
 
-  # Route for search index
-  resources :search, only: [:index]
+    # Custom route for getting search results
+    get 'searches/:search_term', to: 'searches#search'
+  end
 
   # Catch-all route for frontend handling
   get '*path', to: "static_pages#frontend_index"
