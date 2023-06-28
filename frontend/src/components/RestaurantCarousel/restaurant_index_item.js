@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import StarRating from "./subcomponents/star_rating";
+import RestaurantStarRating from "./subcomponents/restaurant_star_rating";
 import CostRating from "./subcomponents/cost_rating";
 import graph from "./assets/graph.png";
-import restaurantpic2 from "./assets/restaurantpic2.png";
 
 function RestaurantIndexItem({ restaurant }) {
   if (!restaurant) {
@@ -18,12 +17,8 @@ function RestaurantIndexItem({ restaurant }) {
         <div className="restaurant-info">
           <p className="restaurant-name">{restaurant.name}</p>
           <div className="StarRating-container">
-            <StarRating
-              className="star-rating"
-              foodRating={restaurant.foodRating}
-              serviceRating={restaurant.serviceRating}
-              ambienceRating={restaurant.ambienceRating}
-              valueRating={restaurant.valueRating}
+            <RestaurantStarRating
+              restaurantId={restaurant.id}
             />
             <p className="restaurant-review-count">{restaurant.reviewCount}0 reviews</p>
           </div>
