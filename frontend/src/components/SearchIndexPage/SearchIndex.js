@@ -2,21 +2,17 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './searchIndex.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSearchResults, getAllRestaurants } from '../../store/search';
+import { getSearchResults } from '../../store/search';
 import RestaurantStarRating from "../RestaurantCarousel/subcomponents/restaurant_star_rating";
 import SearchBar from '../Search_Bar';
 import CostRating from "../RestaurantCarousel/subcomponents/cost_rating";
 
 function SearchIndex() {
-  const { searchTerm } = useParams();
+  const { searchTerm = '' } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (searchTerm) {
       dispatch(getSearchResults(searchTerm));
-    } else {
-      dispatch(getAllRestaurants());
-    }
   }, [dispatch, searchTerm]);
 
   const searchResults = useSelector((state) => state.search.search.results);

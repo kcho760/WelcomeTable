@@ -6,7 +6,8 @@ class Api::SearchesController < ApplicationController
 
   def search
     search_term = params[:search_term]
-    restaurants = Restaurant.where('cuisine = ?', search_term)
+    restaurants = search_term.present? ? Restaurant.where('cuisine = ?', search_term) : Restaurant.all
     render json: { results: restaurants }
   end
+  
 end

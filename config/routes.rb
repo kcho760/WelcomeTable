@@ -36,7 +36,8 @@ Rails.application.routes.draw do
     end
 
     # Custom route for getting search results
-    get 'searches/:search_term', to: 'searches#search'
+    get 'searches/:search_term', to: 'searches#search', constraints: { search_term: /.+/ }
+    get 'searches/', to: 'searches#search'
   end
 
   # Catch-all route for frontend handling
