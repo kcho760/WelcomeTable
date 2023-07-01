@@ -63,17 +63,8 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
     // Fetch updated reservations after successful update
     dispatch(fetchUserReservations())
       .then(() => {
-        // Optional: Fetch the specific updated reservation if needed
-        // dispatch(fetchReservation(updatedReservation.id))
-        //   .then((fetchedReservation) => {
-        //     setUpdatedReservation(fetchedReservation);
-        //   })
-        //   .catch((error) => {
-        //     console.log('Error fetching updated reservation:', error);
-        //   });
       })
       .catch((error) => {
-        console.log('Error fetching user reservations:', error);
       });
   };
 

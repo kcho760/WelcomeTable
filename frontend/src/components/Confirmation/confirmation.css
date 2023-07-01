@@ -49,8 +49,8 @@
     .confirmation-image {
     aspect-ratio: 1;
     width: 30%;
-    height: auto;
-    object-fit: contain;
+    height: 80%;
+    object-fit: cover;
     margin: 20px;
     border-radius: 22%;
     }

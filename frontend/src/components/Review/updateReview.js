@@ -14,6 +14,7 @@ const UpdateReview = ({ reviewId, onCancel }) => {
   const currentUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.review.reviews);
   const currentReview = reviews.find((review) => review.id === reviewId);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (currentReview) {
@@ -27,6 +28,12 @@ const UpdateReview = ({ reviewId, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!description) {
+      // Display error message if description is empty
+      setErrors(['Please fill out a description']);
+      return;
+    }
 
     // Create a review object
     const updatedReview = {
@@ -56,16 +63,31 @@ const UpdateReview = ({ reviewId, onCancel }) => {
     onCancel();
   };
 
+  const handleChangeDescription = (e) => {
+    setDescription(e.target.value);
+    // Clear the errors when something is typed in the description field
+    if (errors.length > 0) {
+      setErrors([]);
+    }
+  };
+
   return (
     <div className="update-review">
       <h2>Update Review</h2>
+      {errors.length > 0 && (
+        <ul className="error-list">
+          {errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
+        </ul>
+      )}
       <form onSubmit={handleSubmit}>
         <label htmlFor="description">
           Description:
           <textarea
             id="description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleChangeDescription}
           ></textarea>
         </label>
 

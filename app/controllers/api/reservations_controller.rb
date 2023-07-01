@@ -25,8 +25,8 @@ class Api::ReservationsController < ApplicationController
 
   def available
     # Retrieve the parameters
-    start_datetime = DateTime.parse(params[:startDateTime])
-    end_datetime = DateTime.parse(params[:endDateTime])
+    start_datetime = Time.zone.parse(params[:startDateTime])
+    end_datetime = Time.zone.parse(params[:endDateTime])
     restaurant_id = params[:restaurantId]
     party_size = params[:partySize].to_i
   
@@ -37,15 +37,15 @@ class Api::ReservationsController < ApplicationController
     available_reservations = []
   
     # Set the minimum and maximum reservation times
-    min_reservation_time = start_datetime.change(hour: 10, min: 30, sec: 0)
-    max_reservation_time = start_datetime.change(hour: 23, min: 00, sec: 0)
+    min_reservation_time = start_datetime.in_time_zone.change(hour: 10, min: 30, sec: 0)
+    max_reservation_time = start_datetime.in_time_zone.change(hour: 23, min: 0, sec: 0)
   
     # Adjust the start and end times if they fall outside the allowed range
     start_datetime = [start_datetime, min_reservation_time].max
     end_datetime = [end_datetime, max_reservation_time].min
   
     # Ensure that the start time is rounded up to the next 15-minute interval if it's before 10:30 AM
-    start_datetime += (15 - (start_datetime.min % 15)).minutes if start_datetime < min_reservation_time
+    start_datetime = start_datetime.beginning_of_hour.change(min: (start_datetime.min / 15).ceil * 15) if start_datetime < min_reservation_time
   
     # Iterate over each 15-minute interval
     current_datetime = start_datetime
@@ -53,12 +53,12 @@ class Api::ReservationsController < ApplicationController
       # Check availability for the modified current interval using the helper method
       if validate_reservation_limit(current_datetime, restaurant)
         # If the current interval is available, add it to the available reservations array
-        available_reservations << { reservationTime: current_datetime }
+        available_reservations << { reservationTime: current_datetime.strftime('%Y-%m-%d %I:%M:%S %p') }
       end
-    
+  
       # Move to the next 15-minute interval
       current_datetime += 15.minutes
-    
+  
       # Handle minutes exceeding 59
       if current_datetime.min >= 60
         current_datetime += 1.hour
@@ -72,7 +72,8 @@ class Api::ReservationsController < ApplicationController
       render json: { availableReservations: available_reservations }
     end
   end
-
+  
+  
   def update
     @reservation = Reservation.find(params[:id])
       if @reservation.update(reservation_params)

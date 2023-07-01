@@ -37,7 +37,7 @@ function App() {
           <p>Loading cuisine types...</p>
         )}
 
-        <Footer />
+        <Footer className="splash-page-footer"/>
       </Route>
 
       <Route path="/restaurants/:id">

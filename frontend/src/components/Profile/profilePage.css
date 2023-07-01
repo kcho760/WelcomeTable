@@ -62,9 +62,12 @@
 }
 
 .profile-reservation-image {
-  width: 40%;
-  height: 50%;
-  border-radius: 5px;
+  aspect-ratio: 1;
+  width: 30%;
+  height: 80%;
+  object-fit: cover;
+  /* margin: 20px; */
+  border-radius: 4px;
 }
 
 .profile-reservation-info {
@@ -116,6 +119,7 @@
 .user-reservation {
   margin-top: 20px;
   margin-bottom: 10px;
+  border: 1px solid #ccc;
 }
 
 .user-reservation.selected {

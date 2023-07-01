@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SignupFormPage from "../SignupFormPage";
 import "./LoginForm.css";
 
-function LoginForm() {
+function LoginForm({onClose}) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,25 +47,32 @@ function LoginForm() {
   const handleDemoLogin = () => {
     dispatch(sessionActions.login({ email: "demo@user.io", password: "password" }))
       .then(() => {
-        setShowSignupModal(false);
-        setShowPasswordPrompt(false);
+        setErrors([]);
+        setPasswordError(""); // Reset password error
+        onClose(); // Call the onClose function passed from the parent component
       })
       .catch((error) => {
         setErrors([error.message]);
       });
   };
-
+  
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     setPasswordError(""); // Reset password error
-
+  
     dispatch(sessionActions.login({ email, password }))
+      .then(() => {
+        setErrors([]);
+        setPasswordError(""); // Reset password error
+        onClose(); // Call the onClose function passed from the parent component
+      })
       .catch((error) => {
         setErrors([error.message]);
         setPasswordError("Incorrect password"); // Set password error message
       });
   };
+  
 
   const closeSignupModal = () => {
     setShowSignupModal(false);

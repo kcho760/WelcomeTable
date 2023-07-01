@@ -1,11 +1,11 @@
 .footer {
-  width: 100vw;
+  width: 115vw;
   background-color: #1a274f;
   text-align: center;
   color: white;
   position: relative;
   bottom: -20px;
-  margin-left: -100px;
+  left: -90px;
 }
 
 .footer-content {

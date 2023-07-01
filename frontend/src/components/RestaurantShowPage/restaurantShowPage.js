@@ -107,7 +107,7 @@ const RestaurantShowPage = () => {
               <CreateReview restaurantId={restaurant.id} />
               <ReviewList reviews={reviews} />
             </div>
-          <Footer />
+            <Footer className="restaurant-show-footer" />
           </div>
 
           <div className="reservation-container-outer">
