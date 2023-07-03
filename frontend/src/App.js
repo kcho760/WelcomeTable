@@ -49,6 +49,7 @@ function App() {
       <Route path="/reservation/:id" component={Confirmation} />
 
       <Route path="/search/:searchTerm" component={SearchIndex} />
+      <Route path="/search" component={SearchIndex} />
     </Router>
   );
 }

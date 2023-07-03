@@ -15,14 +15,17 @@ function SearchIndex() {
       dispatch(getSearchResults(searchTerm));
   }, [dispatch, searchTerm]);
 
-  const searchResults = useSelector((state) => state.search.search.results);
+  const searchResults = useSelector((state) => state.search.search.results) || [];
+
   return (
     <div>
       <div className="search-index-search-container">
         <SearchBar className="search-index-search-bar" />
       </div>
       <div className="search-result-container">
-        <h1 className="search-result-text">Search Results for: {searchTerm}</h1>
+        <h1 className="search-result-text">
+          Search Results for: {searchTerm ? searchTerm : 'All'}
+        </h1>
       </div>
       {Array.isArray(searchResults) ? (
         <ul>
