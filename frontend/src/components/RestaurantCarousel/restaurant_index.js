@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RestaurantIndexItem from "./restaurant_index_item";
 import "./restaurantIndex.css";
 import { retrieveRestaurants } from "../../store/restaurant";
+import LoadingAnimation from "./subcomponents/Loading_Animation";
 
 const Carousel = ({ cuisine }) => {
   const [slideOffset, setSlideOffset] = useState(0);
@@ -14,13 +15,14 @@ const Carousel = ({ cuisine }) => {
       (restaurant) => restaurant.cuisine === cuisine
     )
   );
+  const isLoading = useSelector((state) => state.restaurant.isLoading);
 
   useEffect(() => {
     dispatch(retrieveRestaurants());
   }, [dispatch]);
 
-  if (restaurants.length === 0) {
-    return <div>Loading...</div>; // or any other loading indicator
+  if (isLoading || restaurants.length === 0) {
+    return <LoadingAnimation />; // Render the loading animation if the carousel is loading or if there are no restaurants
   }
 
   function goToPrevSlide() {

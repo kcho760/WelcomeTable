@@ -43,7 +43,7 @@ export const retrieveReviewsByRestaurantId = (restaurantId) => {
       if (res.ok) {
         const reviews = await res.json();
         dispatch(reviewsRetrieved(reviews));
-        return reviews;
+        return reviews; // Return the fetched reviews
       } else {
         throw new Error("Failed to retrieve reviews");
       }

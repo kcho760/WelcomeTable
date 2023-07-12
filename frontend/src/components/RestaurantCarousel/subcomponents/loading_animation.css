@@ -1,0 +1,28 @@
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 4px;
+    animation: loadingAnimation 1s infinite ease-in-out;
+  }
+  
+  @keyframes loadingAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.7);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

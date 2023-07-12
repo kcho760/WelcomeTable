@@ -6,13 +6,19 @@ import CostRating from "./subcomponents/cost_rating";
 import graph from "./assets/graph.png";
 import { Link, useHistory } from "react-router-dom";
 import LoginFormModal from '../LoginFormModal/index';
+import { retrieveReviewsByRestaurantId } from "../../store/review";
+import LoadingAnimation from "./subcomponents/Loading_Animation";
 
-function RestaurantIndexItem({ restaurant }) {
+const RestaurantIndexItem = React.memo(({ restaurant }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [availableReservations, setAvailableReservations] = useState([]);
   const currentUser = useSelector((state) => state.session.user); // Access the current user from Redux state
   const [showLoginFormModal, setShowLoginFormModal] = useState(false);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [reviews, setReviews] = useState([]);
+  const [isLoadingReservations, setIsLoadingReservations] = useState(true);
+  const [isLoadingRating, setIsLoadingRating] = useState(true);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -26,11 +32,28 @@ function RestaurantIndexItem({ restaurant }) {
         partySize: 2,
       };
 
+      setIsLoadingReservations(true);
+
       const reservations = await dispatch(fetchAvailableReservations(reservationsParams));
       setAvailableReservations(reservations.availableReservations || []);
+      setIsLoadingReservations(false);
+    };
+
+    const fetchReviewData = async () => {
+      try {
+        setIsLoadingRating(true);
+        // Retrieve reviews for the restaurant
+        const fetchedReviews = await dispatch(retrieveReviewsByRestaurantId(restaurant.id));
+        setReviews(fetchedReviews);
+        setReviewCount(fetchedReviews.length);
+        setIsLoadingRating(false);
+      } catch (error) {
+        console.error("Failed to retrieve reviews:", error);
+      }
     };
 
     fetchReservations();
+    fetchReviewData();
   }, [dispatch, restaurant.id]);
 
   const handleReservationClick = async (reservation) => {
@@ -76,8 +99,12 @@ function RestaurantIndexItem({ restaurant }) {
           <p className="restaurant-name">{restaurant.name}</p>
         </Link>
         <div className="StarRating-container">
-          <RestaurantStarRating restaurantId={restaurant.id} />
-          <p className="restaurant-review-count">{restaurant.reviewCount}0 reviews</p>
+          {isLoadingRating ? (
+            <LoadingAnimation /> // Render the loading animation while rating is being fetched
+          ) : (
+            <RestaurantStarRating reviews={reviews} />
+          )}
+          <p className="restaurant-review-count">{reviewCount} reviews</p>
         </div>
         <div className="cuisine-container">
           <p className="restaurant-cuisine">{restaurant.cuisine}</p>
@@ -91,21 +118,26 @@ function RestaurantIndexItem({ restaurant }) {
           <p className="restaurant-daily-booking">Booked X times today</p>
         </div>
         <div className="reservation-container">
-          {availableReservations.map((reservation, index) => (
-            <button
-              key={index}
-              className="restaurant-reservation-button"
-              onClick={() => handleReservationClick(reservation)}
-            >
-              {new Date(reservation.reservationTime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </button>
-          ))}
+          {isLoadingReservations ? (
+            <LoadingAnimation /> // Render the loading animation when reservations are being fetched
+          ) : (
+            availableReservations.map((reservation, index) => (
+              <button
+                key={index}
+                className="restaurant-reservation-button"
+                onClick={() => handleReservationClick(reservation)}
+              >
+                {new Date(reservation.reservationTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </button>
+            ))
+          )}
         </div>
       </div>
     </div>
   );
-            }  
+});
+
 export default RestaurantIndexItem;
