@@ -102,7 +102,7 @@ const RestaurantIndexItem = React.memo(({ restaurant }) => {
           {isLoadingRating ? (
             <LoadingAnimation /> // Render the loading animation while rating is being fetched
           ) : (
-            <RestaurantStarRating reviews={reviews} />
+            <RestaurantStarRating restaurantId={restaurant.id} />
           )}
           <p className="restaurant-review-count">{reviewCount} reviews</p>
         </div>

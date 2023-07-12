@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { retrieveReviewsByRestaurantId } from "../../../store/review";
 
 const RestaurantStarRating = ({ restaurantId }) => {
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.review.reviews);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -13,7 +13,7 @@ const RestaurantStarRating = ({ restaurantId }) => {
         // Check if reviews were successfully fetched
         if (fetchedReviews) {
           // Reviews were fetched successfully
-          console.log(fetchedReviews); // Verify that reviews are retrieved correctly
+          setReviews(fetchedReviews); // Set the reviews for the component
         } else {
           // Failed to retrieve reviews
           console.log("Failed to retrieve reviews");
@@ -27,7 +27,7 @@ const RestaurantStarRating = ({ restaurantId }) => {
   }, [dispatch, restaurantId]);
 
   if (!reviews || reviews.length === 0) {
-    return <div>No reviews</div>; // Display "No reviews" when there are no reviews available or reviews is undefined
+    return <div>Loading Reviews</div>; // Display "No reviews" when there are no reviews available or reviews is undefined
   }
 
   const calculateAverageRating = () => {
@@ -44,12 +44,13 @@ const RestaurantStarRating = ({ restaurantId }) => {
     return isNaN(averageRating) ? 0 : averageRating;
   };
 
-  const averageRating = calculateAverageRating();
-  const filledStars = Math.floor(averageRating);
-  const hasHalfStar = averageRating % 1 !== 0;
-  const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
-
   const renderStarRating = () => {
+    const averageRating = calculateAverageRating();
+    console.log(averageRating);
+    const filledStars = Math.floor(averageRating);
+    const hasHalfStar = averageRating % 1 !== 0;
+    const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+
     const stars = [];
 
     for (let i = 0; i < filledStars; i++) {
