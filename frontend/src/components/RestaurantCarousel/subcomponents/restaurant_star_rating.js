@@ -16,7 +16,6 @@ const RestaurantStarRating = ({ restaurantId }) => {
           setReviews(fetchedReviews); // Set the reviews for the component
         } else {
           // Failed to retrieve reviews
-          console.log("Failed to retrieve reviews");
         }
       } catch (error) {
         console.error("Failed to retrieve reviews:", error);
@@ -46,7 +45,6 @@ const RestaurantStarRating = ({ restaurantId }) => {
 
   const renderStarRating = () => {
     const averageRating = calculateAverageRating();
-    console.log(averageRating);
     const filledStars = Math.floor(averageRating);
     const hasHalfStar = averageRating % 1 !== 0;
     const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
