@@ -45,14 +45,16 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    // Add one day to the updatedDate
-    const updatedDateWithOneDayAdded = new Date(updatedDate);
-    updatedDateWithOneDayAdded.setDate(updatedDateWithOneDayAdded.getDate() + 1);
-
+  
+    // Get the local time zone offset
+    const timeZoneOffset = new Date().getTimezoneOffset();
+    const updatedDateWithOffset = new Date(updatedDate);
+    updatedDateWithOffset.setUTCDate(updatedDateWithOffset.getUTCDate() + 1);
+    updatedDateWithOffset.setMinutes(updatedDateWithOffset.getMinutes() + timeZoneOffset);
+  
     const updatedReservationData = {
       party_size: updatedPartySize,
-      reservation_date: format(updatedDateWithOneDayAdded, 'yyyy-MM-dd'),
+      reservation_date: updatedDateWithOffset.toISOString().slice(0, 10), // Use ISO string format
       reservation_time: updatedTime,
     };
 

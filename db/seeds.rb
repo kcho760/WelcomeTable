@@ -131,7 +131,7 @@ ApplicationRecord.transaction do
       2.times do
         user = User.all.sample
         review = Review.create!(
-          description: Faker::Lorem.paragraph,
+          description: Faker::Restaurant.review,
           food_rating: Faker::Number.between(from: 1, to: 5),
           service_rating: Faker::Number.between(from: 1, to: 5),
           ambience_rating: Faker::Number.between(from: 1, to: 5),

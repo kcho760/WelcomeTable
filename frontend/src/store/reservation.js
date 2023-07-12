@@ -53,7 +53,6 @@ const FETCH_USER_RESERVATIONS = 'reservation/FETCH_USER_RESERVATIONS'
       
         if (res.ok) {
           const availableReservations = await res.json();
-          console.log(availableReservations)
           dispatch({
             type: FETCH_AVAILABLE_RESERVATIONS,
             availableReservations,

@@ -41,7 +41,6 @@ const CreateReview = ({ restaurantId }) => {
         restaurant_id: restaurantId,
       };
 
-      console.log(review);
       // Dispatch the addReview action
       dispatch(addReview(review));
 
@@ -58,7 +57,6 @@ const CreateReview = ({ restaurantId }) => {
   };
 
   const handleCloseModal = () => {
-    console.log('close modal');
     setShowModal(false); // Close the modal when called
   };
 
