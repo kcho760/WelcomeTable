@@ -17,13 +17,13 @@ const UpcomingReservations = ({ getRestaurant }) => {
     let hours = parseInt(time[0]);
     const minutes = parseInt(time[1]);
     const amPm = hours >= 12 ? 'pm' : 'am';
-  
+
     const localDate = new Date();
     const localOffset = localDate.getTimezoneOffset() / 60;
     hours += localOffset + 1; // Add one hour
     const formattedHours = ((hours + 12) % 12 || 12).toString().padStart(2, '0');
     const formattedMinutes = minutes.toString().padStart(2, '0');
-  
+
     return `${formattedHours}:${formattedMinutes} ${amPm}`;
   };
 
@@ -54,16 +54,17 @@ const UpcomingReservations = ({ getRestaurant }) => {
     setSelectedReservation(null);
   };
 
+  const isReservationUpcoming = (reservation) => {
+    const reservationDateTime = new Date(reservation.reservation_date + 'T' + reservation.reservation_time);
+    const localDateTime = new Date(reservationDateTime.getTime() - (reservationDateTime.getTimezoneOffset() * 60000));
+    return localDateTime >= currentTime;
+  };
+
   return (
     <>
       {userReservations && userReservations.reservations && userReservations.reservations.length > 0 ? (
         userReservations.reservations
-          .filter((reservation) => {
-            const reservationDate = reservation.reservation_date;
-            const reservationTime = reservation.reservation_time.split('T')[1].slice(0, 8);
-            const reservationDateTime = new Date(`${reservationDate}T${reservationTime}`);
-            return reservationDateTime >= currentTime; // Filter out reservations with date and time before the current time
-          })
+          .filter(isReservationUpcoming)
           .map((reservation) => {
             const restaurant = getRestaurant(reservation.restaurant_id);
             if (restaurant) {
