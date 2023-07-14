@@ -63,8 +63,8 @@ const formatDateString = (dateString) => {
   };
 
   const isReservationUpcoming = (reservation) => {
-    const currentTime = new Date();
-    const reservationDateTime = new Date(`${reservation.reservation_date}T${reservation.reservation_time.split('T')[1]}`);
+    const [timeString] = reservation.reservation_time.split('T')[1].split('-');
+    const reservationDateTime = new Date(`${reservation.reservation_date}T${timeString}`);    
     return reservationDateTime >= currentTime;
   };
 

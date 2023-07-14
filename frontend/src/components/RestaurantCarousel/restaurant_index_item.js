@@ -62,7 +62,7 @@ const handleReservationClick = async (reservation) => {
     reservationTime.setHours(reservationTime.getHours() + 1);
 
     const reservationDate = new Date(reservation.reservationTime);
-    reservationDate.setDate(reservationDate.getDate() - 1); // Subtract one day from the reservation date
+    reservationDate.setDate(reservationDate.getDate() + 0);
 
     if (!currentUser || !currentUser.id) {
       setShowLoginFormModal(true);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import './searchIndex.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSearchResults } from '../../store/search';
+import { getSearchResults, getAllResults } from '../../store/search';
 import { fetchAvailableReservations, createReservation } from "../../store/reservation";
 import RestaurantStarRating from "../RestaurantCarousel/subcomponents/restaurant_star_rating";
 import SearchBar from '../Search_Bar';
@@ -13,15 +13,18 @@ function SearchIndex() {
   const { searchTerm = '' } = useParams();
   const dispatch = useDispatch();
   const [availableReservations, setAvailableReservations] = useState([]);
-  const currentUser = useSelector((state) => state.session.user); // Access the current user from Redux state
+  const currentUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const [showLoginFormModal, setShowLoginFormModal] = useState(false);
-
-
   const searchResults = useSelector((state) => state.search.search.results) || [];
 
+  // Fetch all results when the component first loads
   useEffect(() => {
-    dispatch(getSearchResults(searchTerm));
+    if (searchTerm) {
+      dispatch(getSearchResults(searchTerm));
+    } else {
+      dispatch(getAllResults());
+    }
   }, [dispatch, searchTerm]);
 
   useEffect(() => {
@@ -38,23 +41,24 @@ function SearchIndex() {
     
       const reservations = await dispatch(fetchAvailableReservations(reservationsParams));
       setAvailableReservations(reservations?.availableReservations || []);
-    };  
+    };
+
     if (searchResults.length > 0) {
       fetchReservations(searchResults[0]); // Fetch reservations for the first restaurant in the search results
     }
-  }, [searchResults]);
-  
-  
+  }, [searchResults, dispatch]);
+
   const handleReservationClick = async (reservation, restaurant) => {
     try {
       const modifiedReservationTime = new Date(reservation.reservationTime);
       modifiedReservationTime.setHours(modifiedReservationTime.getHours() + 1);
-      const currentUserId = currentUser?.id; // Add the conditional check here
+      const currentUserId = currentUser?.id; 
       const partySize = 2;
   
       if (!currentUserId) {
         setShowLoginFormModal(true);
       }
+
       const reservationData = {
         reservation: {
           reservation_time: modifiedReservationTime.toISOString(),
@@ -102,6 +106,11 @@ function SearchIndex() {
                       <RestaurantStarRating restaurantId={restaurant.id} />
                     </div>
                     <div className="restaurant-info-line-2">
+                      <div>
+                        {restaurant.cuisine}
+                      </div>
+                      <div className="search-dot">&#x2022;</div>
+
                       <div>
                         <CostRating className="restaurant-price" price={restaurant.price} />
                       </div>

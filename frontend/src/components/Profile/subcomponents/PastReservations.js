@@ -31,11 +31,13 @@ const PastReservations = ({ getRestaurant }) => {
     return `${formattedHours}:${formattedMinutes} ${amPm}`;
 };
 
-  const formatDateString = (dateString) => {
-    const date = new Date(dateString);
-    const options = { month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-  };
+const formatDateString = (dateString) => {
+  const [year, month, day] = dateString.split('-').map(Number);
+  const date = new Date(year, month - 1, day);  // JS Date months are 0-indexed
+
+  const options = { month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+};
 
   const currentTime = new Date();
 

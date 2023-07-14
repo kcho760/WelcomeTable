@@ -1,3 +1,4 @@
+// App.js
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,7 +50,7 @@ function App() {
       <Route path="/reservation/:id" component={Confirmation} />
 
       <Route path="/search/:searchTerm" component={SearchIndex} />
-      <Route path="/search" component={SearchIndex} />
+      <Route exact path="/search" component={SearchIndex} />
     </Router>
   );
 }

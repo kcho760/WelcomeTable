@@ -66,9 +66,12 @@ const Confirmation = () => {
 
   const formatDateString = (dateString) => {
     const date = new Date(dateString);
+    date.setDate(date.getDate() + 1);  // Add one day to the date
+  
     const options = { month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
   };
+  
   return (
     <>
       <div className='outer'>

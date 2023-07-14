@@ -10,9 +10,9 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
   const [updatedPartySize, setUpdatedPartySize] = useState(reservation.party_size);
   const [updatedDate, setUpdatedDate] = useState(() => {
     const presetDate = new Date(reservation.reservation_date);
-    presetDate.setDate(presetDate.getDate());
-    return format(presetDate, 'yyyy-MM-dd');
+    return presetDate.toISOString().slice(0, 10);
   });
+  
   const [updatedTime, setUpdatedTime] = useState(reservation.reservation_time);
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -45,22 +45,17 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
-    // Adjust for timezone offset only if the server expects date in UTC format
-    const timeZoneOffset = new Date().getTimezoneOffset();
-    const updatedDateWithOffset = new Date(updatedDate);
-    updatedDateWithOffset.setMinutes(updatedDateWithOffset.getMinutes() - timeZoneOffset);
-  
+    
     const updatedReservationData = {
       party_size: updatedPartySize,
-      reservation_date: updatedDateWithOffset.toISOString().slice(0, 10), // Use ISO string format
+      reservation_date: updatedDate, // Use ISO string format
       reservation_time: updatedTime,
     };
-  
+    
     const updatedReservation = await dispatch(updateReservation(reservation.id, updatedReservationData));
     setUpdatedReservation(updatedReservation);
     onCancel();
-  
+    
     // Fetch updated reservations after successful update
     dispatch(fetchUserReservations())
       .then(() => {
@@ -68,6 +63,7 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
       .catch((error) => {
       });
   };
+  
   
 
   return (
