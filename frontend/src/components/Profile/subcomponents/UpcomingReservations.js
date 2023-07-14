@@ -10,7 +10,6 @@ const UpcomingReservations = ({ getRestaurant, reservations }) => {
   const user = useSelector((state) => state.session.user);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [updatedReservation, setUpdatedReservation] = useState(null);
-  console.log("All reservations:", reservations);
 
   const formatTime = (timeString) => {
     const time = new Date(timeString);
