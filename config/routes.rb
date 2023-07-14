@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
     resources :restaurants, only: [:show, :index, :update]
 
+    resources :restaurants do
+      get 'daily_reservations', on: :member
+    end
+    
     resources :reservations, only: [:create, :show, :update, :destroy] do
       collection do
         post 'available', to: 'reservations#available'

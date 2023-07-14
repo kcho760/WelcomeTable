@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAvailableReservations, createReservation } from "../../store/reservation";
+import { fetchDailyReservations } from "../../store/restaurant";
 import RestaurantStarRating from "./subcomponents/restaurant_star_rating";
 import CostRating from "./subcomponents/cost_rating";
 import graph from "./assets/graph.png";
@@ -19,6 +20,7 @@ const RestaurantIndexItem = React.memo(({ restaurant }) => {
   const [reviews, setReviews] = useState([]);
   const [isLoadingReservations, setIsLoadingReservations] = useState(true);
   const [isLoadingRating, setIsLoadingRating] = useState(true);
+  const [reservationCount, setReservationCount] = useState(0);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -52,41 +54,56 @@ const RestaurantIndexItem = React.memo(({ restaurant }) => {
       }
     };
 
-    fetchReservations();
-    fetchReviewData();
-  }, [dispatch, restaurant.id]);
-
-const handleReservationClick = async (reservation) => {
-  try {
-    const reservationTime = new Date(reservation.reservationTime);
-    reservationTime.setHours(reservationTime.getHours() + 1);
-
-    const reservationDate = new Date(reservation.reservationTime);
-    reservationDate.setDate(reservationDate.getDate() + 0);
-
-    if (!currentUser || !currentUser.id) {
-      setShowLoginFormModal(true);
-      return;
-    }
-
-    const reservationData = {
-      reservation: {
-        reservation_time: reservationTime.toISOString(),
-        reservation_date: reservationDate.toISOString().split('T')[0], // Only get the date part
-        restaurant_id: restaurant.id,
-        user_id: currentUser.id,
-        party_size: 2,
-      },
+    const fetchDailyReservation = async () => {
+      const reservationCount = await dispatch(fetchDailyReservations(restaurant.id));
+      const count = parseInt(reservationCount);
+      if (!isNaN(count)) {
+        setReservationCount(count);
+      } else {
+        setReservationCount(0); // Set a default value if the count is not a valid number
+      }
     };
 
-    const createdReservation = await dispatch(createReservation(reservationData));
-    const reservationId = createdReservation.reservation.id;
-    history.push(`/reservation/${reservationId}`);
-  } catch (error) {
-    console.error("Reservation Error:", error);
-  }
-};
-    
+    const fetchData = async () => {
+      await fetchDailyReservation();
+      await fetchReservations();
+      await fetchReviewData();
+    };
+  
+    fetchData();
+  }, [dispatch, restaurant.id]);
+
+  const handleReservationClick = async (reservation) => {
+    try {
+      const reservationTime = new Date(reservation.reservationTime);
+      reservationTime.setHours(reservationTime.getHours() + 1);
+
+      const reservationDate = new Date(reservation.reservationTime);
+      reservationDate.setDate(reservationDate.getDate() + 0);
+
+      if (!currentUser || !currentUser.id) {
+        setShowLoginFormModal(true);
+        return;
+      }
+
+      const reservationData = {
+        reservation: {
+          reservation_time: reservationTime.toISOString(),
+          reservation_date: reservationDate.toISOString().split('T')[0], // Only get the date part
+          restaurant_id: restaurant.id,
+          user_id: currentUser.id,
+          party_size: 2,
+        },
+      };
+
+      const createdReservation = await dispatch(createReservation(reservationData));
+      const reservationId = createdReservation.reservation.id;
+      history.push(`/reservation/${reservationId}`);
+    } catch (error) {
+      console.error("Reservation Error:", error);
+    }
+  };
+
   return (
     <div className="restaurant-item">
       {showLoginFormModal && <LoginFormModal />}
@@ -117,7 +134,7 @@ const handleReservationClick = async (reservation) => {
         </div>
         <div className="booking-container">
           <img className="graph" src={graph} alt="graph"></img>
-          <p className="restaurant-daily-booking">Booked X times today</p>
+          <p className="restaurant-daily-booking">Booked {reservationCount} times today</p>
         </div>
         <div className="reservation-container">
           {isLoadingReservations ? (
