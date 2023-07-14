@@ -17,19 +17,19 @@ const PastReservations = ({ getRestaurant }) => {
   }, [dispatch, user]);
 
   const formatTime = (timeString) => {
-    const time = timeString.split(':');
-    let hours = parseInt(time[0]);
-    const minutes = parseInt(time[1]);
+    const time = new Date(timeString);
+    let hours = time.getHours(); 
+    const minutes = time.getMinutes();
     const amPm = hours >= 12 ? 'pm' : 'am';
   
-    const localDate = new Date();
-    const localOffset = localDate.getTimezoneOffset() / 60;
-    hours += localOffset + 1; // Add one hour
-    const formattedHours = ((hours + 12) % 12 || 12).toString().padStart(2, '0');
+    if (amPm === 'pm' && hours > 12) hours -= 12;
+    else if (amPm === 'am' && hours === 0) hours = 12;
+  
+    const formattedHours = (hours || 12).toString().padStart(2, '0');
     const formattedMinutes = minutes.toString().padStart(2, '0');
   
     return `${formattedHours}:${formattedMinutes} ${amPm}`;
-  };
+};
 
   const formatDateString = (dateString) => {
     const date = new Date(dateString);

@@ -46,22 +46,21 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
   
-    // Get the local time zone offset
+    // Adjust for timezone offset only if the server expects date in UTC format
     const timeZoneOffset = new Date().getTimezoneOffset();
     const updatedDateWithOffset = new Date(updatedDate);
-    updatedDateWithOffset.setUTCDate(updatedDateWithOffset.getUTCDate() + 1);
-    updatedDateWithOffset.setMinutes(updatedDateWithOffset.getMinutes() + timeZoneOffset);
+    updatedDateWithOffset.setMinutes(updatedDateWithOffset.getMinutes() - timeZoneOffset);
   
     const updatedReservationData = {
       party_size: updatedPartySize,
       reservation_date: updatedDateWithOffset.toISOString().slice(0, 10), // Use ISO string format
       reservation_time: updatedTime,
     };
-
+  
     const updatedReservation = await dispatch(updateReservation(reservation.id, updatedReservationData));
     setUpdatedReservation(updatedReservation);
     onCancel();
-
+  
     // Fetch updated reservations after successful update
     dispatch(fetchUserReservations())
       .then(() => {
@@ -69,6 +68,7 @@ const UpdateReservation = ({ reservation, onCancel, setUpdatedReservation }) => 
       .catch((error) => {
       });
   };
+  
 
   return (
     <div className="update-form-container">

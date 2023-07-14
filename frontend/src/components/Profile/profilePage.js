@@ -27,7 +27,7 @@ const UserProfile = () => {
   }, [dispatch, history, user]);
 
   useEffect(() => {
-    if (userReservations && userReservations.reservations) {
+    if (userReservations?.reservations) {
       userReservations.reservations.forEach(reservation => {
         dispatch(retrieveRestaurant(reservation.restaurant_id));
       });
@@ -85,16 +85,15 @@ const UserProfile = () => {
           {/* Move the reservations containers inside the profile content */}
           {showUpcomingReservations && (
             <div className="upcoming-reservations-container">
-              <UpcomingReservations
-                userReservations={userReservations}
-                getRestaurant={getRestaurant}
-              />
+              <UpcomingReservations reservations={userReservations?.reservations} 
+              getRestaurant={getRestaurant} />
+
             </div>
           )}
           {showPastReservations && (
             <div className="past-reservations-container">
               <PastReservations
-                userReservations={userReservations}
+                reservations={userReservations?.reservations}
                 getRestaurant={getRestaurant}
               />
             </div>
@@ -106,5 +105,6 @@ const UserProfile = () => {
     </div>
   );
 }
+
 
 export default UserProfile;

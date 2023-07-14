@@ -56,34 +56,36 @@ const RestaurantIndexItem = React.memo(({ restaurant }) => {
     fetchReviewData();
   }, [dispatch, restaurant.id]);
 
-  const handleReservationClick = async (reservation) => {
-    try {
-      const modifiedReservationTime = new Date(reservation.reservationTime);
-      modifiedReservationTime.setHours(modifiedReservationTime.getHours() + 1);
-      const partySize = 2; // Modify this as needed
-      
-      if (!currentUser || !currentUser.id) {
-        setShowLoginFormModal(true);
-        return;
-      }
-      
-      const reservationData = {
-        reservation: {
-          reservation_time: modifiedReservationTime.toISOString(),
-          reservation_date: modifiedReservationTime.toISOString(),
-          restaurant_id: restaurant.id,
-          user_id: currentUser.id,
-          party_size: partySize,
-        },
-      };
-  
-      const createdReservation = await dispatch(createReservation(reservationData));
-      const reservationId = createdReservation.reservation.id;
-      history.push(`/reservation/${reservationId}`);
-    } catch (error) {
-      console.error("Reservation Error:", error);
+const handleReservationClick = async (reservation) => {
+  try {
+    const reservationTime = new Date(reservation.reservationTime);
+    reservationTime.setHours(reservationTime.getHours() + 1);
+
+    const reservationDate = new Date(reservation.reservationTime);
+    reservationDate.setDate(reservationDate.getDate() - 1); // Subtract one day from the reservation date
+
+    if (!currentUser || !currentUser.id) {
+      setShowLoginFormModal(true);
+      return;
     }
-  };
+
+    const reservationData = {
+      reservation: {
+        reservation_time: reservationTime.toISOString(),
+        reservation_date: reservationDate.toISOString().split('T')[0], // Only get the date part
+        restaurant_id: restaurant.id,
+        user_id: currentUser.id,
+        party_size: 2,
+      },
+    };
+
+    const createdReservation = await dispatch(createReservation(reservationData));
+    const reservationId = createdReservation.reservation.id;
+    history.push(`/reservation/${reservationId}`);
+  } catch (error) {
+    console.error("Reservation Error:", error);
+  }
+};
     
   return (
     <div className="restaurant-item">
