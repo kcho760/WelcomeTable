@@ -13,8 +13,8 @@ test:
 
 production:
   <<: *default
-  database: opentableau
-  username: opentableau_user
-  password: PCfxLYfWFHiXgZ0BC4wyYcA28ZO1kVHf
-  host: dpg-cjrm8egjbais73e89bpg-a
+  database: opentableau_13jg
+  username: opentableau_13jg_user
+  password: nu0C8bwi7LKIKkHc41wlJAfkZ3laV7Ay
+  host: dpg-cjrpi1dm702s73ecu56g-a
   port: 5432
