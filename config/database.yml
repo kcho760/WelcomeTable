@@ -16,7 +16,8 @@ production:
   database: opentableau_production
   username: opentableau
   password: <%= ENV["<PROJECT_NAME>_DATABASE_PASSWORD"] %>
+  host: dpg-cjrm8egjbais73e89bpg-a
 
 # production:
 #   <<: *default
-#   url: <%= ENV['DATABASE_URL'] %>
+#   url: <%= ENV['DATABASE_URL'] %> 
