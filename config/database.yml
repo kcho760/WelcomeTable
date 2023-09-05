@@ -15,6 +15,7 @@ production:
   <<: *default
   database: opentableau_production
   username: opentableau
+  url: postgres://opentableau_user:PCfxLYfWFHiXgZ0BC4wyYcA28ZO1kVHf@dpg-cjrm8egjbais73e89bpg-a/opentableau
   password: PCfxLYfWFHiXgZ0BC4wyYcA28ZO1kVHf
 
 # production:
