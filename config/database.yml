@@ -14,8 +14,7 @@ test:
 production:
   <<: *default
   database: opentableau
-  url: <%= ENV['DATABASE_URL'] %>
-
-# production:
-#   <<: *default
-#   url: <%= ENV['DATABASE_URL'] %> 
+  username: opentableau_user
+  password: PCfxLYfWFHiXgZ0BC4wyYcA28ZO1kVHf
+  host: dpg-cjrm8egjbais73e89bpg-a
+  port: 5432
