@@ -1,10 +1,10 @@
-## OpenTableau
-[OpenTableau](https://opentableau.onrender.com)
+## WelcomeTable
+[WelcomeTable](https://WelcomeTable.onrender.com)
 
-OpenTableau is a clone which seeks to replicate the search, reservation and review functionality of Opentable.
+WelcomeTable is a clone which seeks to replicate the search, reservation and review functionality of Opentable.
 
 # Splash Page
-![Alt Text](https://github.com/kcho760/OpenTableau/blob/main/frontend/src/assets/splash-page.png)
+![Alt Text](https://github.com/kcho760/WelcomeTable/blob/main/frontend/src/assets/splash-page.png)
 
 ## Main Features
 
