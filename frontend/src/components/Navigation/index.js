@@ -29,7 +29,7 @@ function Navigation() {
           <img src={logo} alt="Home" className="nav-link_logo" />
         </NavLink>
       </div>
-      <a href='https://github.com/kcho760/OpenTableau'>
+      <a href='https://github.com/kcho760/WelcomeTable'>
         <img src={github} alt='GitHub' className='github' />
       </a>
       <a href='https://www.linkedin.com/in/kevin-cho-441a34b1/'>

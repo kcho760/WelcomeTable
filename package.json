@@ -19,13 +19,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kcho760/OpenTableau.git"
+    "url": "git+https://github.com/kcho760/WelcomeTable.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kcho760/OpenTableau/issues"
+    "url": "https://github.com/kcho760/WelcomeTable/issues"
   },
-  "homepage": "https://github.com/kcho760/OpenTableau#readme"
+  "homepage": "https://github.com/kcho760/WelcomeTable#readme"
 }
