@@ -13,8 +13,8 @@ test:
 
 production:
   <<: *default
-  database: welcometable
+  database: welcometable_kuld
   username: welcometable_user
-  password: L8yW1pFi1sJqbjxZyiRChFjXBMeoQuMQ
-  host: dpg-cp1vq0v79t8c73fkntl0-a
+  password: ioHfERGGPQGy59E682K1JJMDMAki2ggr
+  host: dpg-cqvnkpggph6c738vo180-a
   port: 5432
